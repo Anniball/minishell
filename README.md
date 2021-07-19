@@ -5,7 +5,7 @@
 
 If you want to use this library please run:
 ```
-git clone https://github.com/TimourP/minishell
+git clone https://github.com/TimourP/minishell.git
 ```
 ## Usage
 **In the minishell repo**, run ```make``` or ```make re```, it will generate a minishell executable.
