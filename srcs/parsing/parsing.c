@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 19:14:53 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/21 20:00:07 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,47 @@ static char **parse_split(char *str, char c)
 			current_word++;
 		}
 	}
+	return (split_list);
+}
+
+static char *get_cmd_from_line(char *str)
+{
+	int i;
+	char *cmd;
+	int last;
+	int len;
+
+	i = -1;
+	len = 0;
+	last = 0;
+	cmd = NULL;
+	while (str[++i])
+	{
+		if (str[i] == ' ')
+		{
+			if (len != 0)
+			{
+				str[i] = 0;
+				break;
+			}
+			else
+				last = i + 1;
+		}
+		else
+			len++;
+	}
+	return (my_strdup(&str[last]));
 }
 
 int	parse_line(t_shell *shell, char *line)
 {
 	char **split_line;
+	int i;
 
+	i = -1;
 	split_line = parse_split(line, '|');
+	while (split_line[++i] != NULL)
+	{
+		printf("command %d (cmd len %s): |%s|\n", i, get_cmd_from_line(split_line[i]), split_line[i]);
+	}
 }
