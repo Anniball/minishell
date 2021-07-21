@@ -6,13 +6,13 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/20 14:23:01 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/21 14:08:38 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
+static void	parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 {
 	int		out;
 
@@ -34,7 +34,7 @@ static void parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 		close(out);
 }
 
-static void child_pipe(int *fds, t_cmd pip, char **env, char *infile)
+static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 {
 	int		in;
 
@@ -55,10 +55,10 @@ static void child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 		close(in);
 }
 
-int piper(t_cmd pip, char **env, char *infile, char *outfile)
+int	piper(t_cmd pip, char **env, char *infile, char *outfile)
 {
-	int pid;
-	int fds[2];
+	int	pid;
+	int	fds[2];
 
 	if (pipe(fds) == -1)
 		return (-1);
@@ -91,5 +91,5 @@ int piper(t_cmd pip, char **env, char *infile, char *outfile)
 // 	cmd2.flags = flags2; 
 
 // 	piper(cmd1, env, "in", "out");
-	
+
 // }

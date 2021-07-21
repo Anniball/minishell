@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/20 14:03:42 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/07/21 14:50:59 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER = minishell.h
 
 MAIN = main
 
-PIPE = pipe exec
+PIPE = pipe exec command
 
 UTIL = basics
 
