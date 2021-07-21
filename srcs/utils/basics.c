@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:53:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/21 12:01:12 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/21 14:11:49 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 size_t	my_strlen(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	if (!str)
 		return (0);
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
