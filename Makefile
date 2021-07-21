@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
+#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/20 14:03:42 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/07/21 15:03:49 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ 
+#CFLAGS = -Wall -Wextra -Werror -I includes/
+
+CFLAGS = -I includes/ 
 
 HEADER = minishell.h
 
@@ -24,9 +26,12 @@ PIPE = pipe exec
 
 UTIL = basics
 
-SRC = ${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
-	${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \
-	${addsuffix .c, ${addprefix srcs/utils/, ${UTIL}}}
+PARSE = parsing
+
+SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
+		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \
+		${addsuffix .c, ${addprefix srcs/utils/, ${UTIL}}} \
+		${addsuffix .c, ${addprefix srcs/parsing/, ${PARSE}}}
 
 OBJ = ${SRC:c=o}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 11:30:23 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/21 15:02:15 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 typedef struct s_cmd
 {
@@ -35,6 +36,11 @@ typedef struct s_cmd
 	char			**flags;
 	struct s_cmd	*next;
 }				t_cmd;
+
+typedef struct s_shell
+{
+	t_cmd	*start_cmd;
+}				t_shell;
 
 /*
 ** ------------------UTILS------------------------------
@@ -48,9 +54,11 @@ char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
 
 /*
-** -----------------------------------------------------
+** ------------------PARSING-----------------------------
 */
 
+
+int		parse_line(t_shell *shell, char *line);
 
 
 /*
