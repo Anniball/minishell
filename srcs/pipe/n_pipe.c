@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   n_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/20 14:23:01 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/21 14:02:10 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,35 @@ static void parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 		close(out);
 }
 
+static void brother_pipe(int *fds, t_cmd pip, char **env, char *outfile)
+{
+	int	pid;
+	int	new_fds[2];
+
+	wait(0);
+	close(fds[1]);
+	if (pipe(new_fds) == -1)
+		return ;
+	pid = fork();
+	if (pid == -1)
+		return ;
+	else if (!pid)
+	{
+		close(new_fds[0]);
+		if (dup2(fds[0], STDIN_FILENO) < 0)
+			return ;
+		close(fds[0]);
+		if (dup2(new_fds[1], STDOUT_FILENO) < 0) //change out by new_fds[1]
+			return ;
+		my_command(pip.cmd, pip.flags, env);
+		close(new_fds[1]);
+	}
+	else if (!pip.next->next)
+		parent_pipe(new_fds, *(pip.next), env, outfile);
+	else
+		brother_pipe(new_fds, *(pip.next), env, outfile);
+}
+
 static void child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 {
 	int		in;
@@ -55,7 +84,7 @@ static void child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 		close(in);
 }
 
-int piper(t_cmd pip, char **env, char *infile, char *outfile)
+int n_piper(t_cmd pip, char **env, char *infile, char *outfile)
 {
 	int pid;
 	int fds[2];
@@ -68,17 +97,18 @@ int piper(t_cmd pip, char **env, char *infile, char *outfile)
 	if (!pid)
 		child_pipe(fds, pip, env, infile);
 	else
-		parent_pipe(fds, *(pip.next), env, outfile);
+		brother_pipe(fds, *(pip.next), env, outfile);
 	return (0);
 }
 
 /*CHECKING MAIN*/
-/*	gcc -I "../../includes/" pipe.c exec.c ../utils/basics.c */
+/*	gcc -I "../../includes/" n_pipe.c exec.c ../utils/basics.c */
 
 // int main(int ac, char **av, char **env)
 // {
-// 	t_cmd cmd1;
-// 	t_cmd cmd2;
+// 	t_cmd	cmd1;
+// 	t_cmd	cmd2;
+// 	t_cmd	cmd3;
 
 // 	cmd1.cmd = "grep";
 // 	cmd1.next = &cmd2;
@@ -86,10 +116,14 @@ int piper(t_cmd pip, char **env, char *infile, char *outfile)
 // 	cmd1.flags = flags1;
 
 // 	cmd2.cmd = "wc";
-// 	cmd2.next = (void *)0;
+// 	cmd2.next = &cmd3;
 // 	char *flags2[] = {cmd2.cmd, "-l", (void *)0};
-// 	cmd2.flags = flags2; 
+// 	cmd2.flags = flags2;
 
-// 	piper(cmd1, env, "in", "out");
-	
+// 	cmd3.cmd = "cat";
+// 	cmd3.next = (void *)0;
+// 	char *flags3[] = {cmd3.cmd, "-e", (void *)0};
+// 	cmd3.flags = flags3;
+
+// 	n_piper(cmd1, env, "in", "out");
 // }

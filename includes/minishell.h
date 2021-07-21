@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/19 17:59:53 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/21 11:30:23 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*my_strcpy(char *src, char *dst);
 char	*my_strncpy(char *src, char *dst, int n);
 char	*my_strjoin(char *str, char *add);
 char	*my_strdup(char *str);
+int		my_strcmp(char *s1, char *s2);
 
 /*
 ** -----------------------------------------------------
@@ -57,12 +58,22 @@ char	*my_strdup(char *str);
 */
 
 /*
-** Work without pipe
+** Work without pipe and without infile or outfile.
 */
 void	my_command(char *cmd, char **argv, char **env);
 
 /*
-** Work with only one pipe 
+**	Work without pipe and with or without infile & outfile, if there is no file
+**	juste put a NULL pointer as parameter, default files will be STDIN_FILENO
+**	and STDOUT_FILENO.
+**	/!\ Some command needs an explicit outfile or infile and will crash if they
+**	don't. Example : grep need an infile since it can't just read stdin.
+*/
+int		my_exec(t_cmd pip, char **env, char *infile, char *outfile);
+
+/*
+**	Work with only one pipe.
+**	Same behaviour for infile and outfile than in my_exec.
 */
 int		piper(t_cmd pip, char **env, char *infile, char *outfile);
 
