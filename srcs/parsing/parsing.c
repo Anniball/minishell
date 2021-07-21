@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 20:00:07 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/21 23:06:06 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static char *get_cmd_from_line(char *str)
 	char *cmd;
 	int last;
 	int len;
+	char *ret;
 
 	i = -1;
 	len = 0;
@@ -88,18 +89,45 @@ static char *get_cmd_from_line(char *str)
 		else
 			len++;
 	}
-	return (my_strdup(&str[last]));
+	ret = my_strdup(&str[last]);
+	str[i] = ' ';
+	return (ret);
+}
+
+char *my_strip(char *str, char c)
+{
+	int i;
+	int start;
+	int end;
+	const int len = my_strlen(str);
+	char *ret;
+
+	i = -1;
+	start = 0;
+	end = len;
+	while (str[++i] && str[i] == c)
+		start = i + 1;
+	i = -1;
+	while (++i < len && str[len - 1 - i] == c)
+		end = len - 1 - i;
+	str[end] = 0;
+	ret = my_strdup(&str[start]);
+	return (ret);
 }
 
 int	parse_line(t_shell *shell, char *line)
 {
 	char **split_line;
 	int i;
+	t_cmd *new;
 
 	i = -1;
+	shell->start_cmd = NULL;
 	split_line = parse_split(line, '|');
 	while (split_line[++i] != NULL)
 	{
-		printf("command %d (cmd len %s): |%s|\n", i, get_cmd_from_line(split_line[i]), split_line[i]);
+		char *test = my_strip(line, ' ');
+		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(my_strip(split_line[i], ' '), ' '));
+		cmd_add_back(&shell->start_cmd, new);
 	}
 }

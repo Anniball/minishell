@@ -6,13 +6,13 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:16:15 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 19:21:46 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/21 22:47:30 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_lstclear(t_cmd **lst)
+void	cmd_clear(t_cmd **lst)
 {
 	t_cmd	*tmp;
 
@@ -26,7 +26,7 @@ void	ft_lstclear(t_cmd **lst)
 	}
 }
 
-void	ft_lstadd_back(t_cmd **alst, t_cmd *new)
+void	cmd_add_back(t_cmd **alst, t_cmd *new)
 {
 	t_cmd *tmp;
 
@@ -44,7 +44,7 @@ void	ft_lstadd_back(t_cmd **alst, t_cmd *new)
 }
 
 
-t_cmd	*ft_lstnew(char *cmd, char **flags)
+t_cmd	*cmd_new(char *cmd, char **flags)
 {
 	t_cmd	*new;
 
