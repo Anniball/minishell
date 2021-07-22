@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 23:06:06 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:29:34 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	parse_line(t_shell *shell, char *line)
 	t_cmd *new;
 
 	i = -1;
+	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
 	split_line = parse_split(line, '|');
 	while (split_line[++i] != NULL)
@@ -129,5 +130,7 @@ int	parse_line(t_shell *shell, char *line)
 		char *test = my_strip(line, ' ');
 		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(my_strip(split_line[i], ' '), ' '));
 		cmd_add_back(&shell->start_cmd, new);
+		free(split_line[i]);
 	}
+	free(split_line);
 }

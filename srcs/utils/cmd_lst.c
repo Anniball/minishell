@@ -6,11 +6,21 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:16:15 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 22:47:30 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:31:00 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	free_flags(t_cmd *cmd)
+{
+	int i;
+
+	i = -1;
+	while (cmd->flags[++i] != NULL)
+		free(cmd->flags[i]);
+	free(cmd->flags);
+}
 
 void	cmd_clear(t_cmd **lst)
 {
@@ -20,7 +30,7 @@ void	cmd_clear(t_cmd **lst)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->cmd);
-		// free lst
+		//free_flags((*lst));
 		free(*lst);
 		*lst = tmp;
 	}
