@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 10:14:16 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 10:38:09 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		piper(t_cmd pip, char **env, char *infile, char *outfile);
 **	/!\ Will crash if there is less than 3 commands in the chained list!
 **	Use my_command or piper instead!
 */
-int		n_piper(t_cmd pip, char **env, char *infile, char *outfile);
+int		n_piper(t_cmd *pip, char **env, char *infile, char *outfile);
 
 /*
 ** -----------------------------------------------------

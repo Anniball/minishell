@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/22 10:12:36 by tpetit           ###   ########.fr        #
+#    Updated: 2021/07/22 10:35:49 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER = minishell.h
 
 MAIN = main
 
-PIPE = pipe exec command
+PIPE = pipe exec command n_pipe
 
 UTIL = basics cmd_lst
 

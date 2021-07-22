@@ -6,13 +6,13 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/22 10:01:03 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 10:37:49 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
+static void	parent_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 {
 	int		out;
 
@@ -29,12 +29,12 @@ static void	parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 		if (dup2(out, STDOUT_FILENO) < 0)
 			return ;
 	}
-	my_command(pip.cmd, pip.flags, env);
+	my_command(pip->cmd, pip->flags, env);
 	if (outfile)
 		close(out);
 }
 
-static void	brother_pipe(int *fds, t_cmd pip, char **env, char *outfile)
+static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 {
 	int	pid;
 	int	new_fds[2];
@@ -54,16 +54,16 @@ static void	brother_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 		close(fds[0]);
 		if (dup2(new_fds[1], STDOUT_FILENO) < 0)
 			return ;
-		my_command(pip.cmd, pip.flags, env);
+		my_command(pip->cmd, pip->flags, env);
 		close(new_fds[1]);
 	}
-	else if (!pip.next->next)
-		parent_pipe(new_fds, *(pip.next), env, outfile);
+	else if (!pip->next->next)
+		parent_pipe(new_fds, pip->next, env, outfile);
 	else
-		brother_pipe(new_fds, *(pip.next), env, outfile);
+		brother_pipe(new_fds, pip->next, env, outfile);
 }
 
-static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
+static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 {
 	int		in;
 
@@ -79,12 +79,12 @@ static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 		if (dup2(in, STDIN_FILENO) < 0)
 			return ;
 	}
-	my_command(pip.cmd, pip.flags, env);
+	my_command(pip->cmd, pip->flags, env);
 	if (infile)
 		close(in);
 }
 
-int	n_piper(t_cmd pip, char **env, char *infile, char *outfile)
+int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 {
 	int	pid;
 	int	fds[2];
@@ -97,7 +97,7 @@ int	n_piper(t_cmd pip, char **env, char *infile, char *outfile)
 	if (!pid)
 		child_pipe(fds, pip, env, infile);
 	else
-		brother_pipe(fds, *(pip.next), env, outfile);
+		brother_pipe(fds, pip->next, env, outfile);
 	return (0);
 }
 
