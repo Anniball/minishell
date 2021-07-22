@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 08:47:01 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:53:16 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int words_count(char *str, char c)
 	
 }
 
-static char **parse_split(char *str, char c)
+char **parse_split(char *str, char c)
 {
 	const int w_count = words_count(str, c);
 	const int str_len = my_strlen(str);

@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/21 22:58:32 by tpetit           ###   ########.fr        #
+#    Updated: 2021/07/22 08:54:29 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,3 +56,5 @@ fclean : clean
 	@echo "\nRemoving minishell executable..."
 	@rm -f ${NAME}
 	@echo "Minishell removed."
+
+re: clean all

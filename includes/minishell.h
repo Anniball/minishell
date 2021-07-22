@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 23:09:01 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:53:32 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		my_strcmp(char *s1, char *s2);
 ** ------------------PARSING-----------------------------
 */
 
+char 	**parse_split(char *str, char c);
 int		parse_line(t_shell *shell, char *line);
 
 /*
