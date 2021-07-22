@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 08:29:34 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:42:47 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char **parse_split(char *str, char c)
 static char *get_cmd_from_line(char *str)
 {
 	int i;
-	char *cmd;
 	int last;
 	int len;
 	char *ret;
@@ -73,7 +72,6 @@ static char *get_cmd_from_line(char *str)
 	i = -1;
 	len = 0;
 	last = 0;
-	cmd = NULL;
 	while (str[++i])
 	{
 		if (str[i] == ' ')
@@ -118,6 +116,7 @@ char *my_strip(char *str, char c)
 int	parse_line(t_shell *shell, char *line)
 {
 	char **split_line;
+	char *strip;
 	int i;
 	t_cmd *new;
 
@@ -127,9 +126,10 @@ int	parse_line(t_shell *shell, char *line)
 	split_line = parse_split(line, '|');
 	while (split_line[++i] != NULL)
 	{
-		char *test = my_strip(line, ' ');
-		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(my_strip(split_line[i], ' '), ' '));
+		strip = my_strip(split_line[i], ' ');
+		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(strip, ' '));
 		cmd_add_back(&shell->start_cmd, new);
+		free(strip);
 		free(split_line[i]);
 	}
 	free(split_line);
