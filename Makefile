@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/22 08:54:29 by tpetit           ###   ########.fr        #
+#    Updated: 2021/07/22 10:12:36 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,13 @@ UTIL = basics cmd_lst
 
 PARSE = parsing parsing_print
 
+REBUILT = pwd
+
 SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \
 		${addsuffix .c, ${addprefix srcs/utils/, ${UTIL}}} \
-		${addsuffix .c, ${addprefix srcs/parsing/, ${PARSE}}}
+		${addsuffix .c, ${addprefix srcs/parsing/, ${PARSE}}} \
+		${addsuffix .c, ${addprefix srcs/rebuilt/, ${REBUILT}}}
 
 OBJ = ${SRC:c=o}
 

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/22 09:39:00 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 10:14:19 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char** argv, char **envp)
 	}
 	waitpid(f, 0, 0);
 	init_shell(shell);
+	get_pwd();
 	i = -1;
 	while (++i < 5) 
 	{

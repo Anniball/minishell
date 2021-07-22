@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 08:53:32 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 10:14:16 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 
+# define SUCCESS 0
+# define ERROR 1
+
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -29,6 +32,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <linux/limits.h>
+# include <limits.h>
 
 typedef struct s_cmd
 {
@@ -67,6 +72,12 @@ int		parse_line(t_shell *shell, char *line);
 void	cmd_clear(t_cmd **lst);
 void	cmd_add_back(t_cmd **alst, t_cmd *new);
 t_cmd	*cmd_new(char *cmd, char **flags);
+
+/*
+** ------------------REBUILT-----------------------------
+*/
+
+int		get_pwd(void);
 
 /*
 ** ------------------DEBUG-------------------------------
