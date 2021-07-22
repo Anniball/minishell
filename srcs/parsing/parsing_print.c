@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:15:35 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/21 23:13:11 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/22 08:19:47 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@ void	print_cmd(t_shell *shell)
 		printf("--------------------\n");
 		printf("     Command %d\n", ++i);
 		printf("Command name: " MAG "%s\n" RESET, start->cmd);
-		printf("Flags: " CYN);
+		printf("Flags: [ " CYN);
 		while (start->flags[++j] != NULL)
-			printf("%s ", start->flags[j]);
-		printf(RESET "\n");
+		{
+			if (j == 0)
+				printf(MAG "%s" CYN, start->flags[j]);
+			else
+				printf("%s", start->flags[j]);
+			if (start->flags[j + 1] != NULL)
+				printf(RESET ", " CYN);
+		}
+		printf(RESET " ]\n");
 		start = start->next;
 	}
 	printf("--------------------\n");
