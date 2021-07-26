@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/26 12:27:04 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 15:06:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,14 @@ t_cmd	*cmd_new(char *cmd, char **flags);
 int		get_pwd(t_cmd *cmd);
 int		get_echo(t_cmd *cmd);
 int		get_env(char **env);
+
+/*
+**	/!\Like in the real shell, cd is NOT a process since changing the PWD of
+**	a subprocess wouldn't change the PWD of the main process. cd has to be
+**	called in the main process if written alone in the shell and is useless
+**	if used with pipes!
+*/
+int		get_cd(t_cmd *cmd, char **env);
 
 /*
 ** ------------------DEBUG-------------------------------
