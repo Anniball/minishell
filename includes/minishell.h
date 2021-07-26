@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/23 14:54:52 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 09:31:41 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,13 @@ int		my_exec(t_cmd pip, char **env, char *infile, char *outfile);
 **	Work with only one pipe.
 **	Same behaviour for infile and outfile than in my_exec.
 **	/!\ Will crash if there is less than 2 commands in the chained list!
-**	Use my_command instead!
+**	Use my_command, my_exec  or n_piper instead!
 */
 int		piper(t_cmd pip, char **env, char *infile, char *outfile);
 
 /*
 **	Work with n pipes.
 **	Same behaviour for infile and outfile than in my_exec.
-**	/!\ Will crash if there is less than 3 commands in the chained list!
-**	Use my_command or piper instead!
 */
 int		n_piper(t_cmd *pip, char **env, char *infile, char *outfile);
 

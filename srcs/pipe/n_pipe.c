@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/23 10:51:49 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 09:31:58 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,27 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 	int	pid;
 	int	fds[2];
 
-	if (pipe(fds) == -1)
-		return (-1);
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	if (!pid)
-		child_pipe(fds, pip, env, infile);
+	if (!pip->next)
+		my_exec(*pip, env, infile, outfile);
+	else if (!pip->next->next)
+		piper(*pip, env, infile, outfile);
 	else
-		brother_pipe(fds, pip->next, env, outfile);
+	{
+		if (pipe(fds) == -1)
+			return (-1);
+		pid = fork();
+		if (pid == -1)
+			return (-1);
+		if (!pid)
+			child_pipe(fds, pip, env, infile);
+		else
+			brother_pipe(fds, pip->next, env, outfile);
+	}
 	return (0);
 }
 
 /*CHECKING MAIN*/
-/*	gcc -I "../../includes/" n_pipe.c exec.c ../utils/basics.c */
+/*	gcc -I "../../includes/" n_pipe.c pipe.c exec.c command.c ../utils/basics.c */
 
 // int main(int ac, char **av, char **env)
 // {
@@ -125,5 +132,5 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 // 	char *flags3[] = {cmd3.cmd, "-e", (void *)0};
 // 	cmd3.flags = flags3;
 
-// 	n_piper(cmd1, env, "in", "out");
+// 	n_piper(&cmd1, env, "in", "out");
 // }

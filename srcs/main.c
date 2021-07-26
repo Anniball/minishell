@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 09:21:40 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 09:23:01 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int argc, char** argv, char **envp)
 	init_shell(shell);
 	get_pwd();
 	i = -1;
-	while (++i < 5) 
+	while (++i < 5)
 	{
 		char *input = readline(GRN "➜" BLU " minishell > " RESET);
 		if (!input)
