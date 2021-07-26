@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 09:37:43 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 09:21:24 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 09:38:48 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	my_sub_sigint(int sig)
 {
 	write(1, "\b\b", 2);
 }
-
 
 static void	my_sub_sigquit(int sig)
 {

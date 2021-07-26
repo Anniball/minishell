@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/23 14:54:28 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/07/26 10:11:28 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ UTIL = basics cmd_lst
 
 PARSE = parsing parsing_print
 
-REBUILT = pwd
+REBUILT = pwd echo
 
 SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \
