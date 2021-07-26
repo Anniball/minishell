@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/21 15:00:46 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 14:38:10 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,6 @@ void	my_command(char *cmd, char **argv, char **env)
 	while (my_scmp(env[i], "PATH="))
 		i++;
 	paths = my_simple_split(env[i] + 5, ':');
-	i = -1;
-	while (paths[++i])
-		printf("%s\n", paths[i]);
 	ret = execve(*paths, argv, env);
 	i = 0;
 	while (ret < 0 && paths[i++])

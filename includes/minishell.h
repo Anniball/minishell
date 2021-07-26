@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/26 11:05:35 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 12:27:04 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_cmd	*cmd_new(char *cmd, char **flags);
 ** ------------------REBUILT-----------------------------
 */
 
-int		get_pwd(t_cmd *cmd)
+int		get_pwd(t_cmd *cmd);
 int		get_echo(t_cmd *cmd);
 int		get_env(char **env);
 
