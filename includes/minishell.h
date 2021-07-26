@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 10:38:09 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/23 14:54:52 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# include <linux/limits.h>
-# include <limits.h>
+#include <signal.h>
+
+# ifdef __linux
+#  include <linux/limits.h>
+# elif __APPLE__
+#  include <limits.h>
+# endif
 
 typedef struct s_cmd
 {

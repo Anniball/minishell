@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/22 10:38:50 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/07/26 09:21:40 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int main(int argc, char** argv, char **envp)
 	while (++i < 5) 
 	{
 		char *input = readline(GRN "➜" BLU " minishell > " RESET);
-		if (!input || !input[0])
+		if (!input)
+		{
+			write(1, "Ending minishell.\n", 18);
+			break ;
+		}
+		else if (!*input)
 			continue;
 		parse_line(shell, input);
 		add_history(input);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
+#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/22 10:35:49 by tpetit           ###   ########.fr        #
+#    Updated: 2021/07/23 14:54:28 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CC = gcc
 #CFLAGS = -Wall -Wextra -Werror -I includes/
 
 CFLAGS = -I includes/ 
+
+# RFLAGS = -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 
 HEADER = minishell.h
 
