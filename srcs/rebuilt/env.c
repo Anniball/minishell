@@ -6,13 +6,13 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 10:39:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 11:06:16 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 15:56:16 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	 get_env(char **env)
+int	 get_env(char **env, t_cmd *cmd)
 {
 	int i;
 

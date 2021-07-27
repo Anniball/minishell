@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/26 15:06:50 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:02:11 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_cmd	*cmd_new(char *cmd, char **flags);
 
 int		get_pwd(t_cmd *cmd);
 int		get_echo(t_cmd *cmd);
-int		get_env(char **env);
+int		get_env(char **env, t_cmd *cmd);
 
 /*
 **	/!\Like in the real shell, cd is NOT a process since changing the PWD of
@@ -93,6 +93,14 @@ int		get_env(char **env);
 **	if used with pipes!
 */
 int		get_cd(t_cmd *cmd, char **env);
+
+/*
+**	/!\ 'export' is not a process since it's modifiying the environment for
+**	the next subprocesses. If it was in a subprocess itself export wouldn't
+**	be able to modify the environment of its parent.
+*/
+
+int		get_export(t_cmd *cmd, char ***env);
 
 /*
 ** ------------------DEBUG-------------------------------

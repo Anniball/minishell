@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 09:40:19 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/26 15:49:36 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int main(int argc, char** argv, char **envp)
 	}
 	waitpid(f, 0, 0);
 	init_shell(shell);
-	get_pwd();
 	i = -1;
 	while (++i < 5)
 	{
