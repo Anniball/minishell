@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:28:16 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/28 14:37:21 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/28 14:49:09 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static char *charjoin(char *str, char c)
 	len = my_strlen(str);
 	new = malloc(sizeof(*new) * (len + 2));
 	if (!new)
+	{
+		free(str);
 		return ((void *)0);
+	}
 	new = my_strcpy(str, new);
 	new[len] = c;
 	new[len + 1] = '\0';
@@ -52,6 +55,8 @@ static char **trunc_elem(char **tab, int pos)
 	while (tab[size])
 		size++;
 	new = malloc(sizeof(*new) * size);
+	if (!new)
+		return ((void *)0);
 	size = -1;
 	new_pos = 0;
 	while (tab[++size])
@@ -68,20 +73,27 @@ static char **trunc_elem(char **tab, int pos)
 
 int	get_unset(t_cmd *cmd, char ***env)
 {
-	int i;
+	int		i;
+	char	**old_env;
 
 	if (!cmd->flags[1] || (cmd->flags[1] && cmd->flags[2]))
 	{
 		write(STDERR_FILENO, "Incorrect arguments for this command.\n", 38);
 		return (ERROR);
 	}
+	old_env = *env;
 	cmd->flags[1] = charjoin(cmd->flags[1], '=');
 	if (!cmd->flags[1])
-		return (-1);
+		return (ERROR);
 	i = 0;
 	while (my_scmp((*env)[i], cmd->flags[1]))
 		i++;
 	*env = trunc_elem(*env, i);
+	if (!(*env))
+	{
+		*env = old_env;
+		return (ERROR);
+	}
 	return (0);
 }
 

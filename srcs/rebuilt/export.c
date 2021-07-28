@@ -6,23 +6,23 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/28 14:35:39 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/28 14:52:26 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *my_calloc(size_t size)
-{
-	char	*new;
-	size_t	count;
+// static char *my_calloc(size_t size)
+// {
+// 	char	*new;
+// 	size_t	count;
 
-	new = malloc(sizeof(*new) * size);
-	count = -1;
-	while (++count < size)
-		new[count] = '\0';
-	return (new);
-}
+// 	new = malloc(sizeof(*new) * size);
+// 	count = -1;
+// 	while (++count < size)
+// 		new[count] = '\0';
+// 	return (new);
+// }
 
 // static char *parsing_arg(char *str)
 // {
@@ -104,7 +104,8 @@ static char	**strptradd(char **ptr, char *str)
 
 int	get_export(t_cmd *cmd, char ***env)
 {
-	int i;
+	int		i;
+	char	**old_env;
 
 	if (!cmd->flags[1])
 		get_env(*env, cmd);
@@ -114,11 +115,17 @@ int	get_export(t_cmd *cmd, char ***env)
 		return (ERROR);
 	}
 	i = 0;
-	while (cmd->flags[1][i] && cmd->flags[1][i] != '=') //we need a better parsing for export
+	while (cmd->flags[1][i] && cmd->flags[1][i] != '=')
 		i++;
 	if (!cmd->flags[1][i])
 		return (0);
+	old_env = *env;
 	*env = strptradd(*env, cmd->flags[1]);
+	if (!(*env))
+	{
+		*env = old_env;
+		return (-1);
+	}
 	return (0);
 }
 
