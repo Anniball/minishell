@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/27 12:03:31 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/07/28 14:37:01 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ UTIL = basics cmd_lst
 
 PARSE = parsing parsing_print
 
-REBUILT = pwd echo env cd export
+REBUILT = pwd echo env cd export unset
 
 SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \

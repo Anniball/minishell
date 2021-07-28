@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/27 12:02:11 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/28 14:29:13 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ int		get_env(char **env, t_cmd *cmd);
 int		get_cd(t_cmd *cmd, char **env);
 
 /*
-**	/!\ 'export' is not a process since it's modifiying the environment for
-**	the next subprocesses. If it was in a subprocess itself export wouldn't
-**	be able to modify the environment of its parent.
+**	/!\ 'export' and 'unset' are NOT processes since they're modifiying the
+**	environment for the next subprocesses. If they were in a subprocess they
+**	wouldn't be able to modify the environment of their parent.
+**	/!\ 'export' and 'unset' are supposing that the environment is malloc
+**	and will try to free it after replacing it.
 */
-
 int		get_export(t_cmd *cmd, char ***env);
+int		get_unset(t_cmd *cmd, char ***env);
 
 /*
 ** ------------------DEBUG-------------------------------
