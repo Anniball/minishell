@@ -6,7 +6,11 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/02 10:48:29 by tpetit           ###   ########.fr       */
+=======
+/*   Updated: 2021/08/02 11:09:24 by ldelmas          ###   ########.fr       */
+>>>>>>> ab792d1402ac6cd1e659b47bcf49e442afb7c11c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +153,8 @@ int		piper(t_cmd pip, char **env, char *infile, char *outfile);
 */
 int		n_piper(t_cmd *pip, char **env, char *infile, char *outfile);
 
+int		get_exit(t_cmd *cmd, char **env);
+int		exec_builtin(t_cmd *cmd, char **env);
 /*
 ** -----------------------------------------------------
 */
