@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 09:45:11 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:51:44 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 17:09:34 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int get_echo(t_cmd *cmd)
 	while (cmd->flags[pos])
 	{
 		write(STDOUT_FILENO, cmd->flags[pos], my_strlen(cmd->flags[pos]));
+		if (cmd->flags[pos + 1])
+			write(STDOUT_FILENO, " ", 1);
 		pos++;	
 	}
 	write(STDOUT_FILENO, &end, 1);

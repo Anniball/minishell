@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 15:54:01 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 17:05:14 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,35 +151,30 @@ char *get_env_value(char **env, char *var)
 	return my_strdup("");
 }
 
-int	is_in_str(char *str, char *c_lst)
+int	is_in_str(char *str, char c)
 {
 	int i;
-	int j;
 
 	i = -1;
 	while (str[++i])
-	{
-		j = -1;
-		while (c_lst[++j])
-			if (c_lst[j] == str[i])
-				return (1);	
-	}
+		if (str[i] == c)
+			return (1);
 	return (0);
 }
 
-char	*strdup_until(const char *str, char c)
+char	*strdup_until(const char *str, char *c_lst)
 {
 	int		i;
 	char	*dest;
 
 	i = -1;
-	while (str[++i] && str[i] != c)
+	while (str[++i] && !is_in_str(c_lst, str[i]))
 		;
 	dest = malloc((i + 1) * sizeof(char));
 	if (!dest)
 		return (NULL);
 	i = -1;
-	while (str[++i] && str[i] != c)
+	while (str[++i] && !is_in_str(c_lst, str[i]))
 		dest[i] = str[i];
 	dest[i] = '\0';
 	return (dest);
@@ -256,13 +251,13 @@ char *replace_by_env_value(char **env, char *str)
 		{
 			if (open_quote == str[i])
 				open_quote = 0;
-			else if (open_quote == 0)
+			else if (open_quote == 0 && is_in_str(&str[i] + 1, str[i]))
 				open_quote = str[i];
 		}
-		if (str[i] == '$' && str[i + 1])
+		if (str[i] == '$' && str[i + 1] && !(open_quote == '\'' && is_in_str(&str[i], '\'')))
 		{
 			new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
-			env_var = strdup_until(&str[i + 1], ' ');
+			env_var = strdup_until(&str[i + 1], " \"'");
 			new_str = parse_join(new_str, get_env_value(env, env_var));
 			last_join = i + my_strlen(env_var) + 1;
 		}
@@ -283,10 +278,9 @@ int	parse_line(t_shell *shell, char *line)
 	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
 	split_line = parse_split(line, '|');
-	printf("val: %s\n", replace_by_env_value(shell->env, line));
 	while (split_line[++i] != NULL)
 	{
-		strip = my_strip(split_line[i], ' ');
+		strip = my_strip(replace_by_env_value(shell->env, split_line[i]), ' ');
 		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(strip, ' '));
 		cmd_add_back(&shell->start_cmd, new);
 		free(strip);
