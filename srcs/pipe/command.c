@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 11:07:06 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:53:34 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,20 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
-void	my_command(char *cmd, char **argv, char **env)
+void	my_command(t_cmd pip, char *cmd, char **argv, char **env)
 {
 	char	*full_cmd;
 	char	**paths;
 	int		i;
 	int		ret;
 
+	ret = exec_builtin(&pip, env);
+	if (ret != 1)
+	{
+		if (ret == -1)
+			write(STDOUT_FILENO, "Builtin execution failed.\n", 26);
+		return ;
+	}
 	i = 0;
 	while (my_scmp(env[i], "PATH="))
 		i++;

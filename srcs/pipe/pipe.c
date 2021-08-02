@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/21 14:08:38 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:44:55 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 		if (dup2(out, STDOUT_FILENO) < 0)
 			return ;
 	}
-	my_command(pip.cmd, pip.flags, env);
+	my_command(pip, pip.cmd, pip.flags, env);
 	if (outfile)
 		close(out);
 }
@@ -50,7 +50,7 @@ static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 		if (dup2(in, STDIN_FILENO) < 0)
 			return ;
 	}
-	my_command(pip.cmd, pip.flags, env);
+	my_command(pip, pip.cmd, pip.flags, env);
 	if (infile)
 		close(in);
 }

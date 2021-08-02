@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 14:14:36 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:53:21 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	parent_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 		if (dup2(out, STDOUT_FILENO) < 0)
 			return ;
 	}
-	my_command(pip->cmd, pip->flags, env);
+	my_command(*pip, pip->cmd, pip->flags, env);
 	if (outfile)
 		close(out);
 }
@@ -54,7 +54,7 @@ static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 		close(fds[0]);
 		if (dup2(new_fds[1], STDOUT_FILENO) < 0)
 			return ;
-		my_command(pip->cmd, pip->flags, env);
+		my_command(*pip, pip->cmd, pip->flags, env);
 		close(new_fds[1]);
 	}
 	else if (!pip->next->next)
@@ -79,7 +79,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 		if (dup2(in, STDIN_FILENO) < 0)
 			return ;
 	}
-	my_command(pip->cmd, pip->flags, env);
+	my_command(*pip, pip->cmd, pip->flags, env);
 	if (infile)
 		close(in);
 }
@@ -130,14 +130,14 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 // 	t_cmd	cmd2;
 // 	t_cmd	cmd3;
 
-// 	cmd1.cmd = "echo";
+// 	cmd1.cmd = "env";
 // 	cmd1.next = &cmd2;
-// 	char *flags1[] = {cmd1.cmd, "qjweyqwyteqi", (void *)0};
+// 	char *flags1[] = {cmd1.cmd, (void *)0};
 // 	cmd1.flags = flags1;
 
-// 	cmd2.cmd = "wc";
+// 	cmd2.cmd = "grep";
 // 	cmd2.next = &cmd3;
-// 	char *flags2[] = {cmd2.cmd, "-l", (void *)0};
+// 	char *flags2[] = {cmd2.cmd, "q", (void *)0};
 // 	cmd2.flags = flags2;
 
 // 	cmd3.cmd = "cat";
