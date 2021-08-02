@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 12:23:08 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 14:13:02 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:38:29 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	exec_builtin(t_cmd *cmd, char **env)
 {
 	int	ret;
 
-	printf("hello\n");
 	ret = 1;
 	if (!simple_strcmp(cmd->cmd, "env"))
 		ret = get_env(env, cmd);

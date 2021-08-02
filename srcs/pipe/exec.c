@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 13:01:07 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:44:36 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	my_exec(t_cmd pip, char **env, char *infile, char *outfile)
 {
 	int	in;
 	int	out;
+	int ret;
 
 	if (infile)
 	{
@@ -29,7 +30,7 @@ int	my_exec(t_cmd pip, char **env, char *infile, char *outfile)
 		if (out == -1 || dup2(out, STDOUT_FILENO) < 0)
 			return (-1);
 	}
-	my_command(pip.cmd, pip.flags, env);
+	my_command(pip, pip.cmd, pip.flags, env);
 	if (infile)
 		close (in);
 	if (outfile)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 14:40:46 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:43:55 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	print_cmd(t_shell *shell);
 **	Work without pipe and without infile or outfile.
 **	If needed infile and outfile will be STDIN_FILENO and STDOUT_FILENO.
 */
-void	my_command(char *cmd, char **argv, char **env);
+void	my_command(t_cmd pip, char *cmd, char **argv, char **env);
 
 /*
 **	Work without pipe and with or without infile & outfile, if there is no file
