@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 14:22:34 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:31:32 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_shell_env(t_shell *shell, char **env)
 static void	init_shell(t_shell *shell, char **env)
 {
 	shell->start_cmd = NULL;
+	init_shell_env(shell, env);
 }
 
 int main(int argc, char** argv, char **envp)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
+#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/07/28 14:37:01 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/02 14:29:20 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ HEADER = minishell.h
 
 MAIN = main
 
-PIPE = pipe exec command n_pipe
+PIPE = pipe exec command n_pipe builtins
 
 UTIL = basics cmd_lst
 
 PARSE = parsing parsing_print
 
-REBUILT = pwd echo env cd export unset
+REBUILT = pwd echo env cd export unset exit
 
 SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 11:11:58 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:30:46 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,29 @@ char *my_strip(char *str, char c)
 	return (ret);
 }
 
+int		ft_strncmp(const char *s1, const char *s2, unsigned int n)
+{
+	while (1)
+	{
+		if ((!*s1 && !*s2) || !n)
+			return (0);
+		if (*s1 == *s2)
+		{
+			s1++;
+			s2++;
+			n--;
+		}
+		else
+			return ((int)((unsigned char)(*s1) - (unsigned char)(*s2)));
+	}
+}
+
+
+char *get_env_value(char **env, const char *var)
+{
+	return NULL;
+}
+
 int	parse_line(t_shell *shell, char *line)
 {
 	char **split_line;
@@ -135,7 +158,7 @@ int	parse_line(t_shell *shell, char *line)
 	while (split_line[++i] != NULL)
 	{
 		strip = my_strip(split_line[i], ' ');
-		printf("strip: %s\n", strip);
+		printf("strip: %s\n", get_env_value(shell->env, "test"));
 		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(strip, ' '));
 		cmd_add_back(&shell->start_cmd, new);
 		free(strip);

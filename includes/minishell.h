@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 14:23:09 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:30:13 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_lst
 typedef struct s_shell
 {
 	t_cmd	*start_cmd;
+	char	**env;
 }				t_shell;
 
 /*
