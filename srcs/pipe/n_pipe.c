@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 14:58:20 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:14:36 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,30 +86,43 @@ static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 
 int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 {
+	int	ppid;
 	int	pid;
 	int	fds[2];
 
+	pid = 1;
 	if (!pip->next)
-		my_exec(*pip, env, infile, outfile);
-	else if (!pip->next->next)
-		piper(*pip, env, infile, outfile);
-	else
+		pid = exec_builtin(pip, env);
+	if (pid != 1)
 	{
-		if (pipe(fds) == -1)
-			return (-1);
-		pid = fork();
 		if (pid == -1)
-			return (-1);
-		if (!pid)
-			child_pipe(fds, pip, env, infile);
-		else
-			brother_pipe(fds, pip->next, env, outfile);
+			write(STDOUT_FILENO, "Builtin execution failed.\n", 26);
+		return (pid);
 	}
+	ppid = fork();
+	if (!ppid)
+	{
+		if (!pip->next->next)
+			piper(*pip, env, infile, outfile);
+		else
+		{
+			if (pipe(fds) == -1)
+				return (-1);
+			pid = fork();
+			if (pid == -1)
+				return (-1);
+			if (!pid)
+				child_pipe(fds, pip, env, infile);
+			else
+				brother_pipe(fds, pip->next, env, outfile);
+		}
+	}
+	wait(0);
 	return (0);
 }
 
-/*CHECKING MAIN*/
-/*	gcc -I "../../includes/" n_pipe.c pipe.c exec.c command.c ../utils/basics.c */
+/* CHECKING MAIN */
+/*	gcc -I "../../includes/" n_pipe.c pipe.c exec.c builtins.c command.c ../utils/basics.c ../rebuilt/cd.c ../rebuilt/echo.c ../rebuilt/env.c ../rebuilt/exit.c ../rebuilt/export.c ../rebuilt/pwd.c ../rebuilt/unset.c*/
 
 // int main(int ac, char **av, char **env)
 // {
@@ -117,9 +130,9 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 // 	t_cmd	cmd2;
 // 	t_cmd	cmd3;
 
-// 	cmd1.cmd = "grep";
+// 	cmd1.cmd = "echo";
 // 	cmd1.next = &cmd2;
-// 	char *flags1[] = {cmd1.cmd, "-a", "q", (void *)0};
+// 	char *flags1[] = {cmd1.cmd, "qjweyqwyteqi", (void *)0};
 // 	cmd1.flags = flags1;
 
 // 	cmd2.cmd = "wc";

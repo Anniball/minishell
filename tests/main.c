@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 09:37:43 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/28 14:28:45 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:46:32 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ size_t	ministrlen(char *str)
 	return (i);
 }
 
-static void	my_sub_sigint(int sig)
-{
-	write(1, "\b\b", 2);
-}
+// static void	my_sub_sigint(int sig)
+// {
+// 	write(1, "\b\b", 2);
+// }
 
-static void	my_sub_sigquit(int sig)
-{
-	write(1, "\b\b", 2);
-}
+// static void	my_sub_sigquit(int sig)
+// {
+// 	write(1, "\b\b", 2);
+// }
 
 static void	my_sigint(int sig)
 {
 	write(1, "\n", 1);
+	// write(1, GRN "➜" BLU " minishell >  \n" RESET, 16);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -77,8 +78,6 @@ int main(int argc, char** argv, char **envp)
 		}
 		else
 		{
-			signal(SIGINT, &my_sub_sigint);
-			signal(SIGQUIT, &my_sub_sigquit);
 			wait(0);
 			printf("Program over.\n");
 		}
