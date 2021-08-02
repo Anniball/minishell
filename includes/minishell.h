@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/28 14:29:13 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 10:48:29 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef struct s_cmd
 	char			**flags;
 	struct s_cmd	*next;
 }				t_cmd;
+
+typedef struct s_lst
+{
+	char			*str;
+	struct s_lst	*next;
+}				t_lst;
 
 typedef struct s_shell
 {

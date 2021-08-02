@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 09:48:02 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 11:11:58 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ char **parse_split(char *str, char c)
 	return (split_list);
 }
 
+/*
+** get_cmd_from_line get first word of str
+*/
+
 static char *get_cmd_from_line(char *str)
 {
 	int i;
@@ -91,6 +95,10 @@ static char *get_cmd_from_line(char *str)
 	str[i] = ' ';
 	return (ret);
 }
+
+/*
+** my_strip remove char c from start and end of str. This function does not free str.
+*/
 
 char *my_strip(char *str, char c)
 {
@@ -127,10 +135,12 @@ int	parse_line(t_shell *shell, char *line)
 	while (split_line[++i] != NULL)
 	{
 		strip = my_strip(split_line[i], ' ');
+		printf("strip: %s\n", strip);
 		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(strip, ' '));
 		cmd_add_back(&shell->start_cmd, new);
 		free(strip);
 		free(split_line[i]);
 	}
 	free(split_line);
+	return (0);
 }

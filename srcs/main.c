@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/26 15:49:36 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:19:56 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	init_shell_env(t_shell *shell)
+{
+	;
+}
 
 static void	init_shell(t_shell *shell)
 {
@@ -23,6 +28,7 @@ int main(int argc, char** argv, char **envp)
 	int i;
 
 	shell = malloc(sizeof(t_shell));
+	
 	int f = fork();
 	if (f == 0)
 	{
