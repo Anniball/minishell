@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 14:30:46 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:07:23 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,16 @@ char *my_strip(char *str, char c)
 	return (ret);
 }
 
-int		ft_strncmp(const char *s1, const char *s2, unsigned int n)
+int		ft_strcmp(const char *s1, const char *s2)
 {
 	while (1)
 	{
-		if ((!*s1 && !*s2) || !n)
+		if (!*s1 || !*s2)
 			return (0);
 		if (*s1 == *s2)
 		{
 			s1++;
 			s2++;
-			n--;
 		}
 		else
 			return ((int)((unsigned char)(*s1) - (unsigned char)(*s2)));
@@ -139,9 +138,17 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n)
 }
 
 
-char *get_env_value(char **env, const char *var)
+char *get_env_value(char **env, char *var)
 {
-	return NULL;
+	int i;
+
+	i = -1;
+	while (env[++i])
+	{
+		if (my_strlen(var) < my_strlen(env[i]) && ft_strcmp(env[i], var) == 0 && env[i][my_strlen(var)] == '=')
+			return my_strdup(&env[i][my_strlen(var) + 1]);
+	}
+	return my_strdup("");
 }
 
 int	parse_line(t_shell *shell, char *line)
@@ -155,10 +162,10 @@ int	parse_line(t_shell *shell, char *line)
 	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
 	split_line = parse_split(line, '|');
+	printf("getenv: %s\n", get_env_value(shell->env, line));
 	while (split_line[++i] != NULL)
 	{
 		strip = my_strip(split_line[i], ' ');
-		printf("strip: %s\n", get_env_value(shell->env, "test"));
 		new = cmd_new(get_cmd_from_line(split_line[i]), parse_split(strip, ' '));
 		cmd_add_back(&shell->start_cmd, new);
 		free(strip);
