@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 18:26:40 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 19:16:43 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,28 +358,68 @@ char *remove_close_quote(char *str)
 	char	*env_var;
 	int		last_join;
 	int		ok;
+	int		last_open;
 
 	i = -1;
 	new_str = NULL;
 	open_quote = 0;
+	last_join = 0;
+	last_open = -1;
 	while (str[++i])
 	{
-		ok = 1;
-		if (str[i] == '"' || str[i] == '\'')
+		if (i > 0 && open_quote == str[i - 1] && last_open != i - 1)
 		{
-			ok = 0;
-			if (open_quote == str[i])
-				open_quote = 0;
-			else if (open_quote == 0 && is_in_str(&str[i + 1], str[i]))
-				open_quote = str[i];
-			else
-				ok = 1;
+			open_quote = 0;
 		}
-		if (i > 0 && str[i - 1] == open_quote && ok)
+		if ((str[i] == '"' || str[i] == '\'') && open_quote == 0 && is_in_str(&str[i + 1], str[i]))
+		{
+			open_quote = str[i];
+			last_open = i;
+		}
+		//printf("%d (%c): %c\n", i, open_quote, str[i]);
+		if (i > 0 && str[i - 1] == open_quote)
 		{
 			tmp = strdup_until_c(&str[i], open_quote);
-			new_str = parse_join(new_str, tmp);
-			i += my_strlen(tmp) - 1;
+			if (my_strlen(tmp) != 0)
+			{
+				//printf("Ici1 %s\n", tmp);
+				new_str = parse_join(new_str, tmp);
+				i += my_strlen(tmp) - 1;
+				last_join = i + 2;
+			}
+			else
+			{
+				//printf("Ici2\n");
+				if (is_in_str("'\"", str[i]) && str[i] != open_quote)
+				{
+					if (str[i] == '\'')
+						new_str = parse_join(new_str, my_strdup("'"));
+					else
+						new_str = parse_join(new_str, my_strdup("\""));
+				}
+				last_join = i + 1;
+			}
+		} else if (open_quote == 0)
+		{
+			//printf("La\n");
+			tmp = strdup_until(&str[i], "'\"");
+			if (my_strlen(tmp) != 0)
+			{
+				new_str = parse_join(new_str, tmp);
+				i += my_strlen(tmp) - 1;
+				last_join = i + 2;
+			}
+			else
+			{
+				if (is_in_str("'\"", str[i]))
+				{
+					if (str[i] == '\'')
+						new_str = parse_join(new_str, my_strdup("'"));
+					else
+						new_str = parse_join(new_str, my_strdup("\""));
+				}
+				last_join = i + 1;
+			}
 		}
 	}
 	free(str);
