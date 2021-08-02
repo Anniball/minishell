@@ -6,18 +6,25 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 14:20:52 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:22:34 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	init_shell_env(t_shell *shell)
+static void	init_shell_env(t_shell *shell, char **env)
 {
-	;
+	int i;
+
+	i = -1;
+	while (env[++i])
+	{
+		printf("%s\n", env[i]);
+	}
+	
 }
 
-static void	init_shell(t_shell *shell)
+static void	init_shell(t_shell *shell, char **env)
 {
 	shell->start_cmd = NULL;
 }
@@ -36,7 +43,7 @@ int main(int argc, char** argv, char **envp)
 		exit(0);
 	}
 	waitpid(f, 0, 0);
-	init_shell(shell);
+	init_shell(shell, envp);
 	i = -1;
 	while (++i < 5)
 	{
