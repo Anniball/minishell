@@ -6,13 +6,13 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 13:52:57 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:34:55 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	parent_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
+static void	parent_pipe(int *fds, t_cmd *pip, char ***env, char *outfile)
 {
 	int		out;
 
@@ -35,7 +35,7 @@ static void	parent_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 	exit(EXIT_SUCCESS);
 }
 
-static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
+static void	brother_pipe(int *fds, t_cmd *pip, char ***env, char *outfile)
 {
 	int	pid;
 	int	new_fds[2];
@@ -65,7 +65,7 @@ static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 	exit(EXIT_SUCCESS);
 }
 
-static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
+static void	child_pipe(int *fds, t_cmd *pip, char ***env, char *infile)
 {
 	int		in;
 
@@ -87,7 +87,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 	exit(EXIT_SUCCESS);
 }
 
-static int	my_builtins(t_cmd *pip, char **env, char *infile, char *outfile)
+static int	my_builtins(t_cmd *pip, char ***env, char *infile, char *outfile)
 {
 	int	ret;
 
@@ -96,7 +96,7 @@ static int	my_builtins(t_cmd *pip, char **env, char *infile, char *outfile)
 	return (my_exec(*pip, env, infile, outfile));
 }
 
-int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
+int	n_piper(t_cmd *pip, char ***env, char *infile, char *outfile)
 {
 	int	pid;
 	int	fds[2];

@@ -6,13 +6,13 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 16:47:02 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:23:44 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	my_exec(t_cmd pip, char **env, char *infile, char *outfile)
+int	my_exec(t_cmd pip, char ***env, char *infile, char *outfile)
 {
 	int	in;
 	int	out;
