@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 16:24:18 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:37:13 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*my_strncpy(char *src, char *dst, int n);
 char	*my_strjoin(char *str, char *add);
 char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
+char	*get_env_value(char **env, char *var);
 
 /*
 ** ------------------PARSING-----------------------------
