@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 11:46:59 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 13:52:57 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	parent_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 	my_command(*pip, pip->cmd, pip->flags, env);
 	if (outfile)
 		close(out);
+	exit(EXIT_SUCCESS);
 }
 
 static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
@@ -61,6 +62,7 @@ static void	brother_pipe(int *fds, t_cmd *pip, char **env, char *outfile)
 		parent_pipe(new_fds, pip->next, env, outfile);
 	else
 		brother_pipe(new_fds, pip->next, env, outfile);
+	exit(EXIT_SUCCESS);
 }
 
 static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
@@ -82,6 +84,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 	my_command(*pip, pip->cmd, pip->flags, env);
 	if (infile)
 		close(in);
+	exit(EXIT_SUCCESS);
 }
 
 static int	my_builtins(t_cmd *pip, char **env, char *infile, char *outfile)
@@ -104,7 +107,9 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 	pid = fork();
 	if (!pid)
 	{
-		if (!pip->next->next)
+		if (!pip->next)
+			my_exec(*pip, env, infile, outfile);
+		else if (!pip->next->next)
 			piper(*pip, env, infile, outfile);
 		else
 		{
@@ -118,6 +123,7 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 			else
 				brother_pipe(fds, pip->next, env, outfile);
 		}
+		exit(EXIT_SUCCESS);
 	}
 	wait(0);
 	return (0);

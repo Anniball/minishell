@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:44:55 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 13:50:31 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	parent_pipe(int *fds, t_cmd pip, char **env, char *outfile)
 	my_command(pip, pip.cmd, pip.flags, env);
 	if (outfile)
 		close(out);
+	exit(EXIT_SUCCESS);
 }
 
 static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
@@ -53,6 +54,7 @@ static void	child_pipe(int *fds, t_cmd pip, char **env, char *infile)
 	my_command(pip, pip.cmd, pip.flags, env);
 	if (infile)
 		close(in);
+	exit(EXIT_SUCCESS);
 }
 
 int	piper(t_cmd pip, char **env, char *infile, char *outfile)
@@ -69,6 +71,7 @@ int	piper(t_cmd pip, char **env, char *infile, char *outfile)
 		child_pipe(fds, pip, env, infile);
 	else
 		parent_pipe(fds, *(pip.next), env, outfile);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 

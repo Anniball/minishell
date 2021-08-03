@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 19:26:19 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/03 13:44:29 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int main(int argc, char** argv, char **envp)
 			continue;
 		parse_line(shell, input);
 		add_history(input);
-		//n_piper(shell->start_cmd, shell->env, NULL, NULL);
-		print_cmd(shell);
+		n_piper(shell->start_cmd, shell->env, NULL, NULL);
+		// print_cmd(shell);
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);
