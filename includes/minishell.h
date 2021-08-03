@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 16:24:18 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:32:25 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	print_cmd(t_shell *shell);
 **	Work without pipe and without infile or outfile.
 **	If needed infile and outfile will be STDIN_FILENO and STDOUT_FILENO.
 */
-void	my_command(t_cmd pip, char *cmd, char **argv, char **env);
+void	my_command(t_cmd pip, char *cmd, char **argv, char ***env);
 
 /*
 **	Work without pipe and with or without infile & outfile, if there is no file
@@ -134,7 +134,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char **env);
 **	/!\ Some command needs an explicit outfile or infile and will crash if they
 **	don't. Example : grep need an infile since it can't just read STDIN_FILENO.
 */
-int		my_exec(t_cmd pip, char **env, char *infile, char *outfile);
+int		my_exec(t_cmd pip, char ***env, char *infile, char *outfile);
 
 /*
 **	Work with only one pipe.
@@ -142,16 +142,16 @@ int		my_exec(t_cmd pip, char **env, char *infile, char *outfile);
 **	/!\ Will crash if there is less than 2 commands in the chained list!
 **	Use my_command, my_exec  or n_piper instead!
 */
-int		piper(t_cmd pip, char **env, char *infile, char *outfile);
+int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
 
 /*
 **	Work with n pipes.
 **	Same behaviour for infile and outfile than in my_exec.
 */
-int		n_piper(t_cmd *pip, char **env, char *infile, char *outfile);
+int		n_piper(t_cmd *pip, char ***env, char *infile, char *outfile);
 
 int		get_exit(t_cmd *cmd, char **env);
-int		exec_builtin(t_cmd *cmd, char **env);
+int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
 /*
 ** -----------------------------------------------------

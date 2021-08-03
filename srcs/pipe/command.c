@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:55:14 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:33:21 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
-void	my_command(t_cmd pip, char *cmd, char **argv, char **env)
+void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 {
 	char	*full_cmd;
 	char	**paths;
@@ -101,15 +101,15 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char **env)
 		return ;
 	}
 	i = 0;
-	while (my_scmp(env[i], "PATH="))
+	while (my_scmp((*env)[i], "PATH="))
 		i++;
-	paths = my_simple_split(env[i] + 5, ':');
-	ret = execve(*paths, argv, env);
+	paths = my_simple_split((*env)[i] + 5, ':');
+	ret = execve(*paths, argv, *env);
 	i = 0;
 	while (ret < 0 && paths[i++])
 	{
 		full_cmd = my_strjoin(paths[i], cmd);
-		ret = execve(full_cmd, argv, env);
+		ret = execve(full_cmd, argv, *env);
 	}
 	free(full_cmd);
 	free_tab(paths);
