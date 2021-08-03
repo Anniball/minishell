@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 11:59:04 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/03 14:03:17 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int main(int argc, char** argv, char **envp)
 			continue;
 		parse_line(shell, input);
 		add_history(input);
-		//n_piper(shell->start_cmd, shell->env, NULL, NULL);
-		print_cmd(shell);
+		n_piper(shell->start_cmd, shell->env, NULL, NULL);
+		// print_cmd(shell);
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);
