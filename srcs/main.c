@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:46:59 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/03 16:19:26 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,17 @@ static int	init_shell_env(t_shell *shell, char **env)
 static void	init_shell(t_shell *shell, char **env)
 {
 	shell->start_cmd = NULL;
+	shell->status = 0;
 	init_shell_env(shell, env);
 }
 
-static char *create_shell_line(char **env)
+static char *create_shell_line(t_shell *shell, char **env)
 {
-	const int	status = 0;
+	const int	status = shell->status;
 	char		*line;
 
 	if (status)
-		line = my_strdup(RED "➜" BLU " minishell " RESET);
+		line = my_strdup(RED "➜" BLU " minishell ( ");
 	else
 		line = my_strdup(GRN "➜" BLU " minishell ( " );
 	line = my_strjoin(line, get_env_value(env, "PWD"));
@@ -89,7 +90,7 @@ int main(int argc, char** argv, char **envp)
 	i = -1;
 	while (++i < 10)
 	{
-		line = create_shell_line(shell->env);
+		line = create_shell_line(shell, shell->env);
 		input = readline(line);
 		free(line);
 		if (!input)
@@ -101,7 +102,7 @@ int main(int argc, char** argv, char **envp)
 			continue;
 		parse_line(shell, input);
 		add_history(input);
-		n_piper(shell->start_cmd, &shell->env, NULL, NULL);
+		n_piper(shell, NULL, NULL);
 		// print_cmd(shell);
 	}
 	clear_history();

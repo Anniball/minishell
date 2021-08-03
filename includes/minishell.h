@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/03 15:47:09 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/03 16:15:41 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_shell
 {
 	t_cmd	*start_cmd;
 	char	**env;
+	int		status;
 }				t_shell;
 
 /*
@@ -149,7 +150,7 @@ int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
 **	Work with n pipes.
 **	Same behaviour for infile and outfile than in my_exec.
 */
-int		n_piper(t_cmd *pip, char ***env, char *infile, char *outfile);
+int		n_piper(t_shell *shell, char *infile, char *outfile);
 
 int		get_exit(t_cmd *cmd, char **env);
 int		exec_builtin(t_cmd *cmd, char ***env);

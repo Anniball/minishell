@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   n_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:34:55 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 16:18:37 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	wait_pid_set_value(t_shell *shell, int pid)
+{
+	int status;
+
+	waitpid(pid, &status, WUNTRACED | WCONTINUED);
+	if (shell)
+		shell->status = status;
+}
 
 static void	parent_pipe(int *fds, t_cmd *pip, char ***env, char *outfile)
 {
@@ -96,21 +105,21 @@ static int	my_builtins(t_cmd *pip, char ***env, char *infile, char *outfile)
 	return (my_exec(*pip, env, infile, outfile));
 }
 
-int	n_piper(t_cmd *pip, char ***env, char *infile, char *outfile)
+int	n_piper(t_shell *shell, char *infile, char *outfile)
 {
 	int	pid;
 	int	fds[2];
 
-	pid = my_builtins(pip, env, infile, outfile);
+	pid = my_builtins(shell->start_cmd, &shell->env, infile, outfile);
 	if (pid != 1)
 		return (pid);
 	pid = fork();
 	if (!pid)
 	{
-		if (!pip->next)
-			my_exec(*pip, env, infile, outfile);
-		else if (!pip->next->next)
-			piper(*pip, env, infile, outfile);
+		if (!shell->start_cmd->next)
+			my_exec(*shell->start_cmd, &shell->env, infile, outfile);
+		else if (!shell->start_cmd->next->next)
+			piper(*shell->start_cmd, &shell->env, infile, outfile);
 		else
 		{
 			if (pipe(fds) == -1)
@@ -119,13 +128,13 @@ int	n_piper(t_cmd *pip, char ***env, char *infile, char *outfile)
 			if (pid == -1)
 				return (-1);
 			if (!pid)
-				child_pipe(fds, pip, env, infile);
+				child_pipe(fds, shell->start_cmd, &shell->env, infile);
 			else
-				brother_pipe(fds, pip->next, env, outfile);
+				brother_pipe(fds, shell->start_cmd->next, &shell->env, outfile);
 		}
 		exit(EXIT_SUCCESS);
 	}
-	wait(0);
+	wait_pid_set_value(shell, pid);
 	return (0);
 }
 
