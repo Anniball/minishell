@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:53:21 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/03 11:46:59 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,23 +84,25 @@ static void	child_pipe(int *fds, t_cmd *pip, char **env, char *infile)
 		close(in);
 }
 
+static int	my_builtins(t_cmd *pip, char **env, char *infile, char *outfile)
+{
+	int	ret;
+
+	if (!check_builtins(pip->cmd) || pip->next)
+		return (1);
+	return (my_exec(*pip, env, infile, outfile));
+}
+
 int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 {
-	int	ppid;
 	int	pid;
 	int	fds[2];
 
-	pid = 1;
-	if (!pip->next)
-		pid = exec_builtin(pip, env);
+	pid = my_builtins(pip, env, infile, outfile);
 	if (pid != 1)
-	{
-		if (pid == -1)
-			write(STDOUT_FILENO, "Builtin execution failed.\n", 26);
 		return (pid);
-	}
-	ppid = fork();
-	if (!ppid)
+	pid = fork();
+	if (!pid)
 	{
 		if (!pip->next->next)
 			piper(*pip, env, infile, outfile);
@@ -130,14 +132,14 @@ int	n_piper(t_cmd *pip, char **env, char *infile, char *outfile)
 // 	t_cmd	cmd2;
 // 	t_cmd	cmd3;
 
-// 	cmd1.cmd = "env";
+// 	cmd1.cmd = "cat";
 // 	cmd1.next = &cmd2;
-// 	char *flags1[] = {cmd1.cmd, (void *)0};
+// 	char *flags1[] = {cmd1.cmd, "in", (void *)0};
 // 	cmd1.flags = flags1;
 
-// 	cmd2.cmd = "grep";
+// 	cmd2.cmd = "env";
 // 	cmd2.next = &cmd3;
-// 	char *flags2[] = {cmd2.cmd, "q", (void *)0};
+// 	char *flags2[] = {cmd2.cmd, (void *)0};
 // 	cmd2.flags = flags2;
 
 // 	cmd3.cmd = "cat";

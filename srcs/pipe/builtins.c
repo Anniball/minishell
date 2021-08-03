@@ -6,16 +6,16 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 12:23:08 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:38:29 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/02 16:44:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int simple_strcmp(char *s1, char *s2)
+static int	simple_strcmp(char *s1, char *s2)
 {
-	int i;
-	
+	int	i;
+
 	if (!s1 || !s2)
 		return (-1);
 	i = 0;
@@ -44,4 +44,16 @@ int	exec_builtin(t_cmd *cmd, char **env)
 	else if (!simple_strcmp(cmd->cmd, "exit"))
 		ret = get_exit(cmd, env);
 	return (ret);
+}
+
+int	check_builtins(char *cmd)
+{
+	if (!cmd)
+		return (0);
+	if (!simple_strcmp(cmd, "env") || !simple_strcmp(cmd, "echo")
+		|| !simple_strcmp(cmd, "pwd") || !simple_strcmp(cmd, "cd")
+		|| !simple_strcmp(cmd, "export") || !simple_strcmp(cmd, "unset")
+		|| !simple_strcmp(cmd, "exit"))
+		return (1);
+	return (0);
 }
