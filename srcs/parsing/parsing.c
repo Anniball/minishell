@@ -6,16 +6,16 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/02 19:16:43 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/03 11:41:08 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int words_count(char *str, char c)
+static int	words_count(char *str, char c)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = 0;
@@ -29,16 +29,15 @@ static int words_count(char *str, char c)
 	if (str[i - 1] && str[i - 1] != c)
 		count++;
 	return (count);
-	
 }
 
-char **parse_split(char *str, char c)
+char	**parse_split(char *str, char c)
 {
-	const int w_count = words_count(str, c);
-	const int str_len = my_strlen(str);
-	char **split_list;
-	int i;
-	int current_word;
+	const int	w_count = words_count(str, c);
+	const int	str_len = my_strlen(str);
+	char		**split_list;
+	int			i;
+	int			current_word;
 
 	current_word = 0;
 	i = -1;
@@ -50,9 +49,7 @@ char **parse_split(char *str, char c)
 	i = -1;
 	while (++i < str_len)
 	{
-		if (str[i] == 0)
-			;
-		else
+		if (str[i] != 0)
 		{
 			split_list[current_word] = my_strdup(&str[i]);
 			i += my_strlen(split_list[current_word]) - 1;
@@ -63,50 +60,17 @@ char **parse_split(char *str, char c)
 }
 
 /*
-** get_cmd_from_line get first word of str
+** my_strip remove char c from start and end of str.
+** This function does not free str.
 */
 
-static char *get_cmd_from_line(char *str)
+char	*my_strip(char *str, char c)
 {
-	int i;
-	int last;
-	int len;
-	char *ret;
-
-	i = -1;
-	len = 0;
-	last = 0;
-	while (str[++i])
-	{
-		if (str[i] == ' ')
-		{
-			if (len != 0)
-			{
-				str[i] = 0;
-				break;
-			}
-			else
-				last = i + 1;
-		}
-		else
-			len++;
-	}
-	ret = my_strdup(&str[last]);
-	str[i] = ' ';
-	return (ret);
-}
-
-/*
-** my_strip remove char c from start and end of str. This function does not free str.
-*/
-
-char *my_strip(char *str, char c)
-{
-	int i;
-	int start;
-	int end;
-	const int len = my_strlen(str);
-	char *ret;
+	int			i;
+	int			start;
+	int			end;
+	const int	len = my_strlen(str);
+	char		*ret;
 
 	i = -1;
 	start = 0;
@@ -121,7 +85,7 @@ char *my_strip(char *str, char c)
 	return (ret);
 }
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (1)
 	{
@@ -137,23 +101,23 @@ int		ft_strcmp(const char *s1, const char *s2)
 	}
 }
 
-
-char *get_env_value(char **env, char *var)
+char	*get_env_value(char **env, char *var)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (env[++i])
 	{
-		if (my_strlen(var) < my_strlen(env[i]) && ft_strcmp(env[i], var) == 0 && env[i][my_strlen(var)] == '=')
-			return my_strdup(&env[i][my_strlen(var) + 1]);
+		if (my_strlen(var) < my_strlen(env[i]) && ft_strcmp(env[i], var) == 0
+			&& env[i][my_strlen(var)] == '=')
+			return (my_strdup(&env[i][my_strlen(var) + 1]));
 	}
-	return my_strdup("");
+	return (my_strdup(""));
 }
 
 int	is_in_str(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -205,7 +169,8 @@ char	*parse_join(char *s1, char *s2)
 	char	*conc_str;
 
 	len = my_strlen(s1) + my_strlen(s2);
-	if (!(conc_str = malloc(sizeof(char) * (len + 1))))
+	conc_str = malloc(sizeof(char) * (len + 1));
+	if (!conc_str)
 	{
 		free(s1);
 		return (NULL);
@@ -234,15 +199,19 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		return (0);
 	if (start > my_strlen(s))
 	{
-		if (!(str = malloc(sizeof(char))))
+		str = malloc(sizeof(char));
+		if (!str)
 			return (NULL);
 		str[0] = 0;
 	}
 	else
 	{
 		i = -1;
-		str_len = len < my_strlen(s) - start ? len : my_strlen(s) - start;
-		if (!(str = malloc(sizeof(char) * (str_len + 1))))
+		str_len = my_strlen(s) - start;
+		if (len < my_strlen(s) - start)
+			str_len = len;
+		str = malloc(sizeof(char) * (str_len + 1));
+		if (!str)
 			return (NULL);
 		while (s[++i] && i < (int)len)
 			str[i] = s[start + i];
@@ -251,7 +220,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char *replace_by_env_value(char **env, char *str)
+char	*replace_by_env_value(char **env, char *str)
 {
 	char	open_quote;
 	int		i;
@@ -272,9 +241,11 @@ char *replace_by_env_value(char **env, char *str)
 			else if (open_quote == 0 && is_in_str(&str[i] + 1, str[i]))
 				open_quote = str[i];
 		}
-		if (str[i] == '$' && str[i + 1] && !(open_quote == '\'' && is_in_str(&str[i], '\'')))
+		if (str[i] == '$' && str[i + 1] && !(open_quote == '\''
+				&& is_in_str(&str[i], '\'')))
 		{
-			new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
+			new_str = parse_join(new_str, ft_substr(str,
+						last_join, i - last_join));
 			env_var = strdup_until(&str[i + 1], " \"'");
 			new_str = parse_join(new_str, get_env_value(env, env_var));
 			last_join = i + my_strlen(env_var) + 1;
@@ -282,22 +253,19 @@ char *replace_by_env_value(char **env, char *str)
 	}
 	if (last_join != i)
 		new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
-	return new_str;
+	return (new_str);
 }
 
-static int words_count_with_quotes(char *str, char c)
+static int	words_count_with_quotes(char *str, char c)
 {
-	int i;
-	int count;
-	char	open_quote;
-	char	*new_str;
-	char	*env_var;
+	int		i;
+	int		count;
+	char	quote;
 	int		last_join;
 
 	i = -1;
-	new_str = NULL;
 	last_join = 0;
-	open_quote = 0;
+	quote = 0;
 	count = 0;
 	if (str == NULL)
 		return (0);
@@ -305,31 +273,31 @@ static int words_count_with_quotes(char *str, char c)
 	{
 		if (str[i] == '"' || str[i] == '\'')
 		{
-			if (open_quote == str[i])
-				open_quote = 0;
-			else if (open_quote == 0 && is_in_str(&str[i] + 1, str[i]))
-				open_quote = str[i];
+			if (quote == str[i])
+				quote = 0;
+			else if (quote == 0 && is_in_str(&str[i] + 1, str[i]))
+				quote = str[i];
 		}
-		if (i > 0 && str[i - 1] != 0 && str[i - 1] != c && str[i] == c && open_quote == 0)
+		if (i && str[i - 1] && str[i - 1] != c && str[i] == c && !quote)
 		{
 			count++;
 			str[i] = 0;
-		} else if (i > 0 && str[i - 1] == 0 && str[i - 1] != c && str[i] == c && open_quote == 0) {
-			str[i] = 0;
 		}
+		else if (i && !str[i - 1] && str[i - 1] != c && str[i] == c && !quote)
+			str[i] = 0;
 	}
 	if (str[i - 1] && str[i - 1] != c)
 		count++;
 	return (count);
 }
 
-char **parse_split_with_quotes(char *str, char c)
+char	**parse_split_with_quotes(char *str, char c)
 {
-	const int str_len = my_strlen(str);
-	const int w_count = words_count_with_quotes(str, c);
-	char **split_list;
-	int i;
-	int current_word;
+	const int	str_len = my_strlen(str);
+	const int	w_count = words_count_with_quotes(str, c);
+	char		**split_list;
+	int			i;
+	int			current_word;
 
 	current_word = 0;
 	i = -1;
@@ -349,86 +317,40 @@ char **parse_split_with_quotes(char *str, char c)
 	return (split_list);
 }
 
-char *remove_close_quote(char *str)
+char	*remove_close_quote(char *str)
 {
 	char	open_quote;
 	int		i;
-	char	*tmp;
+	int		j;
 	char	*new_str;
-	char	*env_var;
-	int		last_join;
-	int		ok;
 	int		last_open;
 
 	i = -1;
-	new_str = NULL;
+	j = 0;
 	open_quote = 0;
-	last_join = 0;
 	last_open = -1;
+	new_str = malloc(sizeof(char) * (my_strlen(str) + 1));
 	while (str[++i])
 	{
-		if (i > 0 && open_quote == str[i - 1] && last_open != i - 1)
-		{
-			open_quote = 0;
-		}
-		if ((str[i] == '"' || str[i] == '\'') && open_quote == 0 && is_in_str(&str[i + 1], str[i]))
-		{
+		if ((str[i] == '"' || str[i] == '\'') && open_quote == 0
+			&& is_in_str(&str[i + 1], str[i]))
 			open_quote = str[i];
-			last_open = i;
-		}
-		//printf("%d (%c): %c\n", i, open_quote, str[i]);
-		if (i > 0 && str[i - 1] == open_quote)
+		else if ((str[i] == '"' || str[i] == '\'') && open_quote == str[i])
+			open_quote = 0;
+		else
 		{
-			tmp = strdup_until_c(&str[i], open_quote);
-			if (my_strlen(tmp) != 0)
-			{
-				//printf("Ici1 %s\n", tmp);
-				new_str = parse_join(new_str, tmp);
-				i += my_strlen(tmp) - 1;
-				last_join = i + 2;
-			}
-			else
-			{
-				//printf("Ici2\n");
-				if (is_in_str("'\"", str[i]) && str[i] != open_quote)
-				{
-					if (str[i] == '\'')
-						new_str = parse_join(new_str, my_strdup("'"));
-					else
-						new_str = parse_join(new_str, my_strdup("\""));
-				}
-				last_join = i + 1;
-			}
-		} else if (open_quote == 0)
-		{
-			//printf("La\n");
-			tmp = strdup_until(&str[i], "'\"");
-			if (my_strlen(tmp) != 0)
-			{
-				new_str = parse_join(new_str, tmp);
-				i += my_strlen(tmp) - 1;
-				last_join = i + 2;
-			}
-			else
-			{
-				if (is_in_str("'\"", str[i]))
-				{
-					if (str[i] == '\'')
-						new_str = parse_join(new_str, my_strdup("'"));
-					else
-						new_str = parse_join(new_str, my_strdup("\""));
-				}
-				last_join = i + 1;
-			}
+			new_str[j] = str[i];
+			j++;
 		}
 	}
+	new_str[j] = 0;
 	free(str);
-	return new_str;
+	return (new_str);
 }
 
 void	remove_close_quote_from_lst(char **lst)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (lst[++i])
@@ -437,11 +359,11 @@ void	remove_close_quote_from_lst(char **lst)
 
 int	parse_line(t_shell *shell, char *line)
 {
-	char **split_line;
-	char *strip;
-	char **strip_list;
-	int i;
-	t_cmd *new;
+	char	**split_line;
+	char	*strip;
+	char	**strip_list;
+	int		i;
+	t_cmd	*new;
 
 	i = -1;
 	cmd_clear(&shell->start_cmd);
