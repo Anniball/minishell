@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:16:15 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:19:30 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 13:53:42 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	cmd_clear(t_cmd **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->cmd);
 		free_flags((*lst));
 		free(*lst);
 		*lst = tmp;
@@ -62,6 +61,8 @@ t_cmd	*cmd_new(char *cmd, char **flags)
 		return (NULL);
 	new->cmd = cmd;
 	new->flags = flags;
+	new->infiles = NULL;
+	new->outfiles = NULL;
 	new->next = NULL;
 	return (new);
 }

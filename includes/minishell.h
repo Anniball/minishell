@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 13:28:34 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 15:15:08 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,20 @@
 #  include <limits.h>
 # endif
 
-typedef struct s_cmd
-{
-	char			*cmd;
-	char			**flags;
-	struct s_cmd	*next;
-}				t_cmd;
-
 typedef struct s_lst
 {
 	char			*str;
 	struct s_lst	*next;
 }				t_lst;
+
+typedef struct s_cmd
+{
+	char			*cmd;
+	char			**flags;
+	t_lst			*infiles;
+	t_lst			*outfiles;
+	struct s_cmd	*next;
+}				t_cmd;
 
 typedef struct s_shell
 {
@@ -72,6 +74,9 @@ char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
 char	*get_env_value(t_shell *shell, char **env, char *var);
 char	*ft_itoa(int n);
+t_lst	*lst_new(char *str);
+void	lst_add_back(t_lst **alst, t_lst *new);
+void	lst_clear(t_lst **lst);
 
 /*
 ** ------------------PARSING-----------------------------
@@ -86,6 +91,12 @@ char	*strdup_until(const char *str, char *c_lst);
 char	*strdup_until_c(const char *str, char c);
 char	*parse_join(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
+
+/*
+**	set quote set value quote if text is inside of quote
+*/
+
+void	set_quote(char *str, int i, char *quote);
 
 /*
 ** ------------------LST---------------------------------

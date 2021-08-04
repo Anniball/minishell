@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:32:47 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 13:56:27 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**parse_split(char *str, char c)
 	return (split_list);
 }
 
-static void	set_quote(char *str, int i, char *quote)
+void	set_quote(char *str, int i, char *quote)
 {
 	if (str[i] == '"' || str[i] == '\'')
 	{
