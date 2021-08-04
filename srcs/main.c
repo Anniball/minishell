@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 11:52:26 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:01:30 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int main(int argc, char** argv, char **envp)
 	shell = malloc(sizeof(t_shell));
 	init_shell(shell, envp);
 	i = -1;
+	receive_signal();
 	while (++i < 10)
 	{
 		line = create_shell_line(shell, shell->env);

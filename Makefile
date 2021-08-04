@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
+#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/04 11:48:48 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/04 15:05:54 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 #CFLAGS = -Wall -Wextra -Werror -I includes/
 
-CFLAGS = -I includes/ 
+CFLAGS = -I includes/ -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 
 # RFLAGS = -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 
@@ -32,11 +32,14 @@ PARSE = parsing parsing_print parsing_basic_utils parsing_split
 
 REBUILT = pwd echo env cd export unset exit
 
+SIGNAL = signals
+
 SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 		${addsuffix .c, ${addprefix srcs/pipe/, ${PIPE}}} \
 		${addsuffix .c, ${addprefix srcs/utils/, ${UTIL}}} \
 		${addsuffix .c, ${addprefix srcs/parsing/, ${PARSE}}} \
-		${addsuffix .c, ${addprefix srcs/rebuilt/, ${REBUILT}}}
+		${addsuffix .c, ${addprefix srcs/rebuilt/, ${REBUILT}}} \
+		${addsuffix .c, ${addprefix srcs/signals/, ${SIGNAL}}}
 
 OBJ = ${SRC:c=o}
 
