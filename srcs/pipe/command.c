@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:33:21 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 10:44:00 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 	while (my_scmp((*env)[i], "PATH="))
 		i++;
 	paths = my_simple_split((*env)[i] + 5, ':');
-	ret = execve(*paths, argv, *env);
+	ret = execve(cmd, argv, *env);
 	i = 0;
 	while (ret < 0 && paths[i++])
 	{
