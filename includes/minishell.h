@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 15:15:08 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:38:26 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,13 @@ int		n_piper(t_shell *shell, char *infile, char *outfile);
 int		get_exit(t_cmd *cmd, char **env);
 int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
+
+/*
+** ------------------SIGNALS------------------------------
+*/
+
+void	receive_signal(void);
+
 /*
 ** -----------------------------------------------------
 */
