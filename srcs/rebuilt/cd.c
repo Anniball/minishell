@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 11:21:49 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/30 12:08:00 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:28:04 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,71 @@ static int	my_scmp(char *s1, char *s2)
 	return (s1[i - 1] - s2[i - 1]);
 }
 
-static char *get_home(char **env)
+static char *get_str(char **env, char *str)
 {
 	int i;
 
 	i = 0;
-	while (env[i] && my_scmp(env[i], "HOME="))
+	while (env[i] && my_scmp(env[i], str))
 		i++;
-	return (env[i] + 5);
+	return (env[i]);
 }
 
-int get_cd(t_cmd *cmd, char **env)
-{
-	int ret;
 
-	if (cmd->flags[1] && cmd->flags[2])
-	{
-		write(STDERR_FILENO, "Too much arguments for this command.\n", 37);
-		return (ERROR);
-	}
-	else if (!cmd->flags[1])
-		ret = chdir(get_home(env));
-	else
-	{
-		if (cmd->flags[1][0] == '~')
-			ret = chdir(cmd->flags[1] + 1);
-		ret = chdir(cmd->flags[1]);
-	}
-	if (ret)
-		write(1, "Directory not found.\n", 21);
-	return (ret);
+static char **change_pwd(char **env)
+{
+    char    tmp[PATH_MAX];
+    char    *tmp_new;
+    char    *tmp_old;
+    int     i;
+    int     j;
+
+    i = 0;
+    while (env[i] && my_scmp(env[i], "OLDPWD="))
+        i++;
+    j = 0;
+    while (env[j] && my_scmp(env[j], "PWD="))
+        j++;
+    tmp_new = my_strjoin("OLD", env[j]);
+    tmp_old = my_strjoin("PWD=", getcwd(tmp, PATH_MAX));
+    if (!tmp_new || !tmp_old)
+    {
+        free(tmp_new);
+        free(tmp_old);
+        return (env);
+    }
+    free(env[j]);
+    free(env[i]);
+    env[j] = tmp_new;
+    env[i] = tmp_old;
+    return (env);
+}
+
+
+int get_cd(t_cmd *cmd, char ***env)
+{
+    int ret;
+
+    if (cmd->flags[1] && cmd->flags[2])
+    {
+        write(STDERR_FILENO, "Too much arguments for this command.\n", 37);
+        return (ERROR);
+    }
+    else
+    {
+        if (!cmd->flags[1])
+            ret = chdir(get_str(*env, "HOME=") + 5);
+        else
+        {
+            if (cmd->flags[1][0] == '~')
+                ret = chdir(cmd->flags[1] + 1);
+            ret = chdir(cmd->flags[1]);
+        }
+        *env = change_pwd(*env);
+    }
+    if (ret)
+        write(1, "Directory not found.\n", 21);
+    return (ret);
 }
 
 /*CHECKING MAIN*/

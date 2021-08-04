@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 12:23:08 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:35:42 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:29:02 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 	else if (!simple_strcmp(cmd->cmd, "pwd"))
 		ret = get_pwd(cmd);
 	else if (!simple_strcmp(cmd->cmd, "cd"))
-		ret = get_cd(cmd, *env);
+		ret = get_cd(cmd, env);
 	else if (!simple_strcmp(cmd->cmd, "export"))
 		ret = get_export(cmd, env);
 	else if (!simple_strcmp(cmd->cmd, "unset"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:51:54 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 13:28:34 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		get_env(char **env, t_cmd *cmd);
 **	called in the main process if written alone in the shell and is useless
 **	if used with pipes!
 */
-int		get_cd(t_cmd *cmd, char **env);
+int		get_cd(t_cmd *cmd, char ***env);
 
 /*
 **	/!\ 'export' and 'unset' are NOT processes since they're modifiying the
