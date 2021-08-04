@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/04 15:05:54 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/04 15:15:46 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,11 @@ CC = gcc
 
 #CFLAGS = -Wall -Wextra -Werror -I includes/
 
-CFLAGS = -I includes/ -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
+CFLAGS = -I includes/
 
-# RFLAGS = -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
+RPATH = /Users/$(USER)/.brew/opt/readline/
+
+RFLAGS = -L $(RPATH)lib -I $(RPATH)include -Wno-unused-command-line-argument
 
 HEADER = minishell.h
 
@@ -45,14 +47,14 @@ OBJ = ${SRC:c=o}
 
 %.o: %.c
 	@echo "Compiling binaries..."
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} ${RFLAGS} -c $< -o $@
 	@echo "Binary files created."
 	
 all : ${NAME}
 
 ${NAME}: ${OBJ}
 	@echo "\nMinishell is compiling..."
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJ} -lreadline
+	@${CC} ${CFLAGS} ${RFLAGS} -o ${NAME} ${OBJ} -lreadline
 	@echo "Minishell is ready!"
 
 clean :
