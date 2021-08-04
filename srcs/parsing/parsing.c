@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:51:40 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 12:02:47 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	parse_line(t_shell *shell, char *line)
 	i = -1;
 	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
-	split_line = parse_split(line, '|');
+	split_line = parse_split_with_quotes(line, '|');
 	while (split_line[++i] != NULL)
 	{
 		strip = replace_by_env_value(shell, shell->env, split_line[i]);
