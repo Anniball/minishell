@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:27:23 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:51:54 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ char	*my_strncpy(char *src, char *dst, int n);
 char	*my_strjoin(char *str, char *add);
 char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
-char	*get_env_value(char **env, char *var);
+char	*get_env_value(t_shell *shell, char **env, char *var);
+char	*ft_itoa(int n);
 
 /*
 ** ------------------PARSING-----------------------------

@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/04 11:33:37 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/04 11:48:48 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MAIN = main
 
 PIPE = pipe exec command n_pipe builtins
 
-UTIL = basics cmd_lst
+UTIL = basics cmd_lst str_lst env_utils str_utils
 
 PARSE = parsing parsing_print parsing_basic_utils parsing_split
 

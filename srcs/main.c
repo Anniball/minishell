@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 11:21:55 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:52:26 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char *create_shell_line(t_shell *shell, char **env)
 		line = my_strdup(RED "➜" BLU " minishell ( ");
 	else
 		line = my_strdup(GRN "➜" BLU " minishell ( " );
-	line = my_strjoin(line, get_env_value(env, "PWD"));
+	line = my_strjoin(line, get_env_value(shell, env, "PWD"));
 	line = my_strjoin(line, " ) > " RESET);
 	return (line);
 }

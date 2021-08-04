@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:26:26 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:51:40 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 }
 
-char	*get_env_value(char **env, char *var)
+char	*get_env_value(t_shell *shell, char **env, char *var)
 {
 	int	i;
 
 	i = -1;
+	if (var[0] == '?')
+		return (ft_itoa(shell->status));
 	while (env[++i])
 	{
 		if (my_strlen(var) < my_strlen(env[i]) && ft_strcmp(env[i], var) == 0
@@ -68,7 +70,7 @@ char	*get_env_value(char **env, char *var)
 	return (my_strdup(""));
 }
 
-char	*replace_by_env_value(char **env, char *str)
+char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 {
 	char	open_quote;
 	int		i;
@@ -95,7 +97,7 @@ char	*replace_by_env_value(char **env, char *str)
 			new_str = parse_join(new_str, ft_substr(str,
 						last_join, i - last_join));
 			env_var = strdup_until(&str[i + 1], " \"'");
-			new_str = parse_join(new_str, get_env_value(env, env_var));
+			new_str = parse_join(new_str, get_env_value(shell, env, env_var));
 			last_join = i + my_strlen(env_var) + 1;
 		}
 	}
@@ -158,7 +160,7 @@ int	parse_line(t_shell *shell, char *line)
 	split_line = parse_split(line, '|');
 	while (split_line[++i] != NULL)
 	{
-		strip = replace_by_env_value(shell->env, split_line[i]);
+		strip = replace_by_env_value(shell, shell->env, split_line[i]);
 		strip = my_strip(strip, ' ');
 		strip_list = parse_split_with_quotes(strip, ' ');
 		remove_close_quote_from_lst(strip_list);
