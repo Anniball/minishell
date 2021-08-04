@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:16:15 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/22 08:35:59 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:19:30 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	free_flags(t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmd->flags[++i] != NULL)
@@ -38,7 +38,7 @@ void	cmd_clear(t_cmd **lst)
 
 void	cmd_add_back(t_cmd **alst, t_cmd *new)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	if (!alst || !*alst)
 	{
@@ -53,16 +53,15 @@ void	cmd_add_back(t_cmd **alst, t_cmd *new)
 	tmp->next = new;
 }
 
-
 t_cmd	*cmd_new(char *cmd, char **flags)
 {
 	t_cmd	*new;
 
-	if (!(new = malloc(sizeof(t_cmd))))
+	new = malloc(sizeof(t_cmd));
+	if (!new)
 		return (NULL);
 	new->cmd = cmd;
 	new->flags = flags;
 	new->next = NULL;
 	return (new);
 }
-

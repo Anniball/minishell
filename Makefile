@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/02 14:29:20 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/04 11:33:37 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ PIPE = pipe exec command n_pipe builtins
 
 UTIL = basics cmd_lst
 
-PARSE = parsing parsing_print
+PARSE = parsing parsing_print parsing_basic_utils parsing_split
 
 REBUILT = pwd echo env cd export unset exit
 

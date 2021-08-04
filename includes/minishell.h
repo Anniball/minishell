@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/03 16:15:41 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:27:23 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ char	*get_env_value(char **env, char *var);
 
 char 	**parse_split(char *str, char c);
 int		parse_line(t_shell *shell, char *line);
+char	**parse_split(char *str, char c);
+char	**parse_split_with_quotes(char *str, char c);
+int		is_in_str(char *str, char c);
+char	*strdup_until(const char *str, char *c_lst);
+char	*strdup_until_c(const char *str, char c);
+char	*parse_join(char *s1, char *s2);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 /*
 ** ------------------LST---------------------------------
