@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 10:04:21 by tpetit            #+#    #+#             */
-/*   Updated: 2021/07/28 14:49:11 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 11:12:10 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		get_pwd(t_cmd *cmd)
+int	get_pwd(t_cmd *cmd)
 {
 	char	cwd[PATH_MAX];
 

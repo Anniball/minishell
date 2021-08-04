@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 10:39:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 15:51:46 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 11:17:36 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	 get_env(char **env, t_cmd *cmd)
+int	get_env(char **env, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	if (cmd->flags[1])
 	{

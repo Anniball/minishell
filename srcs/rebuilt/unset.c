@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:28:16 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/02 10:59:40 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 11:11:50 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	my_scmp(char *s1, char *s2)
 	return (s1[i - 1] - s2[i - 1]);
 }
 
-static char *charjoin(char *str, char c)
+static char	*charjoin(char *str, char c)
 {
 	char	*new;
 	size_t	len;
@@ -45,7 +45,7 @@ static char *charjoin(char *str, char c)
 	return (new);
 }
 
-static char **trunc_elem(char **tab, int pos)
+static char	**trunc_elem(char **tab, int pos)
 {
 	int		size;
 	int		new_pos;
@@ -119,7 +119,7 @@ int	get_unset(t_cmd *cmd, char ***env)
 // 	char *flags[] = {cmd.cmd, NULL, NULL};
 // 	cmd.flags = flags;
 // 	cmd.flags[1] = malloc(sizeof(char) * 200);
-	
+
 // 	cmd.flags[1] = my_strcpy("TEST0=coucou", cmd.flags[1]);
 // 	cmd.next = (void *)0;
 // 	get_export(&cmd, &new_env);
