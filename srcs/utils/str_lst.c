@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 10:47:46 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:49:10 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 16:05:51 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ t_lst	*lst_new(char *str)
 	new->str = str;
 	new->next = NULL;
 	return (new);
+}
+
+t_lst	*ft_lstlast(t_lst *lst)
+{
+	t_lst	*tmp;
+
+	tmp = lst;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }

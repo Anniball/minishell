@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:15:35 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 15:17:06 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 16:33:42 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	print_files(t_cmd *cmd)
 	printf("\nOutfile(s): ");
 	tmp = cmd->outfiles;
 	if (tmp == NULL)
-		printf("No outfiles\n");
+		printf("No outfiles");
 	while (tmp)
 	{
 		printf("%s", tmp->str);

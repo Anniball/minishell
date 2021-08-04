@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 15:38:26 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 16:05:58 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*ft_itoa(int n);
 t_lst	*lst_new(char *str);
 void	lst_add_back(t_lst **alst, t_lst *new);
 void	lst_clear(t_lst **lst);
+t_lst	*ft_lstlast(t_lst *lst);
 
 /*
 ** ------------------PARSING-----------------------------

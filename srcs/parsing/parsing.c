@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 15:33:00 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/04 17:08:46 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** my_strip remove char c from start and end of str.
-** This function does not free str.
+** This function free str.
 */
 
 char	*my_strip(char *str, char c)
@@ -35,6 +35,7 @@ char	*my_strip(char *str, char c)
 		end = len - 1 - i;
 	str[end] = 0;
 	ret = my_strdup(&str[start]);
+	free(str);
 	return (ret);
 }
 
@@ -103,6 +104,7 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	}
 	if (last_join != i)
 		new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
+	free(str);
 	return (new_str);
 }
 
@@ -236,6 +238,7 @@ int	parse_line(t_shell *shell, char *line)
 		cmd_add_back(&shell->start_cmd, new);
 		free(strip);
 		free(split_line[i]);
+		split_line[i] = NULL;
 	}
 	free(split_line);
 	return (0);

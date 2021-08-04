@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 15:01:30 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/04 16:52:57 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,21 @@ static char *create_shell_line(t_shell *shell, char **env)
 {
 	const int	status = shell->status;
 	char		*line;
+	char		*old_line;
+	char		*pwd;
 
 	if (status)
 		line = my_strdup(RED "➜" BLU " minishell ( ");
 	else
 		line = my_strdup(GRN "➜" BLU " minishell ( " );
-	line = my_strjoin(line, get_env_value(shell, env, "PWD"));
+	pwd = get_env_value(shell, env, "PWD");
+	old_line = line;
+	line = my_strjoin(line, pwd);
+	free(old_line);
+	free(pwd);
+	old_line = line;
 	line = my_strjoin(line, " ) > " RESET);
+	free(old_line);
 	return (line);
 }
 
@@ -103,8 +111,10 @@ int main(int argc, char** argv, char **envp)
 			continue;
 		add_history(input);
 		parse_line(shell, input);
+		free(input);
 		print_cmd(shell);
 		n_piper(shell, NULL, NULL);
+		system("leaks minishell");
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);
