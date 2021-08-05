@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 16:05:58 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 14:43:17 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_lst
 {
 	char			*str;
 	struct s_lst	*next;
+	int				flag;
 }				t_lst;
 
 typedef struct s_cmd

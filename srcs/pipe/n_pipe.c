@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 10:21:07 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/05 14:14:47 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	wait_pid_set_value(t_shell *shell, int pid)
 
 	waitpid(pid, &status, WUNTRACED | WCONTINUED);
 	if (shell)
-		shell->status = status;
+		shell->status = status / 256;
 }
 
 static void	parent_pipe(int *fds, t_cmd *pip, char ***env, char *outfile)

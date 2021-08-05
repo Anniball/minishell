@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 10:47:46 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 16:05:51 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 14:43:37 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_lst	*lst_new(char *str)
 	if (!new)
 		return (NULL);
 	new->str = str;
+	new->flag = 0;
 	new->next = NULL;
 	return (new);
 }
