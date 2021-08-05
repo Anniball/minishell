@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 15:00:43 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 15:08:27 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ char	*get_next_word(char *str, int *index)
 		}
 	}
 	next_word[len] = 0;
-	printf("Next word: |%s|\n", next_word);
 	return (next_word);
 }
 
@@ -201,7 +200,6 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 		new_file = lst_new(NULL);
 		if (!quote && cmd[i] == '>')
 		{
-			//printf("Current char %c -> %c %d\n", cmd[i], cmd[i + 1], i);
 			if (cmd[i + 1] == '>')
 				new_file->flag = 1;
 			new_file->str = get_next_word(&cmd[i + 1], &i);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
+#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/04 15:15:46 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/05 15:07:18 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,7 @@ SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 OBJ = ${SRC:c=o}
 
 %.o: %.c
-	@echo "Compiling binaries..."
-	@${CC} ${CFLAGS} ${RFLAGS} -c $< -o $@
-	@echo "Binary files created."
+	@${CC} ${CFLAGS} ${RFLAGS} -c $< -o $@ 
 	
 all : ${NAME}
 
