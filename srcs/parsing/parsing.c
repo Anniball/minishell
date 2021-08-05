@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 17:08:46 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 14:02:24 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 			env_var = strdup_until(&str[i + 1], " \"'");
 			new_str = parse_join(new_str, get_env_value(shell, env, env_var));
 			last_join = i + my_strlen(env_var) + 1;
+			free(env_var);
 		}
 	}
 	if (last_join != i)
