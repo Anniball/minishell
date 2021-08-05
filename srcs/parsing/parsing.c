@@ -6,70 +6,11 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 15:08:27 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 16:19:26 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-** my_strip remove char c from start and end of str.
-** This function free str.
-*/
-
-char	*my_strip(char *str, char c)
-{
-	int			i;
-	int			start;
-	int			end;
-	const int	len = my_strlen(str);
-	char		*ret;
-
-	i = -1;
-	start = 0;
-	end = len;
-	while (str[++i] && str[i] == c)
-		start = i + 1;
-	i = -1;
-	while (++i < len && str[len - 1 - i] == c)
-		end = len - 1 - i;
-	str[end] = 0;
-	ret = my_strdup(&str[start]);
-	free(str);
-	return (ret);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	while (1)
-	{
-		if (!*s1 || !*s2)
-			return (0);
-		if (*s1 == *s2)
-		{
-			s1++;
-			s2++;
-		}
-		else
-			return ((int)((unsigned char)(*s1) - (unsigned char)(*s2)));
-	}
-}
-
-char	*get_env_value(t_shell *shell, char **env, char *var)
-{
-	int	i;
-
-	i = -1;
-	if (var[0] == '?')
-		return (ft_itoa(shell->status));
-	while (env[++i])
-	{
-		if (my_strlen(var) < my_strlen(env[i]) && ft_strcmp(env[i], var) == 0
-			&& env[i][my_strlen(var)] == '=')
-			return (my_strdup(&env[i][my_strlen(var) + 1]));
-	}
-	return (my_strdup(""));
-}
 
 char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 {
@@ -85,15 +26,8 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	open_quote = 0;
 	while (str[++i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
-		{
-			if (open_quote == str[i])
-				open_quote = 0;
-			else if (open_quote == 0 && is_in_str(&str[i] + 1, str[i]))
-				open_quote = str[i];
-		}
-		if (str[i] == '$' && str[i + 1] && !(open_quote == '\''
-				&& is_in_str(&str[i], '\'')))
+		set_quote(str, i, &open_quote);
+		if (str[i] == '$' && str[i + 1] && !(open_quote == '\''))
 		{
 			new_str = parse_join(new_str, ft_substr(str,
 						last_join, i - last_join));
@@ -109,50 +43,10 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	return (new_str);
 }
 
-char	*remove_close_quote(char *str)
-{
-	char	open_quote;
-	int		i;
-	int		j;
-	char	*new_str;
-	int		last_open;
-
-	i = -1;
-	j = 0;
-	open_quote = 0;
-	last_open = -1;
-	new_str = malloc(sizeof(char) * (my_strlen(str) + 1));
-	while (str[++i])
-	{
-		if ((str[i] == '"' || str[i] == '\'') && open_quote == 0
-			&& is_in_str(&str[i + 1], str[i]))
-			open_quote = str[i];
-		else if ((str[i] == '"' || str[i] == '\'') && open_quote == str[i])
-			open_quote = 0;
-		else
-		{
-			new_str[j] = str[i];
-			j++;
-		}
-	}
-	new_str[j] = 0;
-	free(str);
-	return (new_str);
-}
-
-void	remove_close_quote_from_lst(char **lst)
-{
-	int	i;
-
-	i = -1;
-	while (lst[++i])
-		lst[i] = remove_close_quote(lst[i]);
-}
-
 char	*get_next_word(char *str, int *index)
 {
-	int i;
-	int	len;
+	int		i;
+	int		len;
 	char	*next_word;
 
 	i = -1;
@@ -160,7 +54,7 @@ char	*get_next_word(char *str, int *index)
 	while (str[++i])
 	{
 		if (is_in_str(" ><", str[i]) && len != 0)
-			break;
+			break ;
 		else if (!is_in_str(" ><", str[i]))
 			len++;
 	}
@@ -171,7 +65,7 @@ char	*get_next_word(char *str, int *index)
 	while (str[++i])
 	{
 		if (is_in_str(" ><", str[i]) && len != 0)
-			break;
+			break ;
 		else if (!is_in_str(" ><", str[i]))
 		{
 			next_word[len] = str[i];

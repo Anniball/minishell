@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 14:43:17 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 16:09:44 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ t_lst	*lst_new(char *str);
 void	lst_add_back(t_lst **alst, t_lst *new);
 void	lst_clear(t_lst **lst);
 t_lst	*ft_lstlast(t_lst *lst);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*get_env_value(t_shell *shell, char **env, char *var);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*strdup_until(const char *str, char *c_lst);
+char	*strdup_until_c(const char *str, char c);
+char	*my_strip(char *str, char c);
+void	remove_close_quote_from_lst(char **lst);
 
 /*
 ** ------------------PARSING-----------------------------
@@ -86,13 +93,9 @@ t_lst	*ft_lstlast(t_lst *lst);
 
 char 	**parse_split(char *str, char c);
 int		parse_line(t_shell *shell, char *line);
-char	**parse_split(char *str, char c);
 char	**parse_split_with_quotes(char *str, char c);
 int		is_in_str(char *str, char c);
-char	*strdup_until(const char *str, char *c_lst);
-char	*strdup_until_c(const char *str, char c);
 char	*parse_join(char *s1, char *s2);
-char	*ft_substr(char *s, unsigned int start, size_t len);
 
 /*
 **	set quote set value quote if text is inside of quote

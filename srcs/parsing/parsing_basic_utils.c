@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:22:46 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 12:18:27 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 16:15:10 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,35 +85,4 @@ char	*parse_join(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (conc_str);
-}
-
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	int		i;
-	size_t	str_len;
-	char	*str;
-
-	if (!s)
-		return (0);
-	if (start > my_strlen(s))
-	{
-		str = malloc(sizeof(char));
-		if (!str)
-			return (NULL);
-		str[0] = 0;
-	}
-	else
-	{
-		i = -1;
-		str_len = my_strlen(s) - start;
-		if (len < my_strlen(s) - start)
-			str_len = len;
-		str = malloc(sizeof(char) * (str_len + 1));
-		if (!str)
-			return (NULL);
-		while (s[++i] && i < (int)len)
-			str[i] = s[start + i];
-		str[str_len] = 0;
-	}
-	return (str);
 }

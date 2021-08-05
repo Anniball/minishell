@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 19:15:35 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 14:48:34 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/05 15:57:50 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_files(t_cmd *cmd)
 {
-	t_lst *tmp;
+	t_lst	*tmp;
 
 	printf("Infile(s): ");
 	tmp = cmd->infiles;

@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/05 15:07:18 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/05 16:09:56 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ MAIN = main
 
 PIPE = pipe exec command n_pipe builtins
 
-UTIL = basics cmd_lst str_lst env_utils str_utils
+UTIL = basics cmd_lst str_lst env_utils str_utils basics2
 
-PARSE = parsing parsing_print parsing_basic_utils parsing_split
+PARSE = parsing parsing_print parsing_basic_utils parsing_split parsing_utils
 
 REBUILT = pwd echo env cd export unset exit
 
@@ -45,13 +45,15 @@ SRC =	${addsuffix .c, ${addprefix srcs/, ${MAIN}}} \
 
 OBJ = ${SRC:c=o}
 
+START = 0
+
 %.o: %.c
 	@${CC} ${CFLAGS} ${RFLAGS} -c $< -o $@ 
 	
 all : ${NAME}
 
 ${NAME}: ${OBJ}
-	@echo "\nMinishell is compiling..."
+	@echo "Minishell is compiling..."
 	@${CC} ${CFLAGS} ${RFLAGS} -o ${NAME} ${OBJ} -lreadline
 	@echo "Minishell is ready!"
 
