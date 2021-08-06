@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:09:44 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/06 15:38:39 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int		parse_line(t_shell *shell, char *line);
 char	**parse_split_with_quotes(char *str, char c);
 int		is_in_str(char *str, char c);
 char	*parse_join(char *s1, char *s2);
+int		check_line(t_shell *shell, char *line);
 
 /*
 **	set quote set value quote if text is inside of quote

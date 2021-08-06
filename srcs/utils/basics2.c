@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:05:03 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:19:00 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:58:20 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*my_strip(char *str, char c)
 	const int	len = my_strlen(str);
 	char		*ret;
 
+	if (!str || !str[0])
+		return (str);
 	i = -1;
 	start = 0;
 	end = len;
