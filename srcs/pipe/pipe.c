@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:23:38 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/06 15:39:23 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,13 @@ int	piper(t_cmd pip, char ***env, char *infile, char *outfile)
 {
 	int	pid;
 	int	fds[2];
+	int	infile;
+	int	outfile;
 
 	if (pipe(fds) == -1)
 		return (-1);
+	infile = concat_infiles(pip, fds[0]);
+	outfile = multi_outfiles(pip, new_fds[1]);
 	pid = fork();
 	if (pid == -1)
 		return (-1);

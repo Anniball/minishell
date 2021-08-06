@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
+#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/05 16:09:56 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/06 15:49:26 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ HEADER = minishell.h
 
 MAIN = main
 
-PIPE = pipe exec command n_pipe builtins
+PIPE = exec command n_pipe builtins multifiles
 
 UTIL = basics cmd_lst str_lst env_utils str_utils basics2
 

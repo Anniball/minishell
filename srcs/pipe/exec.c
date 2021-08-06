@@ -6,35 +6,27 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/03 15:23:44 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/06 17:06:19 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	my_exec(t_cmd pip, char ***env, char *infile, char *outfile)
+int	my_exec(t_cmd pip, char ***env, int infile, int outfile)
 {
-	int	in;
-	int	out;
 	int	ret;
 
 	if (infile)
-	{
-		in = open(infile, O_RDONLY);
-		if (in == -1 || dup2(in, STDIN_FILENO) < 0)
+		if (infile == -1 || dup2(infile, STDIN_FILENO) < 0)
 			return (-1);
-	}
 	if (outfile)
-	{
-		out = open(outfile, O_RDWR | O_CREAT | O_TRUNC);
-		if (out == -1 || dup2(out, STDOUT_FILENO) < 0)
+		if (outfile == -1 || dup2(outfile, STDOUT_FILENO) < 0)
 			return (-1);
-	}
 	my_command(pip, pip.cmd, pip.flags, env);
 	if (infile)
-		close (in);
+		close (infile);
 	if (outfile)
-		close (out);
+		close (outfile);
 	return (0);
 }
 

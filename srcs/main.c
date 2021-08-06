@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/05 14:15:22 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:01:41 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int main(int argc, char** argv, char **envp)
 		parse_line(shell, input);
 		free(input);
 		print_cmd(shell);
-		n_piper(shell, NULL, NULL);
+		n_piper(shell);
 		//system("leaks minishell");
 	}
 	clear_history();

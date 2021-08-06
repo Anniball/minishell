@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:09:44 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/06 15:50:52 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_shell
 	char	**env;
 	int		status;
 }				t_shell;
+
+#define BUFFER_SIZE 2048
 
 /*
 ** ------------------UTILS------------------------------
@@ -160,7 +162,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env);
 **	/!\ Some command needs an explicit outfile or infile and will crash if they
 **	don't. Example : grep need an infile since it can't just read STDIN_FILENO.
 */
-int		my_exec(t_cmd pip, char ***env, char *infile, char *outfile);
+int		my_exec(t_cmd pip, char ***env, int infile, int outfile);
 
 /*
 **	Work with only one pipe.
@@ -168,17 +170,20 @@ int		my_exec(t_cmd pip, char ***env, char *infile, char *outfile);
 **	/!\ Will crash if there is less than 2 commands in the chained list!
 **	Use my_command, my_exec  or n_piper instead!
 */
-int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
+// int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
 
 /*
 **	Work with n pipes.
 **	Same behaviour for infile and outfile than in my_exec.
 */
-int		n_piper(t_shell *shell, char *infile, char *outfile);
+int		n_piper(t_shell *shell);
 
 int		get_exit(t_cmd *cmd, char **env);
 int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
+int		multi_outfiles(t_cmd *cmd, int out);
+int		multi_infiles(t_cmd *cmd);
+int		concat_infiles(t_cmd *cmd, int old_infile);
 
 /*
 ** ------------------SIGNALS------------------------------
