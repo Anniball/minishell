@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/06 15:38:39 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/08 17:19:51 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ typedef struct s_shell
 	char	**env;
 	int		status;
 }				t_shell;
+
+typedef struct s_parse_free
+{
+	char	**split_list;
+	char	**strip_list;
+	char	*strip;
+	char	quote;
+}				t_parse_free;
 
 /*
 ** ------------------UTILS------------------------------

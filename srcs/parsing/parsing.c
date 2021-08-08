@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/06 16:58:39 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/08 17:34:55 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,33 +113,42 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 	return (new_cmd);
 }
 
+static	int	init_parse_free(t_parse_free **parse_free)
+{
+	*parse_free = malloc(sizeof(t_parse_free));
+	(*parse_free)->quote = 0;
+	(*parse_free)->split_list = NULL;
+	(*parse_free)->strip_list = NULL;
+	(*parse_free)->strip = NULL;
+	return (0);
+}
+
 int	parse_line(t_shell *shell, char *line)
 {
-	char	**split_line;
-	char	*strip;
-	char	**strip_list;
+	t_parse_free *p;
 	int		i;
 	t_cmd	*new;
 
 	i = -1;
+	init_parse_free(&p);
 	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
-	split_line = parse_split_with_quotes(line, '|');
-	while (split_line[++i] != NULL)
+	p->split_list = parse_split_with_quotes(line, '|');
+	while (p->split_list[++i] != NULL)
 	{
 		new = cmd_new(NULL, NULL);
-		strip = get_input_output(new, split_line[i]);
-		strip = replace_by_env_value(shell, shell->env, strip);
-		strip = my_strip(strip, ' ');
-		strip_list = parse_split_with_quotes(strip, ' ');
-		remove_close_quote_from_lst(strip_list);
-		new->cmd = strip_list[0];
-		new->flags = strip_list;
+		p->strip = get_input_output(new, p->split_list[i]);
+		p->strip = replace_by_env_value(shell, shell->env, p->strip);
+		p->strip = my_strip(p->strip, ' ');
+		p->strip_list = parse_split_with_quotes(p->strip, ' ');
+		remove_close_quote_from_lst(p->strip_list);
+		new->cmd = p->strip_list[0];
+		new->flags = p->strip_list;
 		cmd_add_back(&shell->start_cmd, new);
-		free(strip);
-		free(split_line[i]);
-		split_line[i] = NULL;
+		free(p->strip);
+		free(p->split_list[i]);
+		p->split_list[i] = NULL;
 	}
-	free(split_line);
+	free(p->split_list);
 	return (0);
 }

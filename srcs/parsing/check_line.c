@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:37:58 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/06 16:47:23 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/08 17:08:20 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	return_check(t_shell *shell)
 
 static int	is_next_in(char *str, char *set)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (str[++i])
@@ -41,8 +41,8 @@ static int	is_next_in(char *str, char *set)
 
 int	check_line(t_shell *shell, char *line)
 {
-	int i;
-	char quote;
+	int		i;
+	char	quote;
 
 	i = -1;
 	quote = 0;
@@ -51,9 +51,12 @@ int	check_line(t_shell *shell, char *line)
 		set_quote(line, i, &quote);
 		if (quote)
 			continue ;
-		if (line[i] == '|' && is_next_in(&line[i+1], "|"))
+		if (line[i] == '|' && is_next_in(&line[i + 1], "|"))
 			return (return_check(shell));
-		if (line[i] == '>' && is_next_in(&line[i+1], "<"))
+		if (line[i] == '>' && is_next_in(&line[i + 1], "<"))
+			return (return_check(shell));
+		if (line[i + 1] && line [i + 2] && is_in_str("<>", line[i])
+			&& is_next_in(&line[i + 1], "<>") && is_next_in(&line[i + 2], "<>"))
 			return (return_check(shell));
 	}
 	return (0);
