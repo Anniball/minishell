@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 17:25:58 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 17:28:22 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,6 @@ int main(int argc, char** argv, char **envp)
 			n_piper(shell);
 		}
 		free(input);
-		print_cmd(shell);
-		n_piper(shell);
-		//system("leaks minishell");
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);
