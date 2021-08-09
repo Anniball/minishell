@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/06 15:50:52 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 15:45:49 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int		get_cd(t_cmd *cmd, char ***env);
 */
 int		get_export(t_cmd *cmd, char ***env);
 int		get_unset(t_cmd *cmd, char ***env);
+int		get_exit(t_cmd *cmd, char **env);
 
 /*
 ** ------------------DEBUG-------------------------------
@@ -178,12 +179,10 @@ int		my_exec(t_cmd pip, char ***env, int infile, int outfile);
 */
 int		n_piper(t_shell *shell);
 
-int		get_exit(t_cmd *cmd, char **env);
 int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
 int		multi_outfiles(t_cmd *cmd, int out);
-int		multi_infiles(t_cmd *cmd);
-int		concat_infiles(t_cmd *cmd, int old_infile);
+int		multi_infiles(t_cmd *cmd, int in);
 
 /*
 ** ------------------SIGNALS------------------------------

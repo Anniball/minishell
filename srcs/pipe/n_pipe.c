@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/06 17:00:54 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 15:49:22 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,22 @@ static void	wait_pid_set_value(t_shell *shell, int pid)
 
 static void	parent_pipe(int *fds, t_cmd *pip, char ***env)
 {
-	int		infile;
-	int		outfile;
+	int		files[2];
 
 	wait(0);
 	close(fds[1]);
-	infile = concat_infiles(pip, fds[0]);
-	outfile = multi_outfiles(pip, -1);
-	if (outfile < 0 || infile < 0 || dup2(infile, STDIN_FILENO))
+	files[0] = multi_infiles(pip, fds[0]);
+	files[1] = multi_outfiles(pip, STDOUT_FILENO);
+	if (files[0] < 0 || files[1] < 0 || dup2(files[0], STDIN_FILENO) < 0)
 		return ;
-	close(infile);
-	if (outfile)
-	{
-		if (outfile == -1)
+	if (files[0] != fds[0])
+		close(files[0]);
+	close(fds[0]);
+	if (files[1] != STDOUT_FILENO && dup2(files[1], STDOUT_FILENO) < 0)
 			return ;
-		if (dup2(outfile, STDOUT_FILENO) < 0)
-			return ;
-	}
+	if (files[1] != STDOUT_FILENO)
+		close(files[1]);
 	my_command(*pip, pip->cmd, pip->flags, env);
-	if (outfile)
-		close(outfile);
 	exit(EXIT_SUCCESS);
 }
 
@@ -50,28 +46,30 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 {
 	int	pid;
 	int	new_fds[2];
-	int	infile;
-	int	outfile;
+	int	files[2];
 
 	wait(0);
 	close(fds[1]);
 	if (pipe(new_fds) == -1)
 		return ;
-	infile = concat_infiles(pip, fds[0]);
-	outfile = multi_outfiles(pip, fds[1]);
-	if (infile < 0 || outfile < 0)
+	files[0] = multi_infiles(pip, fds[0]); //by default the infile is the previous pipe
+	files[1] = multi_outfiles(pip, new_fds[1]); //by default the outfile is the pipe
+	if (files[0] < 0 || files[1] < 0)
 		return ;
 	pid = fork();
 	if (pid == -1)
 		return ;
 	else if (!pid)
 	{
-		if (dup2(infile, STDIN_FILENO) < 0)
+		close(new_fds[0]);
+		if (dup2(files[0], STDIN_FILENO) < 0 || dup2(files[1], STDOUT_FILENO) < 0)
 			return ;
-		close(infile);
-		if (dup2(outfile, STDOUT_FILENO) < 0)
-			return ;
-		close(outfile);
+		if (fds[0] != files[0])
+			close(files[0]);
+		close(fds[0]);
+		if (files[1] != new_fds[1])
+			close(files[1]);
+		close(new_fds[1]);
 		my_command(*pip, pip->cmd, pip->flags, env);
 	}
 	else if (!pip->next->next)
@@ -81,38 +79,35 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 	exit(EXIT_SUCCESS);
 }
 
-static void	child_pipe(int *fds, t_cmd *pip, char ***env, int infile)
+static void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 {
 	int		in;
 
 	close(fds[0]);
-	if (dup2(fds[1], STDOUT_FILENO) < 0)
-		return ;
-	close(fds[1]);
-	if (infile)
-		if (infile == -1 || dup2(infile, STDIN_FILENO) < 0)
+	if (files[1] == STDOUT_FILENO)
+	{
+		if (dup2(fds[1], STDOUT_FILENO) < 0)
 			return ;
+	}
+	else if (dup2(files[1], STDOUT_FILENO) < 0)
+			return ;
+	close(fds[1]);
+	if (files[1 != STDOUT_FILENO])
+		close(files[1]);
+	if (files[0] != STDIN_FILENO)
+	{
+		if (dup2(files[0], STDIN_FILENO) < 0)
+			return ;
+		close(files[0]);
+	}
 	my_command(*pip, pip->cmd, pip->flags, env);
-	if (infile)
-		close(infile);
 	exit(EXIT_SUCCESS);
 }
 
-static int	my_builtins(t_cmd *pip, char ***env)
+static int	my_builtins(t_cmd *pip, char ***env, int infile, int outfile)
 {
-	int	infile;
-	int	outfile;
-
 	if (!check_builtins(pip->cmd) || pip->next)
 		return (1);
-	if (!pip->infiles)
-		infile = 0;
-	else
-		infile = multi_infiles(pip);
-	if (pip->outfiles)
-		outfile = multi_outfiles(pip, -1);
-	else
-		outfile = 0;
 	if (infile < 0 || outfile < 0)
 		return (-1);
 	return (my_exec(*pip, env, infile, outfile));
@@ -123,37 +118,32 @@ int	n_piper(t_shell *shell)
 	int		pid;
 	int		fds[2];
 	t_cmd	*cmd;
-	int		infile;
-	int		outfile;
+	int		files[2];
 
 	cmd = shell->start_cmd;
 	if (!cmd)
 		return (-1);
-	pid = my_builtins(cmd, &shell->env);
+	files[0] = multi_infiles(cmd, STDIN_FILENO);
+	files[1] = multi_outfiles(cmd, STDOUT_FILENO);
+	if (files[0] < 0 || files[1] < 0)
+		return (-1);
+	pid = my_builtins(cmd, &shell->env, files[0], files[1]);
 	if (pid != 1)
 		return (pid);
 	pid = fork();
 	if (!pid)
 	{
 		if (!cmd->next)
-		{
-			infile = multi_infiles(cmd);
-			outfile = multi_outfiles(cmd, -1);
-			my_exec(*cmd, &shell->env, infile, outfile);
-		}
+			my_exec(*cmd, &shell->env, files[0], files[1]);
 		else
 		{
-			infile = multi_infiles(cmd);
-			outfile = multi_outfiles(cmd, fds[1]);
 			if (pipe(fds) == -1)
-				return (-1);
-			if (infile < 0 || outfile < 0)
 				return (-1);
 			pid = fork();
 			if (pid == -1)
 				return (-1);
 			if (!pid)
-				child_pipe(fds, cmd, &shell->env, infile);
+				child_pipe(fds, cmd, &shell->env, files);
 			else
 				brother_pipe(fds, cmd->next, &shell->env);
 		}
