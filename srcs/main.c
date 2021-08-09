@@ -5,14 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/09 11:14:57 by tpetit           ###   ########.fr       */
-=======
-/*   Updated: 2021/08/06 16:01:41 by ldelmas          ###   ########.fr       */
->>>>>>> multifiles_test
+/*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
+/*   Updated: 2021/08/09 17:25:58 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -118,16 +115,12 @@ int main(int argc, char** argv, char **envp)
 		{
 			parse_line(shell, input);
 			print_cmd(shell);
-			n_piper(shell, NULL, NULL);
+			n_piper(shell);
 		}
 		free(input);
-<<<<<<< HEAD
-		system("leaks minishell");
-=======
 		print_cmd(shell);
 		n_piper(shell);
 		//system("leaks minishell");
->>>>>>> multifiles_test
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);

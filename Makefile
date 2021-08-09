@@ -5,14 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/19 15:53:42 by ldelmas           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/08/06 15:38:45 by tpetit           ###   ########.fr        #
-=======
-#    Updated: 2021/08/06 15:49:26 by ldelmas          ###   ########.fr        #
->>>>>>> multifiles_test
+#    Created: 2021/08/09 17:24:40 by ldelmas           #+#    #+#              #
+#    Updated: 2021/08/09 17:24:42 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 

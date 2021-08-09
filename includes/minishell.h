@@ -5,14 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/08 17:19:51 by tpetit           ###   ########.fr       */
-=======
-/*   Updated: 2021/08/09 15:45:49 by ldelmas          ###   ########.fr       */
->>>>>>> multifiles_test
+/*   Created: 2021/08/09 17:25:27 by ldelmas           #+#    #+#             */
+/*   Updated: 2021/08/09 17:25:28 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -67,7 +64,6 @@ typedef struct s_shell
 	int		status;
 }				t_shell;
 
-<<<<<<< HEAD
 typedef struct s_parse_free
 {
 	char	**split_list;
@@ -75,9 +71,7 @@ typedef struct s_parse_free
 	char	*strip;
 	char	quote;
 }				t_parse_free;
-=======
 #define BUFFER_SIZE 2048
->>>>>>> multifiles_test
 
 /*
 ** ------------------UTILS------------------------------
