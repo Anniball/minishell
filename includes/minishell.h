@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 13:41:49 by tpetit            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/08 17:19:51 by tpetit           ###   ########.fr       */
+=======
+/*   Updated: 2021/08/09 15:45:49 by ldelmas          ###   ########.fr       */
+>>>>>>> multifiles_test
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,7 @@ typedef struct s_shell
 	int		status;
 }				t_shell;
 
+<<<<<<< HEAD
 typedef struct s_parse_free
 {
 	char	**split_list;
@@ -70,6 +75,9 @@ typedef struct s_parse_free
 	char	*strip;
 	char	quote;
 }				t_parse_free;
+=======
+#define BUFFER_SIZE 2048
+>>>>>>> multifiles_test
 
 /*
 ** ------------------UTILS------------------------------
@@ -145,6 +153,7 @@ int		get_cd(t_cmd *cmd, char ***env);
 */
 int		get_export(t_cmd *cmd, char ***env);
 int		get_unset(t_cmd *cmd, char ***env);
+int		get_exit(t_cmd *cmd, char **env);
 
 /*
 ** ------------------DEBUG-------------------------------
@@ -169,7 +178,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env);
 **	/!\ Some command needs an explicit outfile or infile and will crash if they
 **	don't. Example : grep need an infile since it can't just read STDIN_FILENO.
 */
-int		my_exec(t_cmd pip, char ***env, char *infile, char *outfile);
+int		my_exec(t_cmd pip, char ***env, int infile, int outfile);
 
 /*
 **	Work with only one pipe.
@@ -177,17 +186,18 @@ int		my_exec(t_cmd pip, char ***env, char *infile, char *outfile);
 **	/!\ Will crash if there is less than 2 commands in the chained list!
 **	Use my_command, my_exec  or n_piper instead!
 */
-int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
+// int		piper(t_cmd pip, char ***env, char *infile, char *outfile);
 
 /*
 **	Work with n pipes.
 **	Same behaviour for infile and outfile than in my_exec.
 */
-int		n_piper(t_shell *shell, char *infile, char *outfile);
+int		n_piper(t_shell *shell);
 
-int		get_exit(t_cmd *cmd, char **env);
 int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
+int		multi_outfiles(t_cmd *cmd, int out);
+int		multi_infiles(t_cmd *cmd, int in);
 
 /*
 ** ------------------SIGNALS------------------------------

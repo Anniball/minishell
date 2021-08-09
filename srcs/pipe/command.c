@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 10:44:00 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 16:03:35 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,6 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 	}
 	free(full_cmd);
 	free_tab(paths);
+	if (ret < 0)
+		write(STDERR_FILENO, "Command not found.\n", 19);
 }

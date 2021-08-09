@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 11:21:49 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 13:28:04 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 16:19:22 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ static char *get_str(char **env, char *str)
 
 static char **change_pwd(char **env)
 {
-    char    tmp[PATH_MAX];
+    char    *tmp;
     char    *tmp_new;
     char    *tmp_old;
     int     i;
     int     j;
 
+    tmp = malloc(sizeof(*tmp) * PATH_MAX);
+    if (!tmp)
+        return ((void *)0);
     i = 0;
     while (env[i] && my_scmp(env[i], "OLDPWD="))
         i++;
@@ -57,10 +60,12 @@ static char **change_pwd(char **env)
     {
         free(tmp_new);
         free(tmp_old);
+        free(tmp);
         return (env);
     }
     free(env[j]);
     free(env[i]);
+    free(tmp);
     env[j] = tmp_new;
     env[i] = tmp_old;
     return (env);

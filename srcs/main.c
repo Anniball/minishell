@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/09 11:14:57 by tpetit           ###   ########.fr       */
+=======
+/*   Updated: 2021/08/06 16:01:41 by ldelmas          ###   ########.fr       */
+>>>>>>> multifiles_test
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +121,13 @@ int main(int argc, char** argv, char **envp)
 			n_piper(shell, NULL, NULL);
 		}
 		free(input);
+<<<<<<< HEAD
 		system("leaks minishell");
+=======
+		print_cmd(shell);
+		n_piper(shell);
+		//system("leaks minishell");
+>>>>>>> multifiles_test
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);
