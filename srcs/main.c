@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:52:54 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/06 16:58:59 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:14:57 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int main(int argc, char** argv, char **envp)
 	init_shell(shell, envp);
 	i = -1;
 	receive_signal();
-	printf("%d\n", getpid());
 	while (++i < 10)
 	{
 		line = create_shell_line(shell, shell->env);
@@ -118,7 +117,7 @@ int main(int argc, char** argv, char **envp)
 			n_piper(shell, NULL, NULL);
 		}
 		free(input);
-		//system("leaks minishell");
+		system("leaks minishell");
 	}
 	clear_history();
 	cmd_clear(&shell->start_cmd);

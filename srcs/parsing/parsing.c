@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/08 17:34:55 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:14:37 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 	while (cmd[++i])
 	{
 		set_quote(cmd, i, &quote);
-		new_file = lst_new(NULL);
 		if (!quote && cmd[i] == '>')
 		{
+			new_file = lst_new(NULL);
 			if (cmd[i + 1] == '>')
 				new_file->flag = 1;
 			new_file->str = get_next_word(&cmd[i + 1], &i);
@@ -101,6 +101,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 		}
 		else if (!quote && cmd[i] == '<')
 		{
+			new_file = lst_new(NULL);
 			if (cmd[i + 1] == '<')
 				new_file->flag = 1;
 			new_file->str = get_next_word(&cmd[i + 1], &i);
@@ -150,5 +151,6 @@ int	parse_line(t_shell *shell, char *line)
 		p->split_list[i] = NULL;
 	}
 	free(p->split_list);
+	free(p);
 	return (0);
 }
