@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 15:49:22 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/09 16:46:11 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,14 @@ static void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 
 static int	my_builtins(t_cmd *pip, char ***env, int infile, int outfile)
 {
+	int ret;
+
 	if (!check_builtins(pip->cmd) || pip->next)
 		return (1);
 	if (infile < 0 || outfile < 0)
 		return (-1);
-	return (my_exec(*pip, env, infile, outfile));
+	ret = my_exec(*pip, env, infile, outfile);
+	return (ret);
 }
 
 int	n_piper(t_shell *shell)
