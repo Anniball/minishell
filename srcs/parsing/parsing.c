@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/10 12:37:25 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/10 17:24:53 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	}
 	if (last_join != i)
 		new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
-	free(str);
 	return (new_str);
 }
 
@@ -123,6 +122,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 			new_cmd[j] = cmd[i];
 	}
 	new_cmd[j + 1] = 0;
+	free(cmd);
 	return (new_cmd);
 }
 
@@ -150,8 +150,8 @@ int	parse_line(t_shell *shell, char *line)
 	while (p->split_list[++i] != NULL)
 	{
 		new = cmd_new(NULL, NULL);
-		p->strip = get_input_output(new, p->split_list[i]);
-		p->strip = replace_by_env_value(shell, shell->env, p->strip);
+		p->strip = replace_by_env_value(shell, shell->env, p->split_list[i]);
+		p->strip = get_input_output(new, p->strip);
 		p->strip = my_strip(p->strip, ' ');
 		p->strip_list = parse_split_with_quotes(p->strip, ' ');
 		remove_close_quote_from_lst(p->strip_list);
