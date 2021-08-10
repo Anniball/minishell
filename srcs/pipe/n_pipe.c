@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 10:10:07 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 14:55:28 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	wait_pid_set_value(t_shell *shell, int pid)
 {
-	int status;
+	int	status;
 
 	waitpid(pid, &status, WUNTRACED | WCONTINUED);
 	if (shell)
@@ -35,7 +35,7 @@ static void	parent_pipe(int *fds, t_cmd *pip, char ***env)
 		close(files[0]);
 	close(fds[0]);
 	if (files[1] != STDOUT_FILENO && dup2(files[1], STDOUT_FILENO) < 0)
-			return ;
+		return ;
 	if (files[1] != STDOUT_FILENO)
 		close(files[1]);
 	my_command(*pip, pip->cmd, pip->flags, env);
@@ -52,8 +52,8 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 	close(fds[1]);
 	if (pipe(new_fds) == -1)
 		return ;
-	files[0] = multi_infiles(pip, fds[0]); //by default the infile is the previous pipe
-	files[1] = multi_outfiles(pip, new_fds[1]); //by default the outfile is the pipe
+	files[0] = multi_infiles(pip, fds[0]);
+	files[1] = multi_outfiles(pip, new_fds[1]);
 	if (files[0] < 0 || files[1] < 0)
 		return ;
 	pid = fork();
@@ -62,7 +62,8 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 	else if (!pid)
 	{
 		close(new_fds[0]);
-		if (dup2(files[0], STDIN_FILENO) < 0 || dup2(files[1], STDOUT_FILENO) < 0)
+		if (dup2(files[0], STDIN_FILENO) < 0
+			|| dup2(files[1], STDOUT_FILENO) < 0)
 			return ;
 		if (fds[0] != files[0])
 			close(files[0]);
@@ -90,7 +91,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 			return ;
 	}
 	else if (dup2(files[1], STDOUT_FILENO) < 0)
-			return ;
+		return ;
 	close(fds[1]);
 	if (files[1 != STDOUT_FILENO])
 		close(files[1]);
@@ -106,7 +107,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 
 static int	my_builtins(t_cmd *pip, char ***env, int infile, int outfile)
 {
-	int ret;
+	int	ret;
 
 	if (!check_builtins(pip->cmd) || pip->next)
 		return (1);
@@ -159,7 +160,11 @@ int	n_piper(t_shell *shell)
 }
 
 /* CHECKING MAIN */
-/*	gcc -I "../../includes/" n_pipe.c pipe.c exec.c builtins.c command.c ../utils/basics.c ../rebuilt/cd.c ../rebuilt/echo.c ../rebuilt/env.c ../rebuilt/exit.c ../rebuilt/export.c ../rebuilt/pwd.c ../rebuilt/unset.c*/
+/*	
+	gcc -I "../../includes/" n_pipe.c pipe.c exec.c builtins.c command.c
+	../utils/basics.c ../rebuilt/cd.c ../rebuilt/echo.c ../rebuilt/env.c
+	../rebuilt/exit.c ../rebuilt/export.c ../rebuilt/pwd.c ../rebuilt/unset.c
+*/
 
 // int main(int ac, char **av, char **env)
 // {

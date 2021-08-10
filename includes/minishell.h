@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:27 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 17:25:28 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:10:56 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-#include <signal.h>
+# include <sys/errno.h>
+# include <signal.h>
 
 # ifdef __linux
 #  include <linux/limits.h>
@@ -71,7 +72,9 @@ typedef struct s_parse_free
 	char	*strip;
 	char	quote;
 }				t_parse_free;
-#define BUFFER_SIZE 2048
+
+# define BUFFER_SIZE 2048
+# define MY_FILE_NOT_FOUND 127
 
 /*
 ** ------------------UTILS------------------------------
