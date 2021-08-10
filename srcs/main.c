@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 17:31:10 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 10:28:09 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,23 @@ static char *create_shell_line(t_shell *shell, char **env)
 	return (line);
 }
 
+static void	clear_shell(t_shell *shell)
+{
+	int		i;
+	char	**env;
+
+	env  = shell->env;
+	i = -1;
+	while (env[++i])
+		free(env[i]);
+	free(env);
+	free(shell);
+}
+
 int main(int argc, char** argv, char **envp)
 {
 	t_shell *shell;
-	int i;
+	int		i;
 	char	*input;
 	char	*line;
 
@@ -118,9 +131,10 @@ int main(int argc, char** argv, char **envp)
 			n_piper(shell);
 		}
 		free(input);
+		// system("leaks minishell");
 	}
-	clear_history();
+	clear_history(); //THIS FUNCTION IS NOT AUTHORIZED
 	cmd_clear(&shell->start_cmd);
-	free(shell);
+	clear_shell(shell);
 	return 0;
 }

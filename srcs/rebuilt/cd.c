@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 11:21:49 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 16:19:22 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 09:15:17 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char *get_str(char **env, char *str)
 		i++;
 	return (env[i]);
 }
-
 
 static char **change_pwd(char **env)
 {
