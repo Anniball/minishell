@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 15:53:23 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 18:00:12 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_parse_free
 # define BUFFER_SIZE 2048
 # define MY_FILE_NOT_FOUND 127
 
+# define MALLOC_ERROR 1
+
 /*
 ** ------------------UTILS------------------------------
 */
@@ -100,6 +102,7 @@ char	*strdup_until_c(const char *str, char c);
 char	*my_strip(char *str, char c);
 void	remove_close_quote_from_lst(char **lst);
 t_shell	*init_edit_shell(int is_init, char **env, int status);
+void	clear_shell(t_shell *shell);
 
 /*
 ** ------------------PARSING-----------------------------
@@ -151,7 +154,7 @@ int		get_cd(t_cmd *cmd, char ***env);
 */
 int		get_export(t_cmd *cmd, char ***env);
 int		get_unset(t_cmd *cmd, char ***env);
-int		get_exit(t_cmd *cmd, char **env);
+int		get_exit(int status);
 
 /*
 ** ------------------DEBUG-------------------------------

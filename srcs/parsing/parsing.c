@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/10 17:24:53 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:05:35 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	return (new_str);
 }
 
-char	*get_next_word(char *str, int *index)
+static int	get_next_word_len(char *str, int *index, int *i_toset, char *quote_toset)
 {
 	int		i;
 	int		len;
-	char	*next_word;
 	char	quote;
 	char	last_quote;
 
@@ -65,9 +64,24 @@ char	*get_next_word(char *str, int *index)
 		last_quote = quote;
 	}
 	*index = *index + i;
+	*i_toset = -1;
+	*quote_toset = 0;
+	return (len);
+}
+
+char	*get_next_word(char *str, int *index)
+{
+	int		i;
+	int		len;
+	char	*next_word;
+	char	quote;
+	char	last_quote;
+
+	len = get_next_word_len(str, index, &i, &last_quote);
 	next_word = malloc(sizeof(char) * (len + 1));
-	last_quote = 0;
-	i = -1;
+	if (!next_word)
+		get_exit(MALLOC_ERROR);
+	quote = 0;
 	len = 0;
 	while (str[++i])
 	{
@@ -96,27 +110,26 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 	t_lst	*new_file;
 
 	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
+	if (!new_cmd)
+		get_exit(MALLOC_ERROR);
 	quote = 0;
 	i = -1;
 	j = -1;
 	while (cmd[++i])
 	{
 		set_quote(cmd, i, &quote);
-		if (!quote && cmd[i] == '>')
+		if (!quote && is_in_str("<>", cmd[i]))
 		{
 			new_file = lst_new(NULL);
-			if (cmd[i + 1] == '>')
+			if (!new_file)
+				get_exit(MALLOC_ERROR);
+			if (cmd[i + 1] == cmd[i])
 				new_file->flag = 1;
+			if (cmd[i] == '>')
+				lst_add_back(&new->outfiles, new_file);
+			else
+				lst_add_back(&new->infiles, new_file);
 			new_file->str = get_next_word(&cmd[i + 1], &i);
-			lst_add_back(&new->outfiles, new_file);
-		}
-		else if (!quote && cmd[i] == '<')
-		{
-			new_file = lst_new(NULL);
-			if (cmd[i + 1] == '<')
-				new_file->flag = 1;
-			new_file->str = get_next_word(&cmd[i + 1], &i);
-			lst_add_back(&new->infiles, new_file);
 		}
 		else if (++j > -1)
 			new_cmd[j] = cmd[i];
@@ -129,6 +142,8 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 static	int	init_parse_free(t_parse_free **parse_free)
 {
 	*parse_free = malloc(sizeof(t_parse_free));
+	if (!parse_free)
+		get_exit(MALLOC_ERROR);
 	(*parse_free)->quote = 0;
 	(*parse_free)->split_list = NULL;
 	(*parse_free)->strip_list = NULL;
