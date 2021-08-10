@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 15:11:51 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:55:53 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 	int		ret;
 
 	ret = exec_builtin(&pip, env);
-	if (ret != 1 && ret == -1)
-		write(STDOUT_FILENO, "Builtin execution failed.\n", 26);
 	if (ret != 1)
 		return ;
 	i = 0;

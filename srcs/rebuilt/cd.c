@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 11:50:33 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 14:49:45 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	get_cd(t_cmd *cmd, char ***env)
 {
 	int	ret;
 
+	ret = 0;
 	if (cmd->flags[1] && cmd->flags[2])
 	{
 		write(STDERR_FILENO, "Too much arguments for this command.\n", 37);
@@ -82,7 +83,8 @@ int	get_cd(t_cmd *cmd, char ***env)
 	}
 	else
 	{
-		if (!cmd->flags[1])
+		if (!cmd->flags[1] || (cmd->flags[1][0] == '~'
+			&& cmd->flags[1][1] == 0))
 			ret = chdir(get_str(*env, "HOME=") + 5);
 		else
 		{
@@ -93,7 +95,15 @@ int	get_cd(t_cmd *cmd, char ***env)
 		*env = change_pwd(*env);
 	}
 	if (ret)
-		write(1, "Directory not found.\n", 21);
+	{
+		init_edit_shell(0, NULL, 1);
+		write(2, "cd: no such file or directory: ", 31);
+		if (!cmd->flags[1] || cmd->flags[1][0] == '~' || cmd->flags[1][1] == 0)
+			write(2, get_str(*env, "HOME="), my_strlen(get_str(*env, "HOME=")));
+		else
+			write(2, cmd->flags[1], my_strlen(cmd->flags[1]));
+		write(2, "\n", 1);
+	}
 	return (ret);
 }
 

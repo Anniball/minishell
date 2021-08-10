@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 17:25:27 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 15:10:56 by ldelmas          ###   ########.fr       */
+/*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
+/*   Updated: 2021/08/10 15:53:23 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	*strdup_until(const char *str, char *c_lst);
 char	*strdup_until_c(const char *str, char c);
 char	*my_strip(char *str, char c);
 void	remove_close_quote_from_lst(char **lst);
+t_shell	*init_edit_shell(int is_init, char **env, int status);
 
 /*
 ** ------------------PARSING-----------------------------
