@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/09 11:14:37 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/10 12:37:25 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,41 @@ char	*get_next_word(char *str, int *index)
 	int		i;
 	int		len;
 	char	*next_word;
+	char	quote;
+	char	last_quote;
 
 	i = -1;
 	len = 0;
+	last_quote = 0;
 	while (str[++i])
 	{
-		if (is_in_str(" ><", str[i]) && len != 0)
+		set_quote(str, i, &quote);
+		if (str[i] == quote || str[i] == last_quote)
+			;
+		else if (is_in_str(" ><", str[i]) && len != 0 && !quote)
 			break ;
-		else if (!is_in_str(" ><", str[i]))
+		else if (!is_in_str(" ><", str[i]) || quote)
 			len++;
+		last_quote = quote;
 	}
 	*index = *index + i;
 	next_word = malloc(sizeof(char) * (len + 1));
+	last_quote = 0;
 	i = -1;
 	len = 0;
 	while (str[++i])
 	{
-		if (is_in_str(" ><", str[i]) && len != 0)
+		set_quote(str, i, &quote);
+		if (str[i] == quote || str[i] == last_quote)
+			;
+		else if (is_in_str(" ><", str[i]) && len != 0 && !quote)
 			break ;
-		else if (!is_in_str(" ><", str[i]))
+		else if (!is_in_str(" ><", str[i]) || quote)
 		{
 			next_word[len] = str[i];
 			len++;
 		}
+		last_quote = quote;
 	}
 	next_word[len] = 0;
 	return (next_word);
