@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:27 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 17:25:28 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 13:46:28 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char	*strdup_until(const char *str, char *c_lst);
 char	*strdup_until_c(const char *str, char c);
 char	*my_strip(char *str, char c);
 void	remove_close_quote_from_lst(char **lst);
+t_shell	*init_edit_shell(int is_init, char **env, int status);
 
 /*
 ** ------------------PARSING-----------------------------

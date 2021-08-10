@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 10:28:09 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 13:45:40 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,24 @@ static int	init_shell_env(t_shell *shell, char **env)
 	return (SUCCESS);
 }
 
+t_shell	*init_edit_shell(int is_init, char **env, int status)
+{
+	static t_shell	*shell;
+
+	if (is_init) {
+		shell = malloc(sizeof(t_shell));
+		if (!shell)
+			return (NULL);
+		shell->start_cmd = NULL;
+		shell->status = 0;
+		init_shell_env(shell, env);
+		return (shell);
+	}
+	if (shell)
+		shell->status = status;
+	return (NULL);
+}
+
 static void	init_shell(t_shell *shell, char **env)
 {
 	shell->start_cmd = NULL;
@@ -107,8 +125,7 @@ int main(int argc, char** argv, char **envp)
 	char	*input;
 	char	*line;
 
-	shell = malloc(sizeof(t_shell));
-	init_shell(shell, envp);
+	shell = init_edit_shell(1, envp, 0);
 	i = -1;
 	receive_signal();
 	while (++i < 10)
@@ -127,7 +144,7 @@ int main(int argc, char** argv, char **envp)
 		if (!check_line(shell, input))
 		{
 			parse_line(shell, input);
-			print_cmd(shell);
+			//print_cmd(shell);
 			n_piper(shell);
 		}
 		free(input);

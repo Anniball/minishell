@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/28 14:52:26 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 14:38:04 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,24 @@ static char	**strptradd(char **ptr, char *str)
 	return (new);
 }
 
+static char	**dispatch_if_yet(char **env, char *str)
+{
+	char	*s;
+	int		i;
+
+	s = strdup_until_c(str, '=');
+	i = -1;
+	while (env[++i])
+	{
+		if (ft_strcmp(env[i], s) == 0)
+		{
+			env[i] = my_strdup(str);
+			return (env);
+		}
+	}
+	return (strptradd(env, str));
+}
+
 int	get_export(t_cmd *cmd, char ***env)
 {
 	int		i;
@@ -120,7 +138,7 @@ int	get_export(t_cmd *cmd, char ***env)
 	if (!cmd->flags[1][i])
 		return (0);
 	old_env = *env;
-	*env = strptradd(*env, cmd->flags[1]);
+	*env = dispatch_if_yet(*env, cmd->flags[1]);
 	if (!(*env))
 	{
 		*env = old_env;

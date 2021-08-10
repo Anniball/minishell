@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 10:03:50 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 14:52:24 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 	ret = exec_builtin(&pip, env);
 	if (ret != 1)
 	{
-		if (ret == -1)
+		if (ret == -1 && 0)
 			write(STDOUT_FILENO, "Builtin execution failed.\n", 26);
 		return ;
 	}
