@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/09 16:46:11 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 09:11:10 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,10 @@ int	n_piper(t_shell *shell)
 				return (-1);
 			if (!pid)
 				child_pipe(fds, cmd, &shell->env, files);
-			else
+			else if (cmd->next->next)
 				brother_pipe(fds, cmd->next, &shell->env);
+			else
+				parent_pipe(fds, cmd->next, &shell->env);
 		}
 		exit(EXIT_SUCCESS);
 	}
