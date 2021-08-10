@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
+#    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/09 17:24:40 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/09 17:24:42 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/10 12:01:31 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,5 +67,7 @@ fclean : clean
 	@echo "\nRemoving minishell executable..."
 	@rm -f ${NAME}
 	@echo "Minishell removed."
+
+allup: all clean
 
 re: clean all
