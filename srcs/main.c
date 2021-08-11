@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 12:25:33 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 13:12:06 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,6 @@ t_shell	*init_edit_shell(int is_init, char **env, int status)
 	return (NULL);
 }
 
-static void	init_shell(t_shell *shell, char **env)
-{
-	shell->start_cmd = NULL;
-	shell->status = 0;
-	init_shell_env(shell, env);
-}
-
 static char	*create_shell_line(t_shell *shell, char **env)
 {
 	const int	status = shell->status;
@@ -161,6 +154,10 @@ int	main(int argc, char **argv, char **envp)
 	char	*input;
 	char	*line;
 
+	argc = (int)argc;
+	argv = (void*)argv;
+	line = NULL;
+	input = NULL;
 	shell = init_edit_shell(1, envp, 0);
 	i = -1;
 	receive_signal();
