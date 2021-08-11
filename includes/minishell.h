@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 10:36:23 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:13:21 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		get_cd(t_cmd *cmd, char ***env);
 */
 int		get_export(t_cmd *cmd, char ***env);
 int		get_unset(t_cmd *cmd, char ***env);
-int		get_exit(int status, int main);
+int		get_exit(int status, t_cmd *cmd);
 
 /*
 ** ------------------DEBUG-------------------------------

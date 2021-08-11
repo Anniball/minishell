@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:50:44 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 10:17:13 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:13:33 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 	else if (!simple_strcmp(cmd->cmd, "exit"))
 	{
 		if (!cmd->next)
-			ret = get_exit(EXIT_SUCCESS, 1);
+			ret = get_exit(EXIT_SUCCESS, cmd);
 		else
-			ret = get_exit(EXIT_SUCCESS, 0);
+			ret = get_exit(EXIT_SUCCESS, cmd);
 	}
 	return (ret);
 }
