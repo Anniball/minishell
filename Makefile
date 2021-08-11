@@ -6,7 +6,7 @@
 #    By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/09 17:24:40 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/10 12:01:31 by tpetit           ###   ########.fr        #
+#    Updated: 2021/08/11 12:09:07 by tpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 
 CC = gcc
 
-#CFLAGS = -Wall -Wextra -Werror -I includes/
+CFLAGS = -Wall -Wextra -Werror -I includes/
 
 CFLAGS = -I includes/
 
@@ -31,7 +31,7 @@ PIPE = exec command n_pipe builtins multifiles
 
 UTIL = basics cmd_lst str_lst env_utils str_utils basics2
 
-PARSE = parsing parsing_print parsing_basic_utils parsing_split parsing_utils check_line
+PARSE = parsing parsing_print parsing_basic_utils parsing_split parsing_utils check_line in_out_files get_next_word
 
 REBUILT = pwd echo env cd export unset exit
 

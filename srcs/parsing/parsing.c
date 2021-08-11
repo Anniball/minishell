@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:48:53 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 12:08:50 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,108 +42,6 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	if (last_join != i)
 		new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
 	return (new_str);
-}
-
-static int	get_next_word_len(char *str, int *index, int *i_toset,
-	char *quote_toset)
-{
-	int		i;
-	int		len;
-	char	quote;
-	char	last_quote;
-
-	i = -1;
-	len = 0;
-	last_quote = 0;
-	while (str[++i])
-	{
-		set_quote(str, i, &quote);
-		if (str[i] == quote || str[i] == last_quote)
-			;
-		else if (is_in_str(" ><", str[i]) && len != 0 && !quote)
-			break ;
-		else if (!is_in_str(" ><", str[i]) || quote)
-			len++;
-		last_quote = quote;
-	}
-	*index = *index + i;
-	*i_toset = -1;
-	*quote_toset = 0;
-	return (len);
-}
-
-char	*get_next_word(char *str, int *index)
-{
-	int		i;
-	int		len;
-	char	*next_word;
-	char	quote;
-	char	last_quote;
-
-	len = get_next_word_len(str, index, &i, &last_quote);
-	next_word = malloc(sizeof(char) * (len + 1));
-	if (!next_word)
-		return (NULL);
-	quote = 0;
-	len = 0;
-	while (str[++i])
-	{
-		set_quote(str, i, &quote);
-		if (str[i] == quote || str[i] == last_quote)
-			;
-		else if (is_in_str(" ><", str[i]) && len != 0 && !quote)
-			break ;
-		else if (!is_in_str(" ><", str[i]) || quote)
-		{
-			next_word[len] = str[i];
-			len++;
-		}
-		last_quote = quote;
-	}
-	next_word[len] = 0;
-	return (next_word);
-}
-
-char	*get_input_output(t_cmd	*new, char *cmd)
-{
-	char	*new_cmd;
-	int		i;
-	int		j;
-	char	quote;
-	t_lst	*new_file;
-
-	if (!cmd)
-		return (NULL);
-	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
-	if (!new_cmd)
-		return (NULL);
-	quote = 0;
-	i = -1;
-	j = -1;
-	while (cmd[++i])
-	{
-		set_quote(cmd, i, &quote);
-		if (!quote && is_in_str("<>", cmd[i]))
-		{
-			new_file = lst_new(NULL);
-			if (!new_file)
-				return (NULL);
-			if (cmd[i + 1] == cmd[i])
-				new_file->flag = 1;
-			if (cmd[i] == '>')
-				lst_add_back(&new->outfiles, new_file);
-			else
-				lst_add_back(&new->infiles, new_file);
-			new_file->str = get_next_word(&cmd[i + 1], &i);
-			if (!new_file->str)
-				return (NULL);
-		}
-		else if (++j > -1)
-			new_cmd[j] = cmd[i];
-	}
-	new_cmd[j + 1] = 0;
-	free(cmd);
-	return (new_cmd);
 }
 
 static	int	init_parse_free(t_parse_free **parse_free)

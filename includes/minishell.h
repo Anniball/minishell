@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:42:53 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:09:00 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ char	**parse_split_with_quotes(char *str, char c);
 int		is_in_str(char *str, char c);
 char	*parse_join(char *s1, char *s2);
 int		check_line(t_shell *shell, char *line);
+char	*get_input_output(t_cmd *new, char *cmd);
+char	*get_next_word(char *str, int *index);
 
 /*
 **	set quote set value quote if text is inside of quote
