@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 15:19:31 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:03:14 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,3 @@ int	my_exec(t_cmd pip, char ***env, int infile, int outfile)
 		return (-1);
 	return (0);
 }
-
-/*CHECKING MAIN*/
-/*	gcc -I "../../includes/" exec.c ../utils/basics.c */
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd cmd1;
-
-// 	cmd1.cmd = "grep";
-// 	cmd1.next = (void *)0;
-// 	char *flags1[] = {cmd1.cmd, "-a", "q", (void *)0};
-// 	cmd1.flags = flags1;
-
-// 	my_exec(cmd1, env, "in", "out");	
-// }

@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 14:55:28 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:03:22 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,34 +158,3 @@ int	n_piper(t_shell *shell)
 	wait_pid_set_value(shell, pid);
 	return (0);
 }
-
-/* CHECKING MAIN */
-/*	
-	gcc -I "../../includes/" n_pipe.c pipe.c exec.c builtins.c command.c
-	../utils/basics.c ../rebuilt/cd.c ../rebuilt/echo.c ../rebuilt/env.c
-	../rebuilt/exit.c ../rebuilt/export.c ../rebuilt/pwd.c ../rebuilt/unset.c
-*/
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd	cmd1;
-// 	t_cmd	cmd2;
-// 	t_cmd	cmd3;
-
-// 	cmd1.cmd = "cat";
-// 	cmd1.next = &cmd2;
-// 	char *flags1[] = {cmd1.cmd, "in", (void *)0};
-// 	cmd1.flags = flags1;
-
-// 	cmd2.cmd = "env";
-// 	cmd2.next = &cmd3;
-// 	char *flags2[] = {cmd2.cmd, (void *)0};
-// 	cmd2.flags = flags2;
-
-// 	cmd3.cmd = "cat";
-// 	cmd3.next = (void *)0;
-// 	char *flags3[] = {cmd3.cmd, "-e", (void *)0};
-// 	cmd3.flags = flags3;
-
-// 	n_piper(&cmd1, env, "in", "out");
-// }

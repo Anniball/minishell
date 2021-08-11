@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/06 15:39:23 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:03:27 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,3 @@ int	piper(t_cmd pip, char ***env, char *infile, char *outfile)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-
-/*CHECKING MAIN*/
-/*	gcc -I "../../includes/" pipe.c exec.c ../utils/basics.c */
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd cmd1;
-// 	t_cmd cmd2;
-
-// 	cmd1.cmd = "grep";
-// 	cmd1.next = &cmd2;
-// 	char *flags1[] = {cmd1.cmd, "-a", "q", (void *)0};
-// 	cmd1.flags = flags1;
-
-// 	cmd2.cmd = "wc";
-// 	cmd2.next = (void *)0;
-// 	char *flags2[] = {cmd2.cmd, "-l", (void *)0};
-// 	cmd2.flags = flags2; 
-
-// 	piper(cmd1, env, "in", "out");
-
-// }
