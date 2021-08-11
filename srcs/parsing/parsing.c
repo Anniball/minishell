@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 11:16:02 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:26:29 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 			else
 				lst_add_back(&new->infiles, new_file);
 			new_file->str = get_next_word(&cmd[i + 1], &i);
-			if (new_file->str)
+			if (!new_file->str)
 				return (NULL);
 		}
 		else if (++j > -1)
