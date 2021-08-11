@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 09:38:20 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:25:33 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -25,7 +24,7 @@ size_t	str_list_len(char **str_list)
 
 void	free_str_list(char **str_list)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str_list[++i])
@@ -35,7 +34,7 @@ void	free_str_list(char **str_list)
 
 static int	init_shell_env(t_shell *shell, char **env)
 {
-	int i;
+	int				i;
 	const size_t	env_len = str_list_len(env);
 	char			**env_copy;
 
@@ -67,9 +66,10 @@ t_shell	*init_edit_shell(int is_init, char **env, int status)
 	else if (is_init == 3)
 	{
 		clear_shell(shell);
-		return NULL;
+		return (NULL);
 	}
-	else if (is_init) {
+	else if (is_init)
+	{
 		shell = malloc(sizeof(t_shell));
 		if (!shell)
 			return (NULL);
@@ -90,7 +90,7 @@ static void	init_shell(t_shell *shell, char **env)
 	init_shell_env(shell, env);
 }
 
-static char *create_shell_line(t_shell *shell, char **env)
+static char	*create_shell_line(t_shell *shell, char **env)
 {
 	const int	status = shell->status;
 	char		*line;
@@ -112,13 +112,17 @@ static char *create_shell_line(t_shell *shell, char **env)
 	return (line);
 }
 
+/*
+**	FORBIDDEN FCT rl_clear_history
+*/
+
 void	clear_shell(t_shell *shell)
 {
 	int		i;
 	char	**env;
 
-	rl_clear_history(); //THIS FUNCTION IS NOT AUTHORIZED
-	env  = shell->env;
+	rl_clear_history();
+	env = shell->env;
 	i = -1;
 	while (env[++i])
 		free(env[i]);
@@ -127,9 +131,32 @@ void	clear_shell(t_shell *shell)
 	free(shell);
 }
 
-int main(int argc, char** argv, char **envp)
+static void	main_loop(t_shell *shell, char *line, char *input)
 {
-	t_shell *shell;
+	line = create_shell_line(shell, shell->env);
+	input = readline(line);
+	free(line);
+	if (!input)
+	{
+		write(1, "Ending minishell.\n", 18);
+		init_edit_shell(3, NULL, 0);
+		exit(0);
+	}
+	else if (!*input)
+		;
+	add_history(input);
+	if (!check_line(shell, input))
+	{
+		parse_line(shell, input);
+		print_cmd(shell);
+		n_piper(shell);
+	}
+	free(input);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	*shell;
 	int		i;
 	char	*input;
 	char	*line;
@@ -138,27 +165,7 @@ int main(int argc, char** argv, char **envp)
 	i = -1;
 	receive_signal();
 	while (++i < 10)
-	{
-		line = create_shell_line(shell, shell->env);
-		input = readline(line);
-		free(line);
-		if (!input)
-		{
-			write(1, "Ending minishell.\n", 18);
-			break ;
-		}
-		else if (!*input)
-			continue;
-		add_history(input);
-		if (!check_line(shell, input))
-		{
-			parse_line(shell, input);
-			print_cmd(shell);
-			n_piper(shell);
-		}
-		free(input);
-		// system("leaks minishell");
-	}
+		main_loop(shell, line, input);
 	clear_shell(shell);
-	return 0;
+	return (0);
 }
