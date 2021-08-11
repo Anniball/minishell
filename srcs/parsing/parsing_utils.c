@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:08:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 10:35:32 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:30:18 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static char	*remove_close_quote(char *str)
 	j = 0;
 	open_quote = 0;
 	new_str = malloc(sizeof(char) * (my_strlen(str) + 1));
+	if (!new_str)
+		return (NULL);
 	while (str[++i])
 		remove_close_quote_loop(str, i, &j, new_str);
 	new_str[j] = 0;
@@ -48,12 +50,18 @@ static char	*remove_close_quote(char *str)
 
 int	remove_close_quote_from_lst(char **lst)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	if (!lst)
 		return (1);
 	while (lst[++i])
-		lst[i] = remove_close_quote(lst[i]);
+	{
+		tmp = remove_close_quote(lst[i]);
+		if (!tmp)
+			return (1);
+		lst[i] = tmp;
+	}
 	return (0);
 }

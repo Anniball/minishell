@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 11:17:10 by ldelmas          ###   ########.fr       */
+/*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
+/*   Updated: 2021/08/11 11:30:13 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 			else
 				lst_add_back(&new->infiles, new_file);
 			new_file->str = get_next_word(&cmd[i + 1], &i);
-			if (new_file->str)
+			if (!new_file->str)
 				return (NULL);
 		}
 		else if (++j > -1)
@@ -162,11 +162,13 @@ static void	free_parse_free(t_parse_free *p)
 	int	i;
 
 	i = -1;
-	while (p->split_list[++i])
+	while (p->split_list && p->split_list[++i])
 		free(p->split_list[i]);
 	i = -1;
-	while (p->strip_list[++i])
+	while (p->strip_list && p->strip_list[++i])
 		free(p->strip_list[i]);
+	free(p->strip_list);
+	free(p->split_list);
 	free(p->strip);
 	get_exit(MALLOC_ERROR, NULL);
 }
