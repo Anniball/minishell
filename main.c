@@ -3,10 +3,13 @@
 int main(void)
 {
 	char *input;
+	int i;
 
-	while (1)
+	i = -1;
+	while (++i < 5)
 	{
 		input = readline("Put something: ");
+		add_history(input);
 		printf("You say: %s\n", input);
 		free(input);
 	}
