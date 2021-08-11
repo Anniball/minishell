@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 10:44:10 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:16:02 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,13 @@ static void	free_parse_free(t_parse_free *p)
 	int	i;
 
 	i = -1;
-	while (p->split_list[++i])
+	while (p->split_list && p->split_list[++i])
 		free(p->split_list[i]);
 	i = -1;
-	while (p->strip_list[++i])
+	while (p->strip_list && p->strip_list[++i])
 		free(p->strip_list[i]);
+	free(p->strip_list);
+	free(p->split_list);
 	free(p->strip);
 	get_exit(MALLOC_ERROR, 1);
 }
@@ -182,7 +184,7 @@ static void	parse_line_loop(t_shell *shell, t_parse_free *p, int i)
 	if (!p->strip)
 		free_parse_free(p);
 	p->strip_list = parse_split_with_quotes(p->strip, ' ');
-	if (!remove_close_quote_from_lst(p->strip_list))
+	if (remove_close_quote_from_lst(p->strip_list))
 		free_parse_free(p);
 	new->cmd = p->strip_list[0];
 	new->flags = p->strip_list;
