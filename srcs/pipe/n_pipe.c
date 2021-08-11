@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 16:03:22 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 09:21:27 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,11 @@ int	n_piper(t_shell *shell)
 	int		files[2];
 
 	cmd = shell->start_cmd;
-	if (!cmd)
+	if (!cmd->cmd)
+	{
+		write(STDERR_FILENO, "Command not found.\n", 19);
 		return (-1);
+	}
 	files[0] = multi_infiles(cmd, STDIN_FILENO);
 	files[1] = multi_outfiles(cmd, STDOUT_FILENO);
 	if (files[0] < 0 || files[1] < 0)
