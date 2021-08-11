@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 14:50:19 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 09:02:00 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@ int	multi_outfiles(t_cmd *cmd, int out)
 		return (out);
 	while (outfiles->next)
 	{
-		fd = open(outfiles->str, O_CREAT | O_TRUNC, 0666);
+		if (outfiles->flag)
+			fd = open(outfiles->str, O_CREAT | O_APPEND, 0666);
+		else
+			fd = open(outfiles->str, O_CREAT | O_TRUNC, 0666);
 		if (fd < 0)
 			return (-1);
 		close(fd);
 		outfiles = outfiles->next;
 	}
-	fd = open(outfiles->str, O_CREAT | O_TRUNC | O_RDWR, 0666);
+	if (outfiles->flag)
+		fd = open(outfiles->str, O_CREAT | O_APPEND | O_RDWR, 0666);
+	else
+		fd = open(outfiles->str, O_CREAT | O_TRUNC | O_RDWR, 0666);
 	return (fd);
 }
 
