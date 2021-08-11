@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 13:15:06 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 15:02:40 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,38 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	free(input);
 }
 
+static void	set_shlvl(t_shell *shell)
+{
+	char *env_var;
+	char	*tmp;
+	int		sh_lvl;
+	int		i;
+
+	env_var = get_env_value(shell, shell->env, "SHLVL");
+	if (my_strlen(env_var) > 3 || ft_atoi(env_var) >= 999)
+	{
+		tmp = ft_itoa(sh_lvl);
+		write(1, "Minishell: warning: shell level (", 33);
+		write(1, env_var, my_strlen(env_var));
+		write(1, ") too high, resetting to 1\n", 27);
+		sh_lvl = 0;
+	}
+	sh_lvl = ft_atoi(env_var);
+	free(env_var);
+	tmp = ft_itoa(sh_lvl + 1);
+	env_var = my_strjoin("SHLVL=", tmp);
+	free(tmp);
+	i = -1;
+	while (shell->env[++i])
+	{
+		if (ft_strcmp(shell->env[i], "SHLVL") == 0)
+		{
+			free(shell->env[i]);
+			shell->env[i] = env_var;
+		}
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
@@ -159,6 +191,7 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	input = NULL;
 	shell = init_edit_shell(1, envp, 0);
+	set_shlvl(shell);
 	i = -1;
 	receive_signal();
 	while (++i < 10)

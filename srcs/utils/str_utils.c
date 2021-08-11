@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:46:52 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/04 11:56:58 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 14:45:03 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ char	*ft_itoa(int n)
 		n = n / 10;
 	}
 	return (num);
+}
+
+int	ft_atoi(const char *str)
+{
+	unsigned long long	num;
+	int					neg;
+	int					length;
+
+	neg = 1;
+	num = 0;
+	length = -1;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			neg *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9' && ++length > -1)
+	{
+		num = 10 * num + (*str - '0');
+		str++;
+	}
+	if (!((*str >= 9 && *str <= 13) || *str == ' ' || *str == 0) || neg < 0)
+		return (-1);
+	return ((int)(num * neg));
 }
