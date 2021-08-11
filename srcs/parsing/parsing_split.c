@@ -6,58 +6,11 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/10 12:28:11 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 10:38:17 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	words_count(char *str, char c)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[++i])
-	{
-		if (str[i - 1] != c && str[i] == c)
-			count++;
-	}
-	if (str[i - 1] && str[i - 1] != c)
-		count++;
-	return (count);
-}
-
-char	**parse_split(char *str, char c)
-{
-	const int	w_count = words_count(str, c);
-	const int	str_len = my_strlen(str);
-	char		**split_list;
-	int			i;
-	int			current_word;
-
-	current_word = 0;
-	i = -1;
-	split_list = malloc(sizeof(char *) * (w_count + 1));
-	split_list[w_count] = NULL;
-	while (str[++i])
-		if (str[i] == c)
-			str[i] = 0;
-	i = -1;
-	while (++i < str_len)
-	{
-		if (str[i] != 0)
-		{
-			split_list[current_word] = my_strdup(&str[i]);
-			i += my_strlen(split_list[current_word]) - 1;
-			current_word++;
-		}
-	}
-	return (split_list);
-}
 
 void	set_quote(char *str, int i, char *quote)
 {
@@ -99,6 +52,17 @@ static int	words_count_with_quotes(char *str, char c)
 	return (count);
 }
 
+char **free_split(char **split, int until)
+{
+	int i;
+
+	i = -1;
+	while (++i < until)
+		free(split[i]);
+	free(split);
+	return (NULL);
+}
+
 char	**parse_split_with_quotes(char *str, char c)
 {
 	const int	str_len = my_strlen(str);
@@ -110,6 +74,8 @@ char	**parse_split_with_quotes(char *str, char c)
 	current_word = 0;
 	i = -1;
 	split_list = malloc(sizeof(char *) * (w_count + 1));
+	if (!split_list)
+		return (NULL);
 	split_list[w_count] = NULL;
 	while (++i < str_len)
 	{
@@ -118,6 +84,8 @@ char	**parse_split_with_quotes(char *str, char c)
 		else
 		{
 			split_list[current_word] = my_strdup(&str[i]);
+			if (!split_list[current_word])
+				return (free_split(split_list, current_word));
 			i += my_strlen(split_list[current_word]) - 1;
 			current_word++;
 		}

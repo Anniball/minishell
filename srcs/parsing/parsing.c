@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 10:10:43 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 10:35:49 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	char	*env_var;
 	int		last_join;
 
+	if (!str)
+		return (NULL);
 	i = -1;
 	new_str = NULL;
 	last_join = 0;
@@ -109,6 +111,8 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 	char	quote;
 	t_lst	*new_file;
 
+	if (!cmd)
+		return (NULL);
 	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
 	if (!new_cmd)
 		get_exit(MALLOC_ERROR, 1);
@@ -151,32 +155,55 @@ static	int	init_parse_free(t_parse_free **parse_free)
 	return (0);
 }
 
+static void	free_parse_free(t_parse_free *p)
+{
+	int	i;
+
+	i = -1;
+	while (p->split_list[++i])
+		free(p->split_list[i]);
+	i = -1;
+	while (p->strip_list[++i])
+		free(p->strip_list[i]);
+	free(p->strip);
+	get_exit(MALLOC_ERROR, 1);
+}
+
+static void	parse_line_loop(t_shell *shell, t_parse_free *p, int i)
+{
+	t_cmd			*new;
+
+	new = cmd_new(NULL, NULL);
+	p->strip = replace_by_env_value(shell, shell->env, p->split_list[i]);
+	p->strip = get_input_output(new, p->strip);
+	p->strip = my_strip(p->strip, ' ');
+	if (!p->strip)
+		free_parse_free(p);
+	p->strip_list = parse_split_with_quotes(p->strip, ' ');
+	if (!remove_close_quote_from_lst(p->strip_list))
+		free_parse_free(p);
+	new->cmd = p->strip_list[0];
+	new->flags = p->strip_list;
+	cmd_add_back(&shell->start_cmd, new);
+	free(p->strip);
+	free(p->split_list[i]);
+	p->split_list[i] = NULL;
+}
+
 int	parse_line(t_shell *shell, char *line)
 {
-	t_parse_free *p;
-	int		i;
-	t_cmd	*new;
+	t_parse_free	*p;
+	int				i;
 
 	i = -1;
 	init_parse_free(&p);
 	cmd_clear(&shell->start_cmd);
 	shell->start_cmd = NULL;
 	p->split_list = parse_split_with_quotes(line, '|');
+	if (!p->split_list)
+		free_parse_free(p);
 	while (p->split_list[++i] != NULL)
-	{
-		new = cmd_new(NULL, NULL);
-		p->strip = replace_by_env_value(shell, shell->env, p->split_list[i]);
-		p->strip = get_input_output(new, p->strip);
-		p->strip = my_strip(p->strip, ' ');
-		p->strip_list = parse_split_with_quotes(p->strip, ' ');
-		remove_close_quote_from_lst(p->strip_list);
-		new->cmd = p->strip_list[0];
-		new->flags = p->strip_list;
-		cmd_add_back(&shell->start_cmd, new);
-		free(p->strip);
-		free(p->split_list[i]);
-		p->split_list[i] = NULL;
-	}
+		parse_line_loop(shell, p, i);
 	free(p->split_list);
 	free(p);
 	return (0);

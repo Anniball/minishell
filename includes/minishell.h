@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 10:11:04 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 10:36:23 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*strdup_until(const char *str, char *c_lst);
 char	*strdup_until_c(const char *str, char c);
 char	*my_strip(char *str, char c);
-void	remove_close_quote_from_lst(char **lst);
+int		remove_close_quote_from_lst(char **lst);
 t_shell	*init_edit_shell(int is_init, char **env, int status);
 void	clear_shell(t_shell *shell);
 
@@ -108,7 +108,6 @@ void	clear_shell(t_shell *shell);
 ** ------------------PARSING-----------------------------
 */
 
-char 	**parse_split(char *str, char c);
 int		parse_line(t_shell *shell, char *line);
 char	**parse_split_with_quotes(char *str, char c);
 int		is_in_str(char *str, char c);

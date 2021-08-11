@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:08:49 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:13:31 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 10:35:32 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ static char	*remove_close_quote(char *str)
 	return (new_str);
 }
 
-void	remove_close_quote_from_lst(char **lst)
+int	remove_close_quote_from_lst(char **lst)
 {
 	int	i;
 
 	i = -1;
+	if (!lst)
+		return (1);
 	while (lst[++i])
 		lst[i] = remove_close_quote(lst[i]);
+	return (0);
 }
