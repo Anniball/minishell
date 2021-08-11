@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:30:13 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:48:53 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*replace_by_env_value(t_shell *shell, char **env, char *str)
 	return (new_str);
 }
 
-static int	get_next_word_len(char *str, int *index, int *i_toset, char *quote_toset)
+static int	get_next_word_len(char *str, int *index, int *i_toset,
+	char *quote_toset)
 {
 	int		i;
 	int		len;

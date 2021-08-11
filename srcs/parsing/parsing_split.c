@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 10:38:17 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:34:38 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,33 @@ static int	words_count_with_quotes(char *str, char c)
 	return (count);
 }
 
-char **free_split(char **split, int until)
+char	**free_split(char **split, int until)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < until)
 		free(split[i]);
 	free(split);
 	return (NULL);
+}
+
+int	parse_split_loop(char **split_list, char *str, int *current_word, int *i)
+{
+	if (str[*i] == 0)
+		;
+	else
+	{
+		split_list[*current_word] = my_strdup(&str[*i]);
+		if (!split_list[*current_word])
+		{
+			free_split(split_list, *current_word);
+			return (1);
+		}
+		*i += my_strlen(split_list[*current_word]) - 1;
+		(*current_word)++;
+	}
+	return (0);
 }
 
 char	**parse_split_with_quotes(char *str, char c)
@@ -79,16 +97,8 @@ char	**parse_split_with_quotes(char *str, char c)
 	split_list[w_count] = NULL;
 	while (++i < str_len)
 	{
-		if (str[i] == 0)
-			;
-		else
-		{
-			split_list[current_word] = my_strdup(&str[i]);
-			if (!split_list[current_word])
-				return (free_split(split_list, current_word));
-			i += my_strlen(split_list[current_word]) - 1;
-			current_word++;
-		}
+		if (parse_split_loop(split_list, str, &current_word, &i))
+			return (NULL);
 	}
 	return (split_list);
 }
