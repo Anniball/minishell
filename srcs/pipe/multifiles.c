@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 09:02:00 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 09:33:41 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ int	multi_infiles(t_cmd *cmd, int in)
 	{
 		fd = open(infiles->str, O_RDONLY);
 		if (fd < 0)
+		{
+			write(STDERR_FILENO, cmd->cmd, my_strlen(cmd->cmd));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, cmd->infiles->str, my_strlen(cmd->infiles->str));
+			write(STDERR_FILENO, ": No such file or directory\n", 28);
 			return (-1);
+		}
 		else if (infiles->next)
 			close(fd);
 		infiles = infiles->next;
