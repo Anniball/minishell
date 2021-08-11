@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 13:45:40 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:03:56 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,14 @@ t_shell	*init_edit_shell(int is_init, char **env, int status)
 {
 	static t_shell	*shell;
 
-	if (is_init) {
+	if (is_init == 2)
+		return (shell);
+	else if (is_init == 3)
+	{
+		clear_shell(shell);
+		return NULL;
+	}
+	else if (is_init) {
 		shell = malloc(sizeof(t_shell));
 		if (!shell)
 			return (NULL);
@@ -105,7 +112,7 @@ static char *create_shell_line(t_shell *shell, char **env)
 	return (line);
 }
 
-static void	clear_shell(t_shell *shell)
+void	clear_shell(t_shell *shell)
 {
 	int		i;
 	char	**env;
@@ -115,6 +122,7 @@ static void	clear_shell(t_shell *shell)
 	while (env[++i])
 		free(env[i]);
 	free(env);
+	cmd_clear(&shell->start_cmd);
 	free(shell);
 }
 
@@ -144,14 +152,13 @@ int main(int argc, char** argv, char **envp)
 		if (!check_line(shell, input))
 		{
 			parse_line(shell, input);
-			//print_cmd(shell);
+			print_cmd(shell);
 			n_piper(shell);
 		}
 		free(input);
 		// system("leaks minishell");
 	}
 	clear_history(); //THIS FUNCTION IS NOT AUTHORIZED
-	cmd_clear(&shell->start_cmd);
 	clear_shell(shell);
 	return 0;
 }

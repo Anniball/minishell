@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/30 12:23:08 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 16:04:14 by ldelmas          ###   ########.fr       */
+/*   Created: 2021/08/11 08:50:44 by ldelmas           #+#    #+#             */
+/*   Updated: 2021/08/11 08:50:46 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 	else if (!simple_strcmp(cmd->cmd, "unset"))
 		ret = get_unset(cmd, env);
 	else if (!simple_strcmp(cmd->cmd, "exit"))
-		ret = get_exit(cmd, *env);
+		ret = get_exit(EXIT_SUCCESS);
 	return (ret);
 }
 
