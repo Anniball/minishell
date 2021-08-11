@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 10:57:19 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:45:25 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 13:15:33 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_exit(int status, t_cmd *cmd)
 {
-	int do_print;
+	int	do_print;
 
 	do_print = 0;
 	if (!cmd || (cmd == init_edit_shell(2, NULL, 0)->start_cmd && !cmd->next))

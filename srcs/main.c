@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 13:12:06 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 13:15:06 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 
 	argc = (int)argc;
-	argv = (void*)argv;
+	argv = (void *)argv;
 	line = NULL;
 	input = NULL;
 	shell = init_edit_shell(1, envp, 0);
