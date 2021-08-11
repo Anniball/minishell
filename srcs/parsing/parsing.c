@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 10:35:49 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 10:44:10 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_next_word(char *str, int *index)
 	len = get_next_word_len(str, index, &i, &last_quote);
 	next_word = malloc(sizeof(char) * (len + 1));
 	if (!next_word)
-		get_exit(MALLOC_ERROR, 1);
+		return (NULL);
 	quote = 0;
 	len = 0;
 	while (str[++i])
@@ -115,7 +115,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 		return (NULL);
 	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
 	if (!new_cmd)
-		get_exit(MALLOC_ERROR, 1);
+		return (NULL);
 	quote = 0;
 	i = -1;
 	j = -1;
@@ -126,7 +126,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 		{
 			new_file = lst_new(NULL);
 			if (!new_file)
-				get_exit(MALLOC_ERROR, 1);
+				return (NULL);
 			if (cmd[i + 1] == cmd[i])
 				new_file->flag = 1;
 			if (cmd[i] == '>')
@@ -134,6 +134,8 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 			else
 				lst_add_back(&new->infiles, new_file);
 			new_file->str = get_next_word(&cmd[i + 1], &i);
+			if (new_file->str)
+				return (NULL);
 		}
 		else if (++j > -1)
 			new_cmd[j] = cmd[i];
