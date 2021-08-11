@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:57:39 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/10 18:05:35 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 10:10:43 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_next_word(char *str, int *index)
 	len = get_next_word_len(str, index, &i, &last_quote);
 	next_word = malloc(sizeof(char) * (len + 1));
 	if (!next_word)
-		get_exit(MALLOC_ERROR);
+		get_exit(MALLOC_ERROR, 1);
 	quote = 0;
 	len = 0;
 	while (str[++i])
@@ -111,7 +111,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 
 	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
 	if (!new_cmd)
-		get_exit(MALLOC_ERROR);
+		get_exit(MALLOC_ERROR, 1);
 	quote = 0;
 	i = -1;
 	j = -1;
@@ -122,7 +122,7 @@ char	*get_input_output(t_cmd	*new, char *cmd)
 		{
 			new_file = lst_new(NULL);
 			if (!new_file)
-				get_exit(MALLOC_ERROR);
+				get_exit(MALLOC_ERROR, 1);
 			if (cmd[i + 1] == cmd[i])
 				new_file->flag = 1;
 			if (cmd[i] == '>')
@@ -143,7 +143,7 @@ static	int	init_parse_free(t_parse_free **parse_free)
 {
 	*parse_free = malloc(sizeof(t_parse_free));
 	if (!parse_free)
-		get_exit(MALLOC_ERROR);
+		get_exit(MALLOC_ERROR, 1);
 	(*parse_free)->quote = 0;
 	(*parse_free)->split_list = NULL;
 	(*parse_free)->strip_list = NULL;

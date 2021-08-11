@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 18:03:56 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/11 09:38:20 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	clear_shell(t_shell *shell)
 	int		i;
 	char	**env;
 
+	rl_clear_history(); //THIS FUNCTION IS NOT AUTHORIZED
 	env  = shell->env;
 	i = -1;
 	while (env[++i])
@@ -158,7 +159,6 @@ int main(int argc, char** argv, char **envp)
 		free(input);
 		// system("leaks minishell");
 	}
-	clear_history(); //THIS FUNCTION IS NOT AUTHORIZED
 	clear_shell(shell);
 	return 0;
 }
