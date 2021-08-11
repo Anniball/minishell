@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:13:21 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:42:53 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void	print_cmd(t_shell *shell);
 **	Work without pipe and without infile or outfile.
 **	If needed infile and outfile will be STDIN_FILENO and STDOUT_FILENO.
 */
-void	my_command(t_cmd pip, char *cmd, char **argv, char ***env);
+void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env);
 
 /*
 **	Work without pipe and with or without infile & outfile, if there is no file
@@ -178,7 +178,7 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env);
 **	/!\ Some command needs an explicit outfile or infile and will crash if they
 **	don't. Example : grep need an infile since it can't just read STDIN_FILENO.
 */
-int		my_exec(t_cmd pip, char ***env, int infile, int outfile);
+int		my_exec(t_cmd *pip, char ***env, int infile, int outfile);
 
 /*
 **	Work with only one pipe.

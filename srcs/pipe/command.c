@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:14:32 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:41:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
-void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
+void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
 	char	*full_cmd;
 	char	**paths;
 	int		i;
 	int		ret;
 
-	ret = exec_builtin(&pip, env);
+	ret = exec_builtin(pip, env);
 	if (ret != 1)
 		return ;
 	i = 0;
@@ -112,6 +112,6 @@ void	my_command(t_cmd pip, char *cmd, char **argv, char ***env)
 	if (ret < 0)
 	{
 		write(STDERR_FILENO, "Command not found.\n", 19);
-		get_exit(MY_FILE_NOT_FOUND, &pip);
+		get_exit(MY_FILE_NOT_FOUND, pip);
 	}
 }

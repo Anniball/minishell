@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 16:03:14 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:42:02 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	post_command(int tmp, int file, int usual)
 	return (0);
 }
 
-int	my_exec(t_cmd pip, char ***env, int infile, int outfile)
+int	my_exec(t_cmd *pip, char ***env, int infile, int outfile)
 {
 	int	ret;
 	int	std[2];
@@ -44,7 +44,7 @@ int	my_exec(t_cmd pip, char ***env, int infile, int outfile)
 	if (pre_command(std[0], infile, STDIN_FILENO) < 0
 		|| pre_command(std[1], outfile, STDOUT_FILENO) < 0)
 		return (-1);
-	my_command(pip, pip.cmd, pip.flags, env);
+	my_command(pip, pip->cmd, pip->flags, env);
 	if (post_command(std[0], infile, STDIN_FILENO) < 0
 		|| post_command(std[1], outfile, STDOUT_FILENO) < 0)
 		return (-1);

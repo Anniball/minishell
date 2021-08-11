@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:14:54 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:43:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	parent_pipe(int *fds, t_cmd *pip, char ***env)
 		return ;
 	if (files[1] != STDOUT_FILENO)
 		close(files[1]);
-	my_command(*pip, pip->cmd, pip->flags, env);
+	my_command(pip, pip->cmd, pip->flags, env);
 	get_exit(EXIT_SUCCESS, pip);
 }
 
@@ -71,7 +71,7 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 		if (files[1] != new_fds[1])
 			close(files[1]);
 		close(new_fds[1]);
-		my_command(*pip, pip->cmd, pip->flags, env);
+		my_command(pip, pip->cmd, pip->flags, env);
 	}
 	else if (!pip->next->next)
 		parent_pipe(new_fds, pip->next, env);
@@ -101,7 +101,7 @@ static void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 			return ;
 		close(files[0]);
 	}
-	my_command(*pip, pip->cmd, pip->flags, env);
+	my_command(pip, pip->cmd, pip->flags, env);
 	get_exit(EXIT_SUCCESS, pip);
 }
 
@@ -113,7 +113,7 @@ static int	my_builtins(t_cmd *pip, char ***env, int infile, int outfile)
 		return (1);
 	if (infile < 0 || outfile < 0)
 		return (-1);
-	ret = my_exec(*pip, env, infile, outfile);
+	ret = my_exec(pip, env, infile, outfile);
 	return (ret);
 }
 
@@ -141,7 +141,7 @@ int	n_piper(t_shell *shell)
 	if (!pid)
 	{
 		if (!cmd->next)
-			my_exec(*cmd, &shell->env, files[0], files[1]);
+			my_exec(cmd, &shell->env, files[0], files[1]);
 		else
 		{
 			if (pipe(fds) == -1)
