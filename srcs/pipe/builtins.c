@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:50:44 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:13:33 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/12 09:48:01 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 		else
 			ret = get_exit(EXIT_SUCCESS, cmd);
 	}
+    if (ret != 1 && init_edit_shell(2, NULL, 0)->start_cmd->next)
+        get_exit(EXIT_SUCCESS, cmd);
 	return (ret);
 }
 
