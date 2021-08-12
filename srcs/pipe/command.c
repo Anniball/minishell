@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 11:41:50 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/12 17:01:06 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,30 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
+static char **clone_env(char **env)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	while (env[i])
+		i++;
+	new_env = malloc(sizeof(*new_env) * (i + 2));
+	if (!new_env)
+		return ((void *)0);
+	i = -1;
+	while (env[++i])
+		new_env[i] = env[i];
+	new_env[i] = my_strdup("PATH=/");
+	new_env[i + 1] = ((void *)0);
+	return (new_env);
+}
+
 void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
 	char	*full_cmd;
 	char	**paths;
+	char	**tmp;
 	int		i;
 	int		ret;
 
@@ -97,12 +117,24 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	if (ret != 1)
 		return ;
 	i = 0;
-	while (my_scmp((*env)[i], "PATH="))
+	while ((*env)[i] && my_scmp((*env)[i], "PATH="))
 		i++;
+	if (!(*env)[i])
+	{
+		execve(cmd, argv, *env);
+		write(STDERR_FILENO, "minishell: ", 11);
+		write(STDERR_FILENO, pip->cmd, my_strlen(pip->cmd));
+		write(STDERR_FILENO, ": No such file or directory\n", 28);
+		get_exit(MY_FILE_NOT_FOUND, pip);
+	}
+	ret = -1;
+	if (my_strlen(cmd) >= 2 && cmd[0] == '.' && cmd[1] == '/')
+		ret = execve(cmd, argv, *env);
 	paths = my_simple_split((*env)[i] + 5, ':');
-	ret = execve(cmd, argv, *env);
-	i = 0;
-	while (ret < 0 && paths[i++])
+	if (!paths)
+		get_exit(MALLOC_ERROR, pip);
+	i = -1;
+	while (ret < 0 && paths[++i])
 	{
 		full_cmd = my_strjoin(paths[i], cmd);
 		ret = execve(full_cmd, argv, *env);

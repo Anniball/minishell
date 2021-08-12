@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:48:31 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:06:01 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 15:38:17 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_env_value(t_shell *shell, char **env, char *var)
 	int	i;
 
 	i = -1;
-	if (var[0] == '?')
+	if (shell && var[0] == '?')
 		return (ft_itoa(shell->status));
 	while (env[++i])
 	{
