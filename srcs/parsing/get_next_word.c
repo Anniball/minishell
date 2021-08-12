@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:08:27 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 17:00:34 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 17:28:21 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ static int	get_next_word_len(char *str, int *index, int *i_toset)
 	return (len);
 }
 
-void	get_next_word_loop(char *str, char quote, int len, char *next_word)
+int	get_next_word_loop(char *str, char quote, int len, char *next_word)
 {
 	int		i;
 	char	last_quote;
 
 	i = -1;
 	last_quote = 0;
+	len = 0;
 	while (str[++i])
 	{
 		set_quote(str, i, &quote);
@@ -59,6 +60,7 @@ void	get_next_word_loop(char *str, char quote, int len, char *next_word)
 		}
 		last_quote = quote;
 	}
+	return (len);
 }
 
 char	*get_next_word(char *str, int *index)
@@ -73,8 +75,7 @@ char	*get_next_word(char *str, int *index)
 	if (!next_word)
 		return (NULL);
 	quote = 0;
-	len = 0;
-	get_next_word_loop(str, quote, len, next_word);
+	len = get_next_word_loop(str, quote, len, next_word);
 	next_word[len] = 0;
 	return (next_word);
 }
