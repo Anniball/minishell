@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:01:06 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/12 17:10:28 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	if (!paths)
 		get_exit(MALLOC_ERROR, pip);
 	i = -1;
+	full_cmd = ((void *)0);
 	while (ret < 0 && paths[++i])
 	{
 		full_cmd = my_strjoin(paths[i], cmd);
