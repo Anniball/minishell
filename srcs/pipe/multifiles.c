@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:12:30 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/12 17:22:13 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*my_concat(char *str, char c)
 
 static int	reverse_comp(char *s1, char *s2)
 {
-	size_t len;
+	size_t	len;
 
 	if (!s2)
 		return (-1);
@@ -129,7 +129,8 @@ int	multi_infiles(t_cmd *cmd, int in)
 		{
 			write(STDERR_FILENO, cmd->cmd, my_strlen(cmd->cmd));
 			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, cmd->infiles->str, my_strlen(cmd->infiles->str));
+			write(STDERR_FILENO, cmd->infiles->str,
+				my_strlen(cmd->infiles->str));
 			write(STDERR_FILENO, ": No such file or directory\n", 28);
 			return (-1);
 		}

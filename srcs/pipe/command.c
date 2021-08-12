@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:10:28 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/12 17:21:15 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
-static char **clone_env(char **env)
+static char	**clone_env(char **env)
 {
 	int		i;
 	char	**new_env;
