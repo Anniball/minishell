@@ -6,43 +6,11 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 12:08:50 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:04:00 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*replace_by_env_value(t_shell *shell, char **env, char *str)
-{
-	char	open_quote;
-	int		i;
-	char	*new_str;
-	char	*env_var;
-	int		last_join;
-
-	if (!str)
-		return (NULL);
-	i = -1;
-	new_str = NULL;
-	last_join = 0;
-	open_quote = 0;
-	while (str[++i])
-	{
-		set_quote(str, i, &open_quote);
-		if (str[i] == '$' && str[i + 1] && !(open_quote == '\''))
-		{
-			new_str = parse_join(new_str, ft_substr(str,
-						last_join, i - last_join));
-			env_var = strdup_until(&str[i + 1], " \"'");
-			new_str = parse_join(new_str, get_env_value(shell, env, env_var));
-			last_join = i + my_strlen(env_var) + 1;
-			free(env_var);
-		}
-	}
-	if (last_join != i)
-		new_str = parse_join(new_str, ft_substr(str, last_join, i - last_join));
-	return (new_str);
-}
 
 static	int	init_parse_free(t_parse_free **parse_free)
 {

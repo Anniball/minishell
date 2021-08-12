@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 14:46:18 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:03:49 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*my_strncpy(char *src, char *dst, int n);
 char	*my_strjoin(char *str, char *add);
 char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
-char	*get_env_value(t_shell *shell, char **env, char *var);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 t_lst	*lst_new(char *str);
@@ -116,6 +115,7 @@ char	*parse_join(char *s1, char *s2);
 int		check_line(t_shell *shell, char *line);
 char	*get_input_output(t_cmd *new, char *cmd);
 char	*get_next_word(char *str, int *index);
+char	*replace_by_env_value(t_shell *shell, char **env, char *str);
 
 /*
 **	set quote set value quote if text is inside of quote
