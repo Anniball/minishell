@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:25:15 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 15:02:40 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:11:23 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 {
 	line = create_shell_line(shell, shell->env);
 	input = readline(line);
+	add_history(input);
 	free(line);
 	if (!input)
 	{
@@ -137,8 +138,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	}
 	else if (!*input)
 		;
-	add_history(input);
-	if (!check_line(shell, input))
+	else if (!check_line(shell, input))
 	{
 		parse_line(shell, input);
 		print_cmd(shell);

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:22:46 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/05 16:15:10 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/12 13:54:25 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*parse_join(char *s1, char *s2)
 	if (!conc_str)
 	{
 		free(s1);
+		free(s2);
 		return (NULL);
 	}
 	conc_str[len] = 0;
