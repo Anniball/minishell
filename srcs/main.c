@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:06:20 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:26:02 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,9 @@ static void	set_shlvl(t_shell *shell)
 	if (my_strlen(env_var) > 3 || ft_atoi(env_var) >= 999)
 	{
 		tmp = ft_itoa(sh_lvl);
-		write(1, "Minishell: warning: shell level (", 33);
-		write(1, env_var, my_strlen(env_var));
-		write(1, ") too high, resetting to 1\n", 27);
+		write(STDERR_FILENO, "minishell: warning: shell level (", 33);
+		write(STDERR_FILENO, env_var, my_strlen(env_var));
+		write(STDERR_FILENO, ") too high, resetting to 1\n", 27);
 		sh_lvl = 0;
 	}
 	sh_lvl = ft_atoi(env_var);

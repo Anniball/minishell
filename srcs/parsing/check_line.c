@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:37:58 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/08 17:08:20 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 09:26:16 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	return_check(t_shell *shell)
 {
 	shell->status = 1;
-	write(2, "Minishell: syntax error\n", 24);
+	write(STDERR_FILENO, "minishell: syntax error\n", 24);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:50:44 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:21:02 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:41:36 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 {
 	int	ret;
 
-	ret = 1;
+	ret = 257;
 	if (!simple_strcmp(cmd->cmd, "env"))
 		ret = get_env(*env, cmd);
 	else if (!simple_strcmp(cmd->cmd, "echo"))
@@ -48,7 +48,7 @@ int	exec_builtin(t_cmd *cmd, char ***env)
 		else
 			ret = get_exit(EXIT_SUCCESS, cmd);
 	}
-	if (ret != 1 && init_edit_shell(2, NULL, 0)->start_cmd->next)
+	if (ret != 257 && init_edit_shell(2, NULL, 0)->start_cmd->next)
 		get_exit(EXIT_SUCCESS, cmd);
 	return (ret);
 }

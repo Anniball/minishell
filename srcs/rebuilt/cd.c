@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 14:49:45 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 09:38:39 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static char	**change_pwd(char **env)
 
 int	get_cd(t_cmd *cmd, char ***env)
 {
-	int	ret;
+	int		ret;
+	char	*env_var;
 
 	ret = 0;
 	if (cmd->flags[1] && cmd->flags[2])
@@ -83,41 +84,27 @@ int	get_cd(t_cmd *cmd, char ***env)
 	}
 	else
 	{
-		if (!cmd->flags[1] || (cmd->flags[1][0] == '~'
-			&& cmd->flags[1][1] == 0))
-			ret = chdir(get_str(*env, "HOME=") + 5);
-		else
+		if (!cmd->flags[1])
 		{
-			if (cmd->flags[1][0] == '~')
-				ret = chdir(cmd->flags[1] + 1);
-			ret = chdir(cmd->flags[1]);
+			if (get_str(*env, "HOME=") == NULL)
+			{
+				write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
+				return (1);
+			}
+			ret = chdir(get_str(*env, "HOME=") + 5);
 		}
+		else
+			ret = chdir(cmd->flags[1]);
 		*env = change_pwd(*env);
 	}
 	if (ret)
 	{
-		init_edit_shell(0, NULL, 1);
-		write(2, "cd: no such file or directory: ", 31);
-		if (!cmd->flags[1] || cmd->flags[1][0] == '~' || cmd->flags[1][1] == 0)
-			write(2, get_str(*env, "HOME="), my_strlen(get_str(*env, "HOME=")));
+		write(STDERR_FILENO, "cd: no such file or directory: ", 31);
+		if (!cmd->flags[1])
+			write(STDERR_FILENO, get_str(*env, "HOME=") + 5, my_strlen(get_str(*env, "HOME=")) - 5);
 		else
-			write(2, cmd->flags[1], my_strlen(cmd->flags[1]));
-		write(2, "\n", 1);
+			write(STDERR_FILENO, cmd->flags[1], my_strlen(cmd->flags[1]));
+		write(STDERR_FILENO, "\n", 1);
 	}
 	return (ret);
 }
-
-/*CHECKING MAIN*/
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd cmd;
-
-// 	cmd.cmd = "cd";
-// 	char *flags[] = {cmd.cmd, "/Users/ldelmas/Desktop", NULL};
-// 	cmd.flags = flags;
-// 	cmd.next = NULL;
-// 	get_cd(&cmd, env);
-// 	char cwd[PATH_MAX];
-// 	printf("%s\n", getcwd(cwd, PATH_MAX));
-// }

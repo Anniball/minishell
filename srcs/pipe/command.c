@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:21:15 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:43:04 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,25 +86,6 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
-static char	**clone_env(char **env)
-{
-	int		i;
-	char	**new_env;
-
-	i = 0;
-	while (env[i])
-		i++;
-	new_env = malloc(sizeof(*new_env) * (i + 2));
-	if (!new_env)
-		return ((void *)0);
-	i = -1;
-	while (env[++i])
-		new_env[i] = env[i];
-	new_env[i] = my_strdup("PATH=/");
-	new_env[i + 1] = ((void *)0);
-	return (new_env);
-}
-
 void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
 	char	*full_cmd;
@@ -114,8 +95,11 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	int		ret;
 
 	ret = exec_builtin(pip, env);
-	if (ret != 1)
+	if (ret != 257)
+	{
+		init_edit_shell(0, NULL, ret);
 		return ;
+	}
 	i = 0;
 	while ((*env)[i] && my_scmp((*env)[i], "PATH="))
 		i++;

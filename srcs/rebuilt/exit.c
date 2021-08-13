@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 10:57:19 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 16:56:47 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:26:22 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_exit(int status, t_cmd *cmd)
 		do_print = 1;
 	init_edit_shell(3, NULL, 0);
 	if (status == MALLOC_ERROR)
-		write(STDERR_FILENO, "Minishell: malloc error\n", 24);
+		write(STDERR_FILENO, "minishell: malloc error\n", 24);
 	if (do_print)
 		write(STDERR_FILENO, "exit\n", 5);
 	exit(status);
