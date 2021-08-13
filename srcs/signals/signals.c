@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:54:53 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 14:17:01 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 14:50:30 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	my_sigquit(int sig)
 		write(STDOUT_FILENO, "Quit: 3\n", 8);
 		return ;
 	}
+	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
 }
