@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infinite_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 09:37:43 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/23 10:54:20 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:06:51 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 int main(int argc, char** argv, char **envp)
 {
-	while ('L')
-	{
-		sleep(2);
-		printf("Hello!\n");
-	}
+	while (1)
+		sleep(1);
 }

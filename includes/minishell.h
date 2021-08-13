@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 14:03:49 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 14:10:10 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_shell
 	t_cmd	*start_cmd;
 	char	**env;
 	int		status;
+	int		cmd_start;
 }				t_shell;
 
 typedef struct s_parse_free

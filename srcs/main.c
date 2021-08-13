@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:26:02 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 14:10:53 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_shell	*init_edit_shell(int is_init, char **env, int status)
 			return (NULL);
 		shell->start_cmd = NULL;
 		shell->status = 0;
+		shell->cmd_start = 0;
 		init_shell_env(shell, env);
 		return (shell);
 	}
@@ -132,7 +133,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	free(line);
 	if (!input)
 	{
-		write(1, "Ending minishell.\n", 18);
+		write(1, "exit\n", 5);
 		init_edit_shell(3, NULL, 0);
 		exit(0);
 	}
@@ -142,8 +143,10 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	{
 		parse_line(shell, input);
 		print_cmd(shell);
+		shell->cmd_start = 1;
 		n_piper(shell);
 	}
+	shell->cmd_start = 0;
 	free(input);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:54:53 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 13:16:28 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 14:17:01 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 static void	my_sigint(int sig)
 {
-	write(1, "\n", 1);
+	if (init_edit_shell(2, NULL, 0)->cmd_start)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return ;
+	}
+	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -26,6 +31,11 @@ static void	my_sigint(int sig)
 
 static void	my_sigquit(int sig)
 {
+	if (init_edit_shell(2, NULL, 0)->cmd_start)
+	{
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+		return ;
+	}
 	rl_on_new_line();
 	rl_redisplay();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 09:37:43 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 14:57:08 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:49:17 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv, char **envp)
 		char *input = readline(GRN "➜" BLU " minishell > " RESET);
 		if (!input)
 		{
-			write(1, "Ending minishell.\n", 18);
+			write(1, "exit\n", 5);
 			break ;
 		}
 		else if (!*input)
