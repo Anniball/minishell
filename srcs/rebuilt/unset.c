@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:28:16 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 11:11:50 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/13 09:45:25 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ int	get_unset(t_cmd *cmd, char ***env)
 	if (!cmd->flags[1])
 		return (ERROR);
 	i = 0;
-	while (my_scmp((*env)[i], cmd->flags[1]))
+	while ((*env)[i] && my_scmp((*env)[i], cmd->flags[1]))
 		i++;
+	if (!(*env)[i])
+		return (0);
 	*env = trunc_elem(*env, i);
 	if (!(*env))
 	{

@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/12 17:22:13 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 09:33:43 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,24 @@ static char	*my_concat(char *str, char c)
 
 static int	reverse_comp(char *s1, char *s2)
 {
-	size_t	len;
+	size_t	len1;
+	size_t	len2;
 
 	if (!s2)
 		return (-1);
-	if (!s1 || my_strlen(s1) < len)
+	len2 = my_strlen(s2) -1 ;
+	len1 = my_strlen(s1) - 1;
+	if (!s1 || len1 < len2)
 		return (1);
-	len = my_strlen(s2) - 1;
-	while (len >= 0)
+	while (len2 >= 0)
 	{
-		write(STDERR_FILENO, s1 + len, 1);
-		write(STDERR_FILENO, s2 + len, 1);
+		write(STDERR_FILENO, s1 + len1, 1);
+		write(STDERR_FILENO, s2 + len2, 1);
 		write(STDERR_FILENO, "\n", 1);
-		if (s1[len] != s2[len])
+		if (s1[len1] != s2[len2])
 			return (1);
-		len--;
+		len2--;
+		len1--;
 	}
 	write(1, "OVER\n", 5);
 	return (0);
