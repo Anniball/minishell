@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:33:43 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/13 10:43:09 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,55 +31,78 @@ static char	*my_concat(char *str, char c)
 
 static int	reverse_comp(char *s1, char *s2)
 {
-	size_t	len1;
-	size_t	len2;
+	ssize_t	len1;
+	ssize_t	len2;
 
 	if (!s2)
 		return (-1);
-	len2 = my_strlen(s2) -1 ;
+	len2 = my_strlen(s2) - 1;
 	len1 = my_strlen(s1) - 1;
 	if (!s1 || len1 < len2)
 		return (1);
 	while (len2 >= 0)
 	{
-		write(STDERR_FILENO, s1 + len1, 1);
-		write(STDERR_FILENO, s2 + len2, 1);
-		write(STDERR_FILENO, "\n", 1);
 		if (s1[len1] != s2[len2])
 			return (1);
 		len2--;
 		len1--;
 	}
-	write(1, "OVER\n", 5);
 	return (0);
 }
 
 static int	double_infile(t_lst *infile)
 {
-	char	*str;
-	char	*name;
-	char	buf;
-	int		ret;
+	// char	*str;
+	// char	*name;
+	// char	buf;
+	// int		ret;
 	int		pip[2];
+	char	*str;
+	char	*input;
+	char	*tmp;
 
 	if (pipe(pip) == -1)
 		return (-1);
-	name = infile->str;
-	str = ((void *)0);
-	ret = 1;
-	while (ret > 0 && reverse_comp(str, name))
+	str = NULL;
+	input = readline(">");
+	while (input)
 	{
-		write(STDERR_FILENO, "NEW\n", 4);
-		ret = read(STDIN_FILENO, &buf, 1);
-		if (ret < 0)
+		if (!ft_strcmp(infile->str, input))
+			break ;
+		tmp = my_concat(input, '\n');
+		if (!tmp)
+		{
+			free(str);
 			return (-1);
-		str = my_concat(str, buf);
+		}
+		str = parse_join(str, tmp);
 		if (!str)
 			return (-1);
+		input = readline(">");
 	}
 	write(pip[1], str, my_strlen(str));
 	free(str);
 	close(pip[1]);
+	// if (pipe(pip) == -1)
+	// 	return (-1);
+	// name = infile->str;
+	// str = ((void *)0);
+	// ret = 1;
+	// while (ret > 0)
+	// {
+	// 	write(STDERR_FILENO, "NEW\n", 4);
+	// 	ret = read(STDIN_FILENO, &buf, 1);
+	// 	if (ret < 0)
+	// 		return (-1);
+	// 	if (buf == '\n' && !reverse_comp(str, name))
+	// 		break ;
+	// 	str = my_concat(str, buf);
+	// 	if (!str)
+	// 		return (-1);
+	// }
+	// write(pip[1], str, my_strlen(str));
+	// free(str);
+	// close(pip[1]);
 	return (pip[0]);
 }
 
