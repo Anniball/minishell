@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multifiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 09:04:50 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:23:38 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ static int	double_infile(t_lst *infile)
 	input = readline(">");
 	while (input)
 	{
+		if (!input[0])
+		{
+			input = readline(">");
+			continue ;
+		}
 		if (!ft_strcmp(infile->str, input))
 			break ;
 		tmp = my_concat(input, '\n');

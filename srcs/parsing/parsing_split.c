@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/16 10:21:05 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 11:20:03 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ char	**parse_split_with_quotes(char *str, char c)
 		return (NULL);
 	split_list[w_count] = NULL;
 	while (++i < str_len)
-	{
 		if (parse_split_loop(split_list, str, &current_word, &i))
 			return (NULL);
-	}
 	return (split_list);
 }
