@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/09 17:24:40 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/16 11:37:53 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/16 20:31:34 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ HEADER = minishell.h
 
 MAIN = main
 
-PIPE = exec command n_pipe builtins multifiles errors
+PIPE = exec command n_pipe builtins multifiles errors double_infile
 
 UTIL = basics cmd_lst str_lst env_utils str_utils basics2
 
