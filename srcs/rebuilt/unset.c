@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:28:16 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:45:25 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 09:56:56 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,57 +98,3 @@ int	get_unset(t_cmd *cmd, char ***env)
 	}
 	return (0);
 }
-
-/*CHECKING MAIN*/
-/*gcc export.c unset.c ../utils/basics.c ../pipe/command.c*/
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd cmd;
-// 	size_t count;
-// 	char **new_env;
-
-// 	count = 0;
-// 	while (env[count])
-// 		count++;
-// 	new_env = malloc(sizeof(*new_env) * (count + 1));
-// 	count = -1;
-// 	while (env[++count])
-// 		new_env[count] = my_strdup(env[count]);
-// 	new_env[count] = (void *)0;
-
-// 	cmd.cmd = "export";
-// 	char *flags[] = {cmd.cmd, NULL, NULL};
-// 	cmd.flags = flags;
-// 	cmd.flags[1] = malloc(sizeof(char) * 200);
-
-// 	cmd.flags[1] = my_strcpy("TEST0=coucou", cmd.flags[1]);
-// 	cmd.next = (void *)0;
-// 	get_export(&cmd, &new_env);
-// 	printf("%s\n", flags[1]);
-
-// 	cmd.flags[1] = my_strcpy("TEST1=hello", cmd.flags[1]);
-// 	cmd.next = (void *)0;
-// 	get_export(&cmd, &new_env);
-// 	printf("%s\n", flags[1]);
-
-// 	cmd.flags[1] = my_strcpy("TEST2=bonjour", cmd.flags[1]);
-// 	cmd.next = (void *)0;
-// 	get_export(&cmd, &new_env);
-// 	printf("%s\n", flags[1]);
-
-// 	cmd.cmd = "unset";
-
-// 	cmd.flags[1] = my_strcpy("TEST1", cmd.flags[1]);
-// 	get_unset(&cmd, &new_env);
-// 	printf("%s\n", flags[1]);
-
-// 	cmd.flags[1] = my_strcpy("TEST0", cmd.flags[1]);
-// 	get_unset(&cmd, &new_env);
-// 	printf("%s\n", flags[1]);
-
-// 	free(flags[1]);
-// 	system("leaks a.out");
-// 	char *exe[] = {"bash", NULL};
-// 	my_command(*exe, exe, new_env);
-// }

@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 09:54:00 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 09:57:29 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	free(line);
 	if (!input)
 	{
-		write(1, "exit\n", 5);
+		write(STDOUT_FILENO, "exit\n", 5);
 		init_edit_shell(3, NULL, 0);
 		exit(0);
 	}

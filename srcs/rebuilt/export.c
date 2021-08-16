@@ -3,79 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/10 14:38:04 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 09:57:09 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// static char *my_calloc(size_t size)
-// {
-// 	char	*new;
-// 	size_t	count;
-
-// 	new = malloc(sizeof(*new) * size);
-// 	count = -1;
-// 	while (++count < size)
-// 		new[count] = '\0';
-// 	return (new);
-// }
-
-// static char *parsing_arg(char *str)
-// {
-// 	int		i;
-// 	int		pos;
-// 	char	*new;
-// 	char	quote;
-
-// 	new = my_calloc(my_strlen(str) + 1);
-// 	if (!new)
-// 		return ((void *)0);
-// 	i = 0;
-// 	pos = 0;
-// 	quote = '\0';
-// 	while (str[i] && str[i] != '=')
-// 		new[pos++] = str[i++];
-// 	new[pos++] = str[i];
-// 	while (str[++i])
-// 	{
-// 		if (str[i] == '\\')
-// 		{
-// 			if (str[i + 1] == '\'' || str[i + 1] == '\"')
-// 			{
-// 				new[pos++] = str[i + 1];
-// 				if (!str[++i])
-// 					break ;
-// 			}
-// 		}
-// 		else if (str[i] == '\'' || str[i] == '\"')
-// 		{
-// 			if (quote && quote != str[i])
-// 				new[pos++] = str[i];
-// 			else
-// 			{
-// 				if (quote == str[i])
-// 					quote = '\0';
-// 				else if (!quote)
-// 					quote = str[i];
-// 			}
-// 		}
-// 		else
-// 			new[pos++] = str[i];
-// 	}
-// 	new[pos] = '\0';
-// 	if (quote)
-// 	{
-// 		free(new);
-// 		write(STDERR_FILENO, "Wrong number of quotes.\n", 24);
-// 		return ((void *)0);
-// 	}
-// 	printf("%s\n", new);
-// 	return (new);
-// }
 
 static char	**strptradd(char **ptr, char *str)
 {

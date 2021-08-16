@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 09:37:43 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:49:17 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 09:58:21 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	ministrlen(char *str)
 
 static void	my_sigint(int sig)
 {
-	write(1, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 	// write(1, GRN "➜" BLU " minishell >  \n" RESET, 16);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -62,7 +62,7 @@ int main(int argc, char** argv, char **envp)
 		char *input = readline(GRN "➜" BLU " minishell > " RESET);
 		if (!input)
 		{
-			write(1, "exit\n", 5);
+			write(STDOUT_FILENO, "exit\n", 5);
 			break ;
 		}
 		else if (!*input)
@@ -72,7 +72,7 @@ int main(int argc, char** argv, char **envp)
 		{
 			if (execve(input, &input, envp) < 0)
 			{
-				write(1, "No executable having this name.\n", 33);
+				write(STDOUT_FILENO, "No executable having this name.\n", 33);
 				return (0);
 			}
 		}

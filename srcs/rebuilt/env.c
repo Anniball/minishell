@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 10:39:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/04 11:17:36 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 09:58:31 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_env(char **env, t_cmd *cmd)
 	while (env[++i])
 	{
 		write(STDOUT_FILENO, env[i], my_strlen(env[i]));
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
 }
