@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 18:52:53 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 19:26:59 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,8 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	free_tab(paths);
 	if (ret < 0 && !pip->infiles && !pip->outfiles)
 		exit_nopath(pip, pip->cmd, ": Command not found.\n", 1);
-	get_exit(EXIT_SUCCESS, pip);
+	if (pip->cmd)
+		get_exit(EXIT_SUCCESS, pip);
+	else
+		get_exit(NO_COMMAND, pip);
 }

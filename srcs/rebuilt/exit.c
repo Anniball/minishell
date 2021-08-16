@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 10:57:19 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 17:45:23 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 19:27:57 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	get_exit(int status, t_cmd *cmd)
 	init_edit_shell(3, NULL, 0);
 	if (status == MALLOC_ERROR)
 		write(STDERR_FILENO, "minishell: malloc error\n", 24);
-	if (do_print)
+	if (do_print && status != NO_COMMAND)
 		write(STDERR_FILENO, "exit\n", 5);
+	if (status == NO_COMMAND)
+		exit (0);
 	exit(status);
 }

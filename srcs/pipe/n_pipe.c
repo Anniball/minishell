@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 18:44:29 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 19:20:53 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 	if (files[0] < 0 || files[1] < 0)
 		return ;
 	pid = fork();
-	if (pid == -1)
+	if (pid < 0)
 		return ;
 	else if (!pid)
 	{
@@ -133,6 +133,8 @@ int	n_piper(t_shell *shell)
 	if (pid != 1)
 		return (pid);
 	pid = fork();
+	if (pid < 0)
+		return (-1);
 	if (!pid)
 	{
 		if (!cmd->next)
@@ -142,7 +144,7 @@ int	n_piper(t_shell *shell)
 			if (pipe(fds) == -1)
 				return (-1);
 			pid = fork();
-			if (pid == -1)
+			if (pid < 0)
 				return (-1);
 			if (!pid)
 				child_pipe(fds, cmd, &shell->env, files);

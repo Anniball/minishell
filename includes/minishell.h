@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 18:07:22 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 19:27:13 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_parse_free
 # define MY_FILE_NOT_FOUND 127
 
 # define MALLOC_ERROR 128
+# define NO_COMMAND 129
 
 /*
 ** ------------------UTILS------------------------------
