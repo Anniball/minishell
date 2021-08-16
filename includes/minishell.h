@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 14:10:10 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 18:07:22 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -202,6 +201,7 @@ int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
 int		multi_outfiles(t_cmd *cmd, int out);
 int		multi_infiles(t_cmd *cmd, int in);
+int		exit_nopath(t_cmd *cmd, char *name, char *error, int ret);
 
 /*
 ** ------------------SIGNALS------------------------------

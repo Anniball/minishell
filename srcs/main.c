@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 10:28:15 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 17:58:45 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 		;
 	else if (!check_line(shell, input))
 	{
+		receive_signal();
 		parse_line(shell, input);
 		print_cmd(shell);
 		shell->cmd_start = 1;
@@ -198,7 +199,10 @@ int	main(int argc, char **argv, char **envp)
 	i = -1;
 	receive_signal();
 	while (++i < 10)
+	{
+		signal(SIGQUIT, SIG_IGN);
 		main_loop(shell, line, input);
+	}
 	clear_shell(shell);
 	return (0);
 }

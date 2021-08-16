@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multifiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 11:23:38 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 17:59:29 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	double_infile(t_lst *infile)
 	if (pipe(pip) == -1)
 		return (-1);
 	str = NULL;
+	signal(SIGQUIT, SIG_IGN);
 	input = readline(">");
 	while (input)
 	{
@@ -83,6 +84,7 @@ static int	double_infile(t_lst *infile)
 	}
 	write(pip[1], str, my_strlen(str));
 	free(str);
+	receive_signal();
 	close(pip[1]);
 	return (pip[0]);
 }
@@ -133,14 +135,7 @@ int	multi_infiles(t_cmd *cmd, int in)
 		else
 			fd = open(infiles->str, O_RDONLY);
 		if (fd < 0)
-		{
-			write(STDERR_FILENO, cmd->cmd, my_strlen(cmd->cmd));
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, cmd->infiles->str,
-				my_strlen(cmd->infiles->str));
-			write(STDERR_FILENO, ": No such file or directory\n", 28);
-			return (-1);
-		}
+			return (exit_nopath(cmd, infiles->str, ": No such file or directory\n", 0));
 		else if (infiles->next)
 			close(fd);
 		infiles = infiles->next;
