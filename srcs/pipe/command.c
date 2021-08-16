@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:43:04 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 09:44:35 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,10 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	}
 	free(full_cmd);
 	free_tab(paths);
-	if (ret < 0)
+	if (ret < 0 && !pip->infiles && !pip->outfiles)
 	{
 		write(STDERR_FILENO, "Command not found.\n", 19);
 		get_exit(MY_FILE_NOT_FOUND, pip);
 	}
+	get_exit(EXIT_SUCCESS, pip);
 }

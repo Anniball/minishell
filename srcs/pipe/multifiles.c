@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 10:58:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 10:43:09 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/16 09:04:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ static int	reverse_comp(char *s1, char *s2)
 
 static int	double_infile(t_lst *infile)
 {
-	// char	*str;
-	// char	*name;
-	// char	buf;
-	// int		ret;
 	int		pip[2];
 	char	*str;
 	char	*input;
@@ -83,26 +79,6 @@ static int	double_infile(t_lst *infile)
 	write(pip[1], str, my_strlen(str));
 	free(str);
 	close(pip[1]);
-	// if (pipe(pip) == -1)
-	// 	return (-1);
-	// name = infile->str;
-	// str = ((void *)0);
-	// ret = 1;
-	// while (ret > 0)
-	// {
-	// 	write(STDERR_FILENO, "NEW\n", 4);
-	// 	ret = read(STDIN_FILENO, &buf, 1);
-	// 	if (ret < 0)
-	// 		return (-1);
-	// 	if (buf == '\n' && !reverse_comp(str, name))
-	// 		break ;
-	// 	str = my_concat(str, buf);
-	// 	if (!str)
-	// 		return (-1);
-	// }
-	// write(pip[1], str, my_strlen(str));
-	// free(str);
-	// close(pip[1]);
 	return (pip[0]);
 }
 
