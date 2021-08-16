@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:05:20 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/12 17:21:26 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 10:20:00 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*get_in_out_init(char *cmd, int *i, int *j, char *quote)
 	new_cmd = malloc(sizeof(char) * (my_strlen(cmd) + 1));
 	if (!new_cmd)
 		return (NULL);
+	new_cmd[my_strlen(cmd)] = 0;
 	*quote = 0;
 	*i = -1;
 	*j = -1;

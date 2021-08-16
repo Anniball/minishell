@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 11:34:38 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/16 10:21:05 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,14 @@ char	**parse_split_with_quotes(char *str, char c)
 	int			i;
 	int			current_word;
 
+	if (!str[0])
+	{
+		split_list = malloc(sizeof(char *));
+		if (!split_list)
+			return (split_list);
+		split_list[0] = NULL;
+		return (split_list);
+	}
 	current_word = 0;
 	i = -1;
 	split_list = malloc(sizeof(char *) * (w_count + 1));
