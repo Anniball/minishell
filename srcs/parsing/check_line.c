@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:37:58 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/13 09:26:16 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 16:11:24 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	check_line(t_shell *shell, char *line)
 
 	i = -1;
 	quote = 0;
+	if (line && is_next_in(line, "|"))
+		return (return_check(shell));
 	while (line[++i])
 	{
 		set_quote(line, i, &quote);
