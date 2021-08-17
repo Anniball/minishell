@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:11:38 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 11:34:54 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,24 @@
 static char	**strptradd(char **ptr, char *str)
 {
 	char	**new;
+	char	*tmp;
 	int		size;
 
 	size = 0;
 	while (ptr[size])
 		size++;
 	new = malloc(sizeof(*new) * (size + 2));
-	if (!new)
+	tmp = malloc(sizeof(*tmp) * (my_strlen(str) + 1));
+	if (!new || !tmp)
+	{
+		free(new);
+		free(tmp);
 		return ((void *)0);
+	}
 	size = -1;
 	while (ptr[++size])
-	{
-		new[size] = my_strdup(ptr[size]);
-		if (!new[size])
-			return ((void *)0);
-		free(ptr[size]);
-	}
-	new[size] = my_strdup(str);
+		new[size] = ptr[size];
+	new[size] = tmp;
 	new[size + 1] = (void *)0;
 	free(ptr);
 	return (new);
@@ -61,7 +62,7 @@ int	get_export(t_cmd *cmd, char ***env)
 	char	**old_env;
 
 	if (!cmd->flags[1])
-		get_env(*env, cmd);
+		return (get_env(*env, cmd));
 	else if (cmd->flags[1] && cmd->flags[2])
 	{
 		write(STDERR_FILENO, "Incorrect arguments for this command.\n", 38);
@@ -81,32 +82,3 @@ int	get_export(t_cmd *cmd, char ***env)
 	}
 	return (0);
 }
-
-/*CHECKING MAIN*/
-/*gcc export.c env.c ../utils/basics.c ../pipe/command.c*/
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_cmd cmd;
-// 	char **new_env;
-// 	size_t count;
-
-// 	count = 0;
-// 	while (env[count])
-// 		count++;
-// 	new_env = malloc(sizeof(*new_env) * (count + 1));
-// 	count = -1;
-// 	while (env[++count])
-// 		new_env[count] = my_strdup(env[count]);
-// 	new_env[count] = (void *)0;
-
-// 	cmd.cmd = "export";
-// 	char *flags[] = {cmd.cmd, "TEST=coucou", NULL};
-// 	cmd.flags = flags;
-// 	cmd.next = (void *)0;
-// 	get_export(&cmd, &new_env);
-// 	char *exe[] = {"bash", NULL};
-
-// 	system("leaks a.out");
-// 	my_command(*exe, exe, new_env);
-// }
