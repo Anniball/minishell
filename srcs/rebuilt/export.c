@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:47:43 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:51:06 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**dispatch_if_yet(char **env, char *str)
 	{
 		if (ft_strcmp(env[i], s) == 0)
 		{
+			free(s);
 			tmp = my_strdup(str);
 			if (!tmp)
 				return (NULL);
@@ -61,6 +62,7 @@ char	**dispatch_if_yet(char **env, char *str)
 			return (env);
 		}
 	}
+	free(s);
 	return (strptradd(env, str));
 }
 

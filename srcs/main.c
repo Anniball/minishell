@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 13:05:21 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:51:18 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 	set_shlvl(shell);
 	i = -1;
 	receive_signal();
-	while (++i < 10)
+	while (8)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		main_loop(shell, line, input);
