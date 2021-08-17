@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 09:57:09 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:11:38 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	**strptradd(char **ptr, char *str)
 	return (new);
 }
 
-static char	**dispatch_if_yet(char **env, char *str)
+char	**dispatch_if_yet(char **env, char *str)
 {
 	char	*s;
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:46:52 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/17 09:42:19 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:17:42 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,21 @@ char	*ft_itoa(int n)
 	return (num);
 }
 
-int	ft_atoi(const char *str)
+int	minishell_atoi(char *str)
 {
 	unsigned long long	num;
-	int					neg;
-	int					length;
 
-	neg = 1;
 	num = 0;
-	length = -1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			neg *= -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9' && ++length > -1)
+	if (my_strlen(str) > 10 || !str[0])
+		return (0);
+	while (*str >= '0' && *str <= '9')
 	{
 		num = 10 * num + (*str - '0');
 		str++;
 	}
-	if (!((*str >= 9 && *str <= 13) || *str == ' ' || *str == 0) || neg < 0)
-		return (-1);
-	return ((int)(num * neg));
+	if (*str || num > 2147483646)
+		return (0);
+	return (num);
 }
 
 size_t	str_list_len(char **str_list)

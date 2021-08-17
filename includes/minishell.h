@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 09:41:38 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:13:20 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
 char	**free_tab(char **tab);
 char	*ft_itoa(int n);
-int		ft_atoi(const char *str);
+int		minishell_atoi(char *str);
 size_t	str_list_len(char **str_list);
 void	free_str_list(char **str_list);
 t_lst	*lst_new(char *str);
@@ -161,6 +161,12 @@ int		get_cd(t_cmd *cmd, char ***env);
 int		get_export(t_cmd *cmd, char ***env);
 int		get_unset(t_cmd *cmd, char ***env);
 int		get_exit(int status, t_cmd *cmd);
+
+/*
+**	usefull in main to update env
+*/
+
+char	**dispatch_if_yet(char **env, char *str);
 
 /*
 ** ------------------DEBUG-------------------------------

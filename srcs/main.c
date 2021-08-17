@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 09:41:49 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:17:29 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,30 +137,24 @@ static void	set_shlvl(t_shell *shell)
 	char	*tmp;
 	int		sh_lvl;
 	int		i;
+	char	**new_env;
 
 	env_var = get_env_value(shell, shell->env, "SHLVL");
-	if (my_strlen(env_var) > 3 || ft_atoi(env_var) >= 999)
-	{
-		tmp = ft_itoa(sh_lvl);
-		write(STDERR_FILENO, "minishell: warning: shell level (", 33);
-		write(STDERR_FILENO, env_var, my_strlen(env_var));
-		write(STDERR_FILENO, ") too high, resetting to 1\n", 27);
-		sh_lvl = 0;
-	}
-	sh_lvl = ft_atoi(env_var);
+	sh_lvl = minishell_atoi(env_var);
 	free(env_var);
 	tmp = ft_itoa(sh_lvl + 1);
-	env_var = my_strjoin("SHLVL=", tmp);
-	free(tmp);
-	i = -1;
-	while (shell->env[++i])
+	if (sh_lvl >= 999)
 	{
-		if (ft_strcmp(shell->env[i], "SHLVL") == 0)
-		{
-			free(shell->env[i]);
-			shell->env[i] = env_var;
-		}
+		write(STDOUT_FILENO, "minishell: warning: shell level (", 33);
+		write(STDOUT_FILENO, tmp, my_strlen(tmp));
+		write(STDOUT_FILENO, ") too high, resetting to 1\n", 27);
+		env_var = my_strjoin("SHLVL=", "1");
 	}
+	else
+		env_var = my_strjoin("SHLVL=", tmp);
+	new_env = dispatch_if_yet(shell->env, env_var);
+	free(tmp);
+	free(env_var);
 }
 
 int	main(int argc, char **argv, char **envp)
