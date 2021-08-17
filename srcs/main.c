@@ -6,31 +6,11 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 17:58:45 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 09:41:49 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-size_t	str_list_len(char **str_list)
-{
-	size_t	i;
-
-	i = -1;
-	while (str_list[++i])
-		;
-	return (i);
-}
-
-void	free_str_list(char **str_list)
-{
-	int	i;
-
-	i = -1;
-	while (str_list[++i])
-		free(str_list[i]);
-	free(str_list);
-}
 
 static int	init_shell_env(t_shell *shell, char **env)
 {
@@ -153,7 +133,7 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 
 static void	set_shlvl(t_shell *shell)
 {
-	char *env_var;
+	char	*env_var;
 	char	*tmp;
 	int		sh_lvl;
 	int		i;

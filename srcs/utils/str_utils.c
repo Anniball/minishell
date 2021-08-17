@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:46:52 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:03 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 09:42:19 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,24 @@ int	ft_atoi(const char *str)
 	if (!((*str >= 9 && *str <= 13) || *str == ' ' || *str == 0) || neg < 0)
 		return (-1);
 	return ((int)(num * neg));
+}
+
+size_t	str_list_len(char **str_list)
+{
+	size_t	i;
+
+	i = -1;
+	while (str_list[++i])
+		;
+	return (i);
+}
+
+void	free_str_list(char **str_list)
+{
+	int	i;
+
+	i = -1;
+	while (str_list[++i])
+		free(str_list[i]);
+	free(str_list);
 }

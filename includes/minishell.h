@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 09:38:02 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 09:41:38 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		my_strcmp(char *s1, char *s2);
 char	**free_tab(char **tab);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
+size_t	str_list_len(char **str_list);
+void	free_str_list(char **str_list);
 t_lst	*lst_new(char *str);
 void	lst_add_back(t_lst **alst, t_lst *new);
 void	lst_clear(t_lst **lst);
