@@ -6,25 +6,11 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 08:51:58 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 14:58:34 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	my_scmp(char *s1, char *s2)
-{
-	int	i;
-
-	if (!s1 || !s2)
-		return (-1);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	if (s1[i] && s2[i])
-		return (s1[i] - s2[i]);
-	return (s1[i - 1] - s2[i - 1]);
-}
 
 static char	*get_str(char **env, char *str)
 {

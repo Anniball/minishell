@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 13:07:49 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 14:57:36 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <sys/wait.h>
 # include <sys/errno.h>
 # include <signal.h>
+# include <dirent.h>
 
 # ifdef __linux
 #  include <linux/limits.h>
@@ -90,6 +91,7 @@ char	*my_strjoin(char *str, char *add);
 char	*my_strdup(char *str);
 int		my_strcmp(char *s1, char *s2);
 char	**free_tab(char **tab);
+int		my_scmp(char *s1, char *s2);
 char	*ft_itoa(int n);
 int		minishell_atoi(char *str);
 size_t	str_list_len(char **str_list);

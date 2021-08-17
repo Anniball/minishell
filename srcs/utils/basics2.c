@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:05:03 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/17 09:38:03 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 14:57:11 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,18 @@ char	**free_tab(char **tab)
 		free(tab[i]);
 	free(tab);
 	return ((void *)0);
+}
+
+int	my_scmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (!s1 || !s2)
+		return (-1);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] && s2[i])
+		return (s1[i] - s2[i]);
+	return (s1[i - 1] - s2[i - 1]);
 }

@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 13:05:44 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 14:57:47 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	my_scmp(char *s1, char *s2)
-{
-	int	i;
-
-	if (!s1 || !s2)
-		return (-1);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	if (s1[i] && s2[i])
-		return (s1[i] - s2[i]);
-	return (s1[i - 1] - s2[i - 1]);
-}
 
 static char	**copy_chunks(char **tab, char *str)
 {
@@ -97,6 +83,20 @@ static void	path_check(int ret, char **paths, char ***env, t_cmd *pip)
 		get_exit(NO_COMMAND, pip);
 }
 
+static int	special_cmd(char *cmd, char **argv, char ***env)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd);
+	execve(cmd, argv, *env);
+	if (!dir)
+		exit_nopath((void *)0, cmd, ": No such file or directory\n", 1);
+	write(STDERR_FILENO, "minishell: ", 11);
+	write(STDERR_FILENO, cmd, my_strlen(cmd));
+	write(STDERR_FILENO, ": Is a directory\n", 17);
+	exit(126);
+}
+
 void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
 	char	**paths;
@@ -115,7 +115,9 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 		exit_nopath(pip, pip->cmd, ": No such file or directory\n", 0);
 	}
 	ret = -1;
-	if (my_strlen(cmd) >= 2 && cmd[0] == '.' && cmd[1] == '/')
+	if (cmd[0] == '/')
+		ret = special_cmd(cmd, argv, env);
+	else if ((my_strlen(cmd) >= 2 && cmd[0] == '.' && cmd[1] == '/'))
 		ret = execve(cmd, argv, *env);
 	paths = my_simple_split((*env)[i] + 5, ':');
 	if (!paths)
