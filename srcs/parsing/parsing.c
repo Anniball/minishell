@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 10:27:52 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 13:09:51 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	parse_line_loop(t_shell *shell, t_parse_free *p, int i)
 	t_cmd			*new;
 
 	new = cmd_new(NULL, NULL);
-	p->strip = replace_by_env_value(shell, shell->env, p->split_list[i]);
+	p->strip = replace_by_env_value(shell, p->split_list[i]);
 	p->strip = get_input_output(new, p->strip);
 	p->strip = my_strip(p->strip, ' ');
 	if (!p->strip)

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:13:20 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:07:49 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*parse_join(char *s1, char *s2);
 int		check_line(t_shell *shell, char *line);
 char	*get_input_output(t_cmd *new, char *cmd);
 char	*get_next_word(char *str, int *index);
-char	*replace_by_env_value(t_shell *shell, char **env, char *str);
+char	*replace_by_env_value(t_shell *shell, char *str);
 
 /*
 **	set quote set value quote if text is inside of quote

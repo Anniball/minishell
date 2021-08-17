@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:09 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/11 13:12:47 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:05:32 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	post_command(int tmp, int file, int usual)
 
 int	my_exec(t_cmd *pip, char ***env, int infile, int outfile)
 {
-	int	ret;
 	int	std[2];
 
 	std[0] = dup(STDIN_FILENO);

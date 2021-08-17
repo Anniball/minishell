@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:49:52 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:05:21 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	set_shlvl(t_shell *shell)
 	char	*env_var;
 	char	*tmp;
 	int		sh_lvl;
-	int		i;
 	char	**new_env;
 
 	env_var = get_env_value(shell, shell->env, "SHLVL");

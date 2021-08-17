@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:05:20 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/16 10:20:00 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:10:06 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*get_input_output(t_cmd *new, char *cmd)
 	t_lst	*new_file;
 
 	new_cmd = get_in_out_init(cmd, &i, &j, &quote);
+	new_file = NULL;
 	if (!new_cmd)
 		return (NULL);
 	while (cmd[++i])

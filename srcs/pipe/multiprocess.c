@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiprocess.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 09:11:38 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 09:12:18 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 13:06:00 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	brother_pipe(int *fds, t_cmd *pip, char ***env)
 
 void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files)
 {
-	int		in;
-
 	close(fds[0]);
 	if (files[1] == STDOUT_FILENO)
 	{

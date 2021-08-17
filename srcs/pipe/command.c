@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 09:37:50 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 13:05:44 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ static void	path_check(int ret, char **paths, char ***env, t_cmd *pip)
 void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
 	char	**paths;
-	char	**tmp;
 	int		i;
 	int		ret;
 

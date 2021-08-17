@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:03:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/17 11:39:59 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:07:20 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*set_new_str_env(t_shell *shell, char *str, int i, int *last_join)
 	return (my_strdup(""));
 }
 
-char	*replace_by_env_value(t_shell *shell, char **env, char *str)
+char	*replace_by_env_value(t_shell *shell, char *str)
 {
 	int		i;
 	char	*new_str;

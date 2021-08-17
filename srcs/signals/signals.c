@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:54:53 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 10:28:17 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 13:08:15 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	my_sigint(int sig)
 {
+	sig = (int)sig;
 	if (init_edit_shell(2, NULL, 0)->cmd_start)
 	{
 		write(STDOUT_FILENO, "\n", 1);
@@ -31,6 +32,7 @@ static void	my_sigint(int sig)
 
 static void	my_sigquit(int sig)
 {
+	sig = (int)sig;
 	if (init_edit_shell(2, NULL, 0)->cmd_start)
 	{
 		write(STDOUT_FILENO, "Quit: 3\n", 8);
