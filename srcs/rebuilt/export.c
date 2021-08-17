@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:40:31 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:47:43 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,21 @@ char	**dispatch_if_yet(char **env, char *str)
 {
 	char	*s;
 	int		i;
+	char	*tmp;
 
 	s = strdup_until_c(str, '=');
+	if (!s)
+		return (NULL);
 	i = -1;
 	while (env[++i])
 	{
 		if (ft_strcmp(env[i], s) == 0)
 		{
-			env[i] = my_strdup(str);
+			tmp = my_strdup(str);
+			if (!tmp)
+				return (NULL);
+			free(env[i]);
+			env[i] = tmp;
 			return (env);
 		}
 	}
