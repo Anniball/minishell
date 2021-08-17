@@ -6,22 +6,11 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 19:26:59 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 09:37:50 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	**free_tab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
-	return ((void *)0);
-}
 
 static int	my_scmp(char *s1, char *s2)
 {
@@ -86,20 +75,38 @@ static char	**my_simple_split(char *str, char c)
 	return (tab);
 }
 
+static void	path_check(int ret, char **paths, char ***env, t_cmd *pip)
+{
+	int		i;
+	char	*full_cmd;
+
+	i = -1;
+	full_cmd = ((void *)0);
+	while (ret < 0 && paths[++i])
+	{
+		full_cmd = my_strjoin(paths[i], pip->cmd);
+		ret = execve(full_cmd, pip->flags, *env);
+	}
+	free(full_cmd);
+	free_tab(paths);
+	if (ret < 0 && !pip->infiles && !pip->outfiles)
+		exit_nopath(pip, pip->cmd, ": Command not found.\n", 1);
+	if (pip->cmd)
+		get_exit(EXIT_SUCCESS, pip);
+	else
+		get_exit(NO_COMMAND, pip);
+}
+
 void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 {
-	char	*full_cmd;
 	char	**paths;
 	char	**tmp;
 	int		i;
 	int		ret;
 
 	ret = exec_builtin(pip, env);
-	if (ret != 257)
-	{
-		init_edit_shell(0, NULL, ret);
+	if (ret != 257 && !init_edit_shell(0, NULL, ret))
 		return ;
-	}
 	i = 0;
 	while ((*env)[i] && my_scmp((*env)[i], "PATH="))
 		i++;
@@ -114,19 +121,5 @@ void	my_command(t_cmd *pip, char *cmd, char **argv, char ***env)
 	paths = my_simple_split((*env)[i] + 5, ':');
 	if (!paths)
 		get_exit(MALLOC_ERROR, pip);
-	i = -1;
-	full_cmd = ((void *)0);
-	while (ret < 0 && paths[++i])
-	{
-		full_cmd = my_strjoin(paths[i], cmd);
-		ret = execve(full_cmd, argv, *env);
-	}
-	free(full_cmd);
-	free_tab(paths);
-	if (ret < 0 && !pip->infiles && !pip->outfiles)
-		exit_nopath(pip, pip->cmd, ": Command not found.\n", 1);
-	if (pip->cmd)
-		get_exit(EXIT_SUCCESS, pip);
-	else
-		get_exit(NO_COMMAND, pip);
+	path_check(ret, paths, env, pip);
 }

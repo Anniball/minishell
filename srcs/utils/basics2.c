@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:05:03 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/13 10:27:39 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 09:38:03 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,15 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		str[str_len] = 0;
 	}
 	return (str);
+}
+
+char	**free_tab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
+	return ((void *)0);
 }
