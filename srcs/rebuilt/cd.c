@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/13 09:38:39 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 08:51:58 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,25 @@ static char	**change_pwd(char **env)
 int	get_cd(t_cmd *cmd, char ***env)
 {
 	int		ret;
-	char	*env_var;
 
 	ret = 0;
 	if (cmd->flags[1] && cmd->flags[2])
+		return (write_return("Too much arguments for this command.\n", ERROR));
+	if (!cmd->flags[1])
 	{
-		write(STDERR_FILENO, "Too much arguments for this command.\n", 37);
-		return (ERROR);
+		if (get_str(*env, "HOME=") == NULL)
+			return (write_return("minishell: cd: HOME not set\n", 1));
+		ret = chdir(get_str(*env, "HOME=") + 5);
 	}
 	else
-	{
-		if (!cmd->flags[1])
-		{
-			if (get_str(*env, "HOME=") == NULL)
-			{
-				write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
-				return (1);
-			}
-			ret = chdir(get_str(*env, "HOME=") + 5);
-		}
-		else
-			ret = chdir(cmd->flags[1]);
-		*env = change_pwd(*env);
-	}
+		ret = chdir(cmd->flags[1]);
+	*env = change_pwd(*env);
 	if (ret)
 	{
 		write(STDERR_FILENO, "cd: no such file or directory: ", 31);
 		if (!cmd->flags[1])
-			write(STDERR_FILENO, get_str(*env, "HOME=") + 5, my_strlen(get_str(*env, "HOME=")) - 5);
+			write(STDERR_FILENO, get_str(*env, "HOME=") + 5,
+				my_strlen(get_str(*env, "HOME=")) - 5);
 		else
 			write(STDERR_FILENO, cmd->flags[1], my_strlen(cmd->flags[1]));
 		write(STDERR_FILENO, "\n", 1);

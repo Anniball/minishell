@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 20:31:12 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 08:44:12 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int		multi_outfiles(t_cmd *cmd, int out);
 int		multi_infiles(t_cmd *cmd, int in);
 int		double_infile(t_lst *infile);
 int		exit_nopath(t_cmd *cmd, char *name, char *error, int ret);
+int		write_return(char *str, int ret);
 
 /*
 ** ------------------SIGNALS------------------------------
