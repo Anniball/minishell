@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:03:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/12 14:10:19 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 11:35:19 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*set_new_str_env(t_shell *shell, char *str, int i, int *last_join)
 		new_str = ft_substr(str, *last_join, i - *last_join);
 		if (!new_str)
 			return (NULL);
-		env_var = strdup_until(&str[i + 1], " \"'");
+		env_var = strdup_until(&str[i + 1], "= \"'");
 		if (!env_var)
 			return (free_str_return(NULL, new_str, NULL));
 		tmp = get_env_value(shell, shell->env, env_var);

@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:17:29 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/17 11:31:36 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ static void	set_shlvl(t_shell *shell)
 	else
 		env_var = my_strjoin("SHLVL=", tmp);
 	new_env = dispatch_if_yet(shell->env, env_var);
+	shell->env = new_env;
 	free(tmp);
 	free(env_var);
 }
