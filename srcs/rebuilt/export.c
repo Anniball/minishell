@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 11:34:54 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:40:31 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char	**strptradd(char **ptr, char *str)
 	size = -1;
 	while (ptr[++size])
 		new[size] = ptr[size];
+	tmp = my_strcpy(str, tmp);
 	new[size] = tmp;
 	new[size + 1] = (void *)0;
 	free(ptr);
