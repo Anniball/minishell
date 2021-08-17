@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 08:44:12 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/17 09:12:43 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,9 @@ int		my_exec(t_cmd *pip, char ***env, int infile, int outfile);
 **	Same behaviour for infile and outfile than in my_exec.
 */
 int		n_piper(t_shell *shell);
+void	parent_pipe(int *fds, t_cmd *pip, char ***env);
+void	brother_pipe(int *fds, t_cmd *pip, char ***env);
+void	child_pipe(int *fds, t_cmd *pip, char ***env, int *files);
 
 int		exec_builtin(t_cmd *cmd, char ***env);
 int		check_builtins(char *cmd);
