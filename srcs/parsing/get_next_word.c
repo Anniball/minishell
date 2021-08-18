@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:08:27 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/12 17:28:21 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/18 15:45:36 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	get_next_word_len(char *str, int *index, int *i_toset)
 	return (len);
 }
 
-int	get_next_word_loop(char *str, char quote, int len, char *next_word)
+static int	get_next_word_loop(char *str, char quote, int len, char *next_word)
 {
 	int		i;
 	char	last_quote;

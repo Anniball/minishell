@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:53:46 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/07/21 14:11:49 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 15:52:08 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*my_strncpy(char *src, char *dst, int n)
 char	*my_strjoin(char *str, char *add)
 {
 	char	*new;
-	char	*scd;
 	size_t	size;
 
 	size = my_strlen(str);
@@ -67,8 +66,7 @@ char	*my_strjoin(char *str, char *add)
 	if (!new)
 		return ((void *)0);
 	new = my_strcpy(str, new);
-	scd = new + size;
-	scd = my_strcpy(add, new + size);
+	my_strcpy(add, new + size);
 	return (new);
 }
 
