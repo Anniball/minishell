@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 14:57:36 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 13:52:09 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ int		write_return(char *str, int ret);
 */
 
 void	receive_signal(void);
+void	prompt_sigint(int sig);
 
 /*
 ** -----------------------------------------------------

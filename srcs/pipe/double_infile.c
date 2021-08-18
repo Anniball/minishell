@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 20:30:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 12:05:17 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 13:57:27 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static char	*my_concat(char *str, char c)
 	i = -1;
 	len = my_strlen(str);
 	new = malloc(sizeof(*new) * (len + 2));
+	if (!new)
+		return ((void *)0);
 	if (str)
 		new = my_strcpy(str, new);
 	new[len] = c;
 	new[len + 1] = '\0';
-	free(str);
 	return (new);
 }
 
@@ -39,40 +40,39 @@ static char	*eof_error(char *str, char *name)
 	return (my_strdup(""));
 }
 
+static char	*freeturn(char *str, char *ret)
+{
+	free(str);
+	return (ret);
+}
+
 static char	*double_in_loop(char *input, t_lst *infile)
 {
 	char	*tmp;
 	char	*str;
 
 	str = (void *)0;
-	while (1)
+	while (8)
 	{
 		if (!input)
-			return (eof_error(str, infile->str));
+			return (freeturn(input, eof_error(str, infile->str)));
 		if (!input[0])
+		{
+			free(input);
 			input = (void *)0;
+		}
 		if (input && !ft_strcmp(infile->str, input))
 			break ;
 		tmp = my_concat(input, '\n');
 		if (!tmp)
-		{
-			free(str);
-			return ((void *)0);
-		}
+			return (freeturn(str, (void *)0));
 		str = parse_join(str, tmp);
 		if (!str)
 			return ((void *)0);
+		free(input);
 		input = readline(">");
 	}
-	return (str);
-}
-
-static void	prompt_sigint(int sig)
-{
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	return (freeturn(input, str));
 }
 
 int	double_infile(t_lst *infile)

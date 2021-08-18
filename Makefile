@@ -6,7 +6,7 @@
 #    By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/09 17:24:40 by ldelmas           #+#    #+#              #
-#    Updated: 2021/08/17 14:45:45 by ldelmas          ###   ########.fr        #
+#    Updated: 2021/08/18 13:47:56 by ldelmas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ NAME = minishell
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -I includes/
-CFLAGS = -I includes/
 
 RPATH = /Users/$(USER)/.brew/opt/readline/
 
