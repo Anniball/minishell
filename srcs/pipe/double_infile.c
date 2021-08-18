@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 20:30:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/16 20:32:14 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 11:26:40 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ static char	*double_in_loop(char *input, t_lst *infile)
 	return (str);
 }
 
+static void	prompt_sigint(int sig)
+{
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int	double_infile(t_lst *infile)
 {
 	int		pip[2];
@@ -76,6 +84,7 @@ int	double_infile(t_lst *infile)
 	if (pipe(pip) == -1)
 		return (-1);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &prompt_sigint);
 	input = readline(">");
 	str = double_in_loop(input, infile);
 	receive_signal();
