@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 12:05:34 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 15:40:59 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ static void	set_shlvl(t_shell *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
-	int		i;
 	char	*input;
 	char	*line;
 
@@ -118,7 +117,6 @@ int	main(int argc, char **argv, char **envp)
 	input = NULL;
 	shell = init_edit_shell(1, envp, 0);
 	set_shlvl(shell);
-	i = -1;
 	receive_signal();
 	while (8)
 	{
