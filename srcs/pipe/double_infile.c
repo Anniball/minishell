@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 20:30:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 13:57:27 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 15:14:45 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	double_infile(t_lst *infile)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &prompt_sigint);
 	input = readline(">");
-	if (input && !ft_strcmp(infile->str, input))
+	if (input && !ft_strcmp(infile->str, input) && !freeturn(input, (void *)0))
 		str = my_strdup("");
 	else
 		str = double_in_loop(input, infile);
