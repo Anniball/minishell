@@ -30,14 +30,12 @@ static void	remove_close_quote_loop(char *str, int i, int *j, char *new_str)
 
 static char	*remove_close_quote(char *str)
 {
-	char	open_quote;
 	int		i;
 	int		j;
 	char	*new_str;
 
 	i = -1;
 	j = 0;
-	open_quote = 0;
 	new_str = malloc(sizeof(char) * (my_strlen(str) + 1));
 	if (!new_str)
 		return (NULL);

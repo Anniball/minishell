@@ -28,10 +28,8 @@ static int	words_count_with_quotes(char *str, char c)
 	int		i;
 	int		count;
 	char	quote;
-	int		last_join;
 
 	i = -1;
-	last_join = 0;
 	quote = 0;
 	count = 0;
 	if (str == NULL)

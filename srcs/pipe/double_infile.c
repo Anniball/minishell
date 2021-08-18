@@ -14,11 +14,9 @@
 
 static char	*my_concat(char *str, char c)
 {
-	int		i;
 	char	*new;
 	size_t	len;
 
-	i = -1;
 	len = my_strlen(str);
 	new = malloc(sizeof(*new) * (len + 2));
 	if (!new)
