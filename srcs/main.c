@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:06:18 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 16:10:37 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/18 12:05:34 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	main_loop(t_shell *shell, char *line, char *input)
 	{
 		receive_signal();
 		parse_line(shell, input);
-		print_cmd(shell);
 		shell->cmd_start = 1;
 		n_piper(shell);
 	}

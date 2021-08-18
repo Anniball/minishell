@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 20:30:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 11:26:40 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 12:05:17 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*eof_error(char *str, char *name)
 	write(STDERR_FILENO, " end-of-file (wanted '", 22);
 	write(STDERR_FILENO, name, my_strlen(name));
 	write(STDERR_FILENO, "')\n", 3);
-	return ((void *)0);
+	return (my_strdup(""));
 }
 
 static char	*double_in_loop(char *input, t_lst *infile)
@@ -86,7 +86,10 @@ int	double_infile(t_lst *infile)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &prompt_sigint);
 	input = readline(">");
-	str = double_in_loop(input, infile);
+	if (input && !ft_strcmp(infile->str, input))
+		str = my_strdup("");
+	else
+		str = double_in_loop(input, infile);
 	receive_signal();
 	if (!str)
 	{

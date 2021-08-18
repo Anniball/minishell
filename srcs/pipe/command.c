@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:48:02 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 10:54:54 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 12:05:21 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	path_check(int ret, char **paths, char ***env, t_cmd *pip)
 	}
 	free(full_cmd);
 	free_tab(paths);
-	if (ret < 0 && !pip->infiles && !pip->outfiles)
+	if (ret < 0)
 		exit_nopath(pip, pip->cmd, ": Command not found.\n", 1);
 	if (pip->cmd)
 		get_exit(EXIT_SUCCESS, pip);
