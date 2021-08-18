@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:50:44 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 10:54:48 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/18 11:02:02 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static int	exec_exit(t_cmd *cmd)
 		}
 		else if (cmd->flags[2])
 		{
-			write(STDERR_FILENO, "exit\n", 6);
 			write(STDERR_FILENO, "minishell: exit: too many arguments\n", 36);
+			write(STDERR_FILENO, "exit\n", 6);
 			return (MY_FILE_NOT_FOUND);
 		}
 		else
