@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 10:58:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 13:51:06 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/19 17:32:29 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,26 @@ char	**dispatch_if_yet(char **env, char *str)
 int	get_export(t_cmd *cmd, char ***env)
 {
 	int		i;
+	int		j;
 	char	**old_env;
 
 	if (!cmd->flags[1])
 		return (get_env(*env, cmd));
-	else if (cmd->flags[1] && cmd->flags[2])
-	{
-		write(STDERR_FILENO, "Incorrect arguments for this command.\n", 38);
-		return (ERROR);
-	}
 	i = 0;
-	while (cmd->flags[1][i] && cmd->flags[1][i] != '=')
-		i++;
-	if (!cmd->flags[1][i])
-		return (0);
-	old_env = *env;
-	*env = dispatch_if_yet(*env, cmd->flags[1]);
-	if (!(*env))
+	while (cmd->flags[++i])
 	{
-		*env = old_env;
-		return (-1);
+		j = 0;
+		while (cmd->flags[i][j] && cmd->flags[i][j] != '=')
+			j++;
+		if (!cmd->flags[i][j])
+			continue ;
+		old_env = *env;
+		*env = dispatch_if_yet(*env, cmd->flags[i]);
+		if (!(*env))
+		{
+			*env = old_env;
+			return (-1);
+		}
 	}
 	return (0);
 }
