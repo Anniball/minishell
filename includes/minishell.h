@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:53:22 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/18 13:52:09 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:11:53 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int		check_line(t_shell *shell, char *line);
 char	*get_input_output(t_cmd *new, char *cmd);
 char	*get_next_word(char *str, int *index);
 char	*replace_by_env_value(t_shell *shell, char *str);
+char	**parse_split_space(char *str);
+int		i_s(char c);
 
 /*
 **	set quote set value quote if text is inside of quote

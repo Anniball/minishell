@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:37:58 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/17 16:11:24 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/19 14:12:35 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ static int	is_next_in(char *str, char *set)
 	return (0);
 }
 
+static int	only_space(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (!i_s(str[i]))
+			return (0);
+	return (1);
+}
+
 int	check_line(t_shell *shell, char *line)
 {
 	int		i;
@@ -48,6 +59,8 @@ int	check_line(t_shell *shell, char *line)
 	quote = 0;
 	if (line && is_next_in(line, "|"))
 		return (return_check(shell));
+	if (only_space(line))
+		return (1);
 	while (line[++i])
 	{
 		set_quote(line, i, &quote);

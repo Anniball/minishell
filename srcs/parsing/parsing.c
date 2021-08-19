@@ -6,7 +6,7 @@
 /*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 11:30:01 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/17 13:09:51 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/19 14:07:35 by tpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	parse_line_loop(t_shell *shell, t_parse_free *p, int i)
 	p->strip = my_strip(p->strip, ' ');
 	if (!p->strip)
 		free_parse_free(p);
-	p->strip_list = parse_split_with_quotes(p->strip, ' ');
+	p->strip_list = parse_split_space(p->strip);
 	if (remove_close_quote_from_lst(p->strip_list))
 		free_parse_free(p);
 	new->cmd = p->strip_list[0];
