@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:28:16 by ldelmas           #+#    #+#             */
-/*   Updated: 2021/08/19 17:26:02 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/19 17:38:45 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ int	get_unset(t_cmd *cmd, char ***env)
 			return (ERROR);
 		}
 	}
-	system("leaks minishell");
 	return (0);
 }
