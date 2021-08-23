@@ -6,7 +6,7 @@
 /*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/23 09:28:14 by ldelmas          ###   ########.fr       */
+/*   Updated: 2021/08/23 09:34:24 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static char	**free_split(char **split, int until)
 	return (NULL);
 }
 
-static int	parse_split_loop(char **split_list, char *str, int *current_word, int *i)
+static int	parse_split_loop(char **split_list, char *str,
+	int *current_word, int *i)
 {
 	if (str[*i] == 0)
 		;
