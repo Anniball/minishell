@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpetit <tpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: ldelmas <ldelmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:23:10 by tpetit            #+#    #+#             */
-/*   Updated: 2021/08/16 11:20:03 by tpetit           ###   ########.fr       */
+/*   Updated: 2021/08/23 09:28:14 by ldelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	words_count_with_quotes(char *str, char c)
 	return (count);
 }
 
-char	**free_split(char **split, int until)
+static char	**free_split(char **split, int until)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ char	**free_split(char **split, int until)
 	return (NULL);
 }
 
-int	parse_split_loop(char **split_list, char *str, int *current_word, int *i)
+static int	parse_split_loop(char **split_list, char *str, int *current_word, int *i)
 {
 	if (str[*i] == 0)
 		;
